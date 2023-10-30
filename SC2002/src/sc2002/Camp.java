@@ -41,7 +41,7 @@ public class Camp
         System.out.println("You have succuessfully signed up for the " + campName + " camp.");
     }
 
-    public void RemoveAttendee(student student)
+    public void RemoveAttendee(Student student)
     {
         //Student did not sign up for this camp
         if(!attendees.contains(student))
@@ -52,6 +52,11 @@ public class Camp
 
         attendees.remove(student);
         System.out.println("You have succuessfully been removed from the " + campName + " camp. Note: You will not be able to rejoin this camp.");
+    }
+
+    public void AddCommitteeMembers(Student student)
+    {
+        
     }
 
     public void ToggleVisibility(User user, boolean state)
@@ -73,9 +78,7 @@ public class Camp
     public void ViewAllCamps()
     {
         for(int i = 0; i < camps.size(); ++i)
-        {
             System.out.println("(" + i + 1 + ") " + camps.get(i).GetCampName());
-        }
     }
 
     public void ViewCampDetails()
@@ -94,28 +97,30 @@ public class Camp
         System.out.println("No. of Committee Slots: " + committeeMembers.size() + "/" + committeeSlots + " (" + memberSlotLeft + " slots are available)");
     }
 
-    public static void CreateCamp(User user)
+    public static Camp CreateCamp(User user, String campName, String date, String registerCloseDate,
+                            String userGrp, String location, String description, String staffInCharge,
+                            int totalSlots, int committeeSlots, boolean visbility)
     {
         //User is not staff so cannot create
         if (!(user instanceof Staff))
         {
             System.out.println("You do not have the authorisation to create a camp.");
-            return;
+            return null;
         }
 
-        Camp newCamp = new Camp();
+        Camp newCamp = new Camp()
+                            .campName(user, campName)
+                            .date(user, date)
+                            .registerCloseDate(user, registerCloseDate)
+                            .userGrp(user, userGrp)
+                            .location(user, location)
+                            .description(user, description)
+                            .staffInCharge(user, staffInCharge)
+                            .totalSlots(user, totalSlots)
+                            .committeeSlots(user, committeeSlots)
+                            .visbility(user, visbility);
         Camp.camps.add(newCamp);
         System.out.println("Camp has been created.");
-    }
-
-    public void EditCamp()
-    {
-        //User is not staff so cannot edit
-        if (!(user instanceof Staff))
-        {
-            System.out.println("You do not have the authorisation to edit this camp.");
-            return;
-        }   
     }
 
     public void DeleteCamp(User user)
@@ -155,5 +160,136 @@ public class Camp
     public ArrayList<Enquiries> GetSuggestions()
     {
         return suggestions;
+    }
+
+    //Methods used to Edit Camp details
+     public Camp campName(User user, string campName)
+    {
+        //User is not staff so cannot edit
+        if (!(user instanceof Staff))
+        {
+            System.out.println("You do not have the authorisation to edit this camp.");
+            return null;
+        } 
+
+        this.campName = campName;
+        return this;
+    }
+
+    public Camp date(User user, string date)
+    {
+        //User is not staff so cannot edit
+        if (!(user instanceof Staff))
+        {
+            System.out.println("You do not have the authorisation to edit this camp.");
+            return null;
+        } 
+
+        this.date = date;
+        return this;
+    }
+
+    public Camp registerCloseDate(User user, string registerCloseDate)
+    {
+        //User is not staff so cannot edit
+        if (!(user instanceof Staff))
+        {
+            System.out.println("You do not have the authorisation to edit this camp.");
+            return null;
+        } 
+
+        this.registerCloseDate = registerCloseDate;
+        return this;
+    }
+    
+    public Camp userGrp(User user, string userGrp)
+    {
+        //User is not staff so cannot edit
+        if (!(user instanceof Staff))
+        {
+            System.out.println("You do not have the authorisation to edit this camp.");
+            return null;
+        } 
+
+        this.userGrp = userGrp;
+        return this;
+    }
+    
+    public Camp location(User user, string location)
+    {
+        //User is not staff so cannot edit
+        if (!(user instanceof Staff))
+        {
+            System.out.println("You do not have the authorisation to edit this camp.");
+            return null;
+        } 
+
+        this.location = location;
+        return this;
+    }
+    
+    public Camp description(User user, string description)
+    {
+        //User is not staff so cannot edit
+        if (!(user instanceof Staff))
+        {
+            System.out.println("You do not have the authorisation to edit this camp.");
+            return null;
+        } 
+
+        this.description = description;
+        return this;
+    }
+    
+    public Camp staffInCharge(User user, string staffInCharge)
+    {
+        //User is not staff so cannot edit
+        if (!(user instanceof Staff))
+        {
+            System.out.println("You do not have the authorisation to edit this camp.");
+            return null;
+        } 
+
+        this.staffInCharge = staffInCharge;
+        return this;
+    }
+    
+    public Camp totalSlots(User user, int totalSlots)
+    {
+        //User is not staff so cannot edit
+        if (!(user instanceof Staff))
+        {
+            System.out.println("You do not have the authorisation to edit this camp.");
+            return null;
+        } 
+
+        this.camtotalSlotspName = totalSlots;
+        return this;
+    }
+    
+    public Camp committeeSlots(User user, int committeeSlots)
+    {
+        //User is not staff so cannot edit
+        if (!(user instanceof Staff))
+        {
+            System.out.println("You do not have the authorisation to edit this camp.");
+            return null;
+        } 
+
+        this.committeeSlots = committeeSlots;
+        return this;
+    }
+
+    public Camp visbility(User user, boolean visbility)
+    {
+        //User is not staff so cannot edit
+        if (!(user instanceof Staff))
+        {
+            System.out.println("You do not have the authorisation to edit this camp.");
+            return null;
+        } 
+
+        this.visbility = visbility;
+        return this;
     }
 }
