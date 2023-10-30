@@ -75,10 +75,28 @@ public class Camp
             System.out.println(campName + " is now hidden from all students.");
     }
 
-    public void ViewAllCamps()
+    public void ViewAllCamps(User user)
     {
-        for(int i = 0; i < camps.size(); ++i)
-            System.out.println("(" + i + 1 + ") " + camps.get(i).GetCampName());
+        if(user instanceof Staff)
+        {
+            for(int i = 0; i < camps.size(); ++i)
+                System.out.println("(" + i + 1 + ") " + camps.get(i).GetCampName());
+        }
+        else if(user instanceof Student)
+        {
+            int index = 1;
+            for(int i = 0; i < camps.size(); ++i)
+            {
+                Camp camp = camps.get(i);
+
+                if(camp.GetUserGroup() == user.GetUserGroup() && camp.IsVisible())
+                {
+                    System.out.println("(" + index + ") " + camps.get(i).GetCampName());
+                    ++index;
+                }
+            }
+        }
+        
     }
 
     public void ViewCampDetails()
@@ -142,13 +160,35 @@ public class Camp
         return campName;
     }
 
-    public ArrayList<Student> GetAttendees()
+    public String GetUserGroup()
     {
+        return userGrp;
+    }
+
+    public boolean IsVisible()
+    {
+        return visibility;
+    }
+
+    public ArrayList<Student> GetAttendees(User user)
+    {
+        if(user instanceof Student)
+        {
+            System.out.prinln("You do not have access to this.");
+            return null;
+        }
+
         return attendees;
     }
 
-    public ArrayList<CampCommiteeMember> GetCommitteeMembers()
+    public ArrayList<CampCommiteeMember> GetCommitteeMembers(User user)
     {
+        if(user instanceof Student)
+        {
+            System.out.prinln("You do not have access to this.");
+            return null;
+        }
+
         return committeeMembers;
     }
 
