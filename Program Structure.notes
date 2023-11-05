@@ -1,0 +1,100 @@
+Interfaces:
+    -> CampDisplay 
+        -> Var
+            -> ArrayList<Camp> myCamps
+        -> Functions
+            -> Public default void View All Camps
+            -> Public void View My Camps
+                -> For staff, it will be camps they created
+                -> For student / committee, it will be camps they registered
+
+Camp (Data Structure):
+    -> Var
+        -> Camp Name
+        -> Dates
+        -> Registration closing date
+        -> User group this camp is open to own school or whole NTU
+        -> Location
+        -> Total Slots
+        -> Camp Committee Slots (max 10)
+        -> Description
+        -> Staff in charge (automatically tied to the staff who created it)
+    -> Functions
+        -> Get and Set Methods
+Camp Manager (Static class or singleton(i.e only 1 instance)):
+    -> Var
+        -> private ArrayList<Camp> camps;
+    -> Functions
+        -> Create Camp
+        -> Edit Camp
+        -> Delete Camp
+
+
+Authentication (Static class or singleton(i.e only 1 instance)):
+        -> Var
+            -> private Dictionary <UserID, Password>
+        -> Functions
+            -> Login
+            -> Register (nt sure if needed)
+            -> Change Password
+User:
+    -> Var
+        -> ID
+        -> Faculty Info
+
+Staff Extends User implements CampDisplay:
+    -> Var
+        -> !ID
+        -> !Faculty Info
+    -> Functions
+        -> Create Camps
+        -> Edit Camps
+            -> Toggle Visibility of created camps
+        -> Delete created camps
+        -> !View all camps
+        -> !View camp created 
+        -> View Enquires
+        -> Reply Enquires
+        -> View Suggestions
+        -> Approve Suggestions
+        -> Reject Suggestions
+        -> Generate Report of student attending each created camp
+        -> Generate Performance Report of committee members
+Student Extends User implements CampDisplay:
+    -> Var
+        -> !ID
+        -> !Faculty Info
+    -> Functions
+        -> !View Camps
+        -> !View Registered Camps 
+        -> Register for camp as attendee
+        -> Register for camp as committee
+        -> Deregister for camp 
+        -> Submit Enquires 
+        -> View Enquires
+        -> Edit Enquires
+        -> Delete Enquires
+
+Camp Committee Member:
+    -> Var
+        -> ID
+        -> Password
+        -> Faculty Info
+    -> Functions
+        -> View Camps
+        -> View Registered Camps 
+        -> View availiable slots
+        -> Register for camp as attendee
+        -> Register for camp as committee
+        -> Deregister for camp 
+        -> Submit enquires 
+        -> View enquires
+        -> Edit enquires
+        -> Delete enquires
+        -> Reply Enquires
+        -> Submit Suggestions
+        -> View sugguestions
+        -> Edit sugguestions
+        -> Delete sugguestions
+        -> Generate report of student attending camp
+        
