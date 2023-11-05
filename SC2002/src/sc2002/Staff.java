@@ -1,5 +1,7 @@
 package sc2002;
 
+import java.util.ArrayList;
+
 public class Staff extends User {
   private ArrayList<Camp> createdCamps;
 	
