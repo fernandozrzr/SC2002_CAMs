@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CCM {
-    private int myPoints;
+    private int myPoints = 0;
     private List<Suggestions> mySuggestions;
-    
 }
