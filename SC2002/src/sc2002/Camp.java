@@ -18,7 +18,7 @@ public class Camp
     private boolean visibility;
 
     private ArrayList<Student> attendees;
-    private ArrayList<CampCommiteeMember> committeeMembers;
+    private ArrayList<CCM> committeeMembers;
     private ArrayList<Enquiries> enquires;
     private ArrayList<Suggestions> suggestions;
     private static ArrayList<Camp> camps;
@@ -181,7 +181,7 @@ public class Camp
         return attendees;
     }
 
-    public ArrayList<CampCommiteeMember> GetCommitteeMembers(User user)
+    public ArrayList<CCM> GetCommitteeMembers(User user)
     {
         if(user instanceof Student)
         {
