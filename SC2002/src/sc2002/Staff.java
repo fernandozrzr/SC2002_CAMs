@@ -3,23 +3,36 @@ package sc2002;
 import java.util.ArrayList;
 
 public class Staff extends User {
-  private ArrayList<Camp> createdCamps;
+  private ArrayList<String> createdCamps;
 	
 	public Staff() {
-		ArrayList<Camp> createdCamps = new ArrayList<>();
+		super();
+		createdCamps = new ArrayList<>();
 	}
 	
-	public String ViewMyCreatedCamp() {
-		for (Camp camp : createdCamps) {
-			System.out.println(camp);
-		}
+	public ArrayList<String> getMyCamps() {
+		return createdCamps;
 	}
 	
-	public void GenerateList(Camp) {
-		
+	public void addMyCamps(String campname) {
+		createdCamps.add(campname);
 	}
-	
-	public void GenerateReport(Camp) {
-		
+	public void removeCamps(String campname) {
+		 String campToRemove = null;
+
+		    // Search for the camp with the specified name
+		    for (String camp : createdCamps) {
+		        if (camp.equals(campname)) {
+		            campToRemove = camp;
+		            break; // Stop searching once found
+		        }
+		    }
+		    // Remove the camp if found
+		    if (campToRemove != null) {
+		        createdCamps.remove(campToRemove);
+		    }
+		    else {
+		    	System.out.println("Camp not found!");
+		    }
 	}
 }
