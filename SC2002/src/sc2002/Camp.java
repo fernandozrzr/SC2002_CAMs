@@ -18,318 +18,188 @@ public class Camp
     private boolean visibility;
 
     private ArrayList<Student> attendees;
+    private ArrayList<Student> studentRemoved;
     private ArrayList<CCM> committeeMembers;
     private ArrayList<Enquiries> enquires;
     private ArrayList<Suggestions> suggestions;
-    private static ArrayList<Camp> camps;
 
-    public Camp()
+    public Camp(String campName, String date, String registerCloseDate, String userGrp, String location, 
+                    String desc, String staffInCharge, int totalSlots, int committeeSlots, boolean visibility)
     {
+        this.campName = campName;
+        this.date = date;
+        this.registerCloseDate = registerCloseDate;
+        this.userGrp = userGrp;
+        this.location = location;
+        this.description = desc;
+        this.staffInCharge = staffInCharge;
+        this.totalSlots = totalSlots;
+        this.committeeSlots = committeeSlots;
+        this.visibility = visibility;
 
+        attendees = new ArrayList<Student>(totalSlots);
+        studentRemoved = new ArrayList<Student>(totalSlots);
+        committeeMembers = new ArrayList<CCM>(committeeSlots);
+        enquires = new ArrayList<Enquiries>();
+        suggestions = new ArrayList<Suggestions>();
     }
 
-    public void AddAttendees(Student student)
-    {
-        //No more Slots
-        if(attendees.size() == totalSlots)
-        {
-            System.out.println("This camp has been fully signed up.");
-            return;
-        }
-
-        attendees.add(student);
-        System.out.println("You have succuessfully signed up for the " + campName + " camp.");
-    }
-
-    public void RemoveAttendee(Student student)
-    {
-        //Student did not sign up for this camp
-        if(!attendees.contains(student))
-        {
-            System.out.println("You have not signed up for this camp.");
-            return;
-        }
-
-        attendees.remove(student);
-        System.out.println("You have succuessfully been removed from the " + campName + " camp. Note: You will not be able to rejoin this camp.");
-    }
-
-    public void AddCommitteeMembers(Student student)
-    {
-        
-    }
-
-    public void ToggleVisibility(User user, boolean state)
-    {
-        //User is not staff so cannot change
-        if (!(user instanceof Staff))
-        {
-            System.out.println("You do not have the authorisation to toggle the visibility.");
-            return;
-        }
-
-        visibility = state;
-        if(visibility)
-            System.out.println(campName + " is now visible to all students.");
-        else
-            System.out.println(campName + " is now hidden from all students.");
-    }
-
-    public void ViewAllCamps(User user)
-    {
-        if(user instanceof Staff)
-        {
-            for(int i = 0; i < camps.size(); ++i)
-                System.out.println("(" + i + 1 + ") " + camps.get(i).GetCampName());
-        }
-        else if(user instanceof Student)
-        {
-            int index = 1;
-            for(int i = 0; i < camps.size(); ++i)
-            {
-                Camp camp = camps.get(i);
-
-                if(camp.GetUserGroup() == user.GetUserGroup() && camp.IsVisible())
-                {
-                    System.out.println("(" + index + ") " + camps.get(i).GetCampName());
-                    ++index;
-                }
-            }
-        }
-        
-    }
-
-    public void ViewCampDetails()
-    {
-        int slotsLeft = totalSlots - attendees.size();
-        int memberSlotLeft = committeeSlots - committeeMembers.size();
-
-        System.out.println("CampName: " + campName);
-        System.out.println("Date: " + date);
-        System.out.println("Description: " + description);
-        System.out.println("Location: " + location);
-        System.out.println("Staff In Charge: " + staffInCharge);
-        System.out.println("Faculty: " + userGrp);
-        System.out.println("Registeration Closing Date: " + registerCloseDate);
-        System.out.println("No. of slots: " + attendees.size() + "/" + totalSlots + " (" + slotsLeft + " slots are available)");
-        System.out.println("No. of Committee Slots: " + committeeMembers.size() + "/" + committeeSlots + " (" + memberSlotLeft + " slots are available)");
-    }
-
-    public static Camp CreateCamp(User user, String campName, String date, String registerCloseDate,
-                            String userGrp, String location, String description, String staffInCharge,
-                            int totalSlots, int committeeSlots, boolean visbility)
-    {
-        //User is not staff so cannot create
-        if (!(user instanceof Staff))
-        {
-            System.out.println("You do not have the authorisation to create a camp.");
-            return null;
-        }
-
-        Camp newCamp = new Camp()
-                            .campName(user, campName)
-                            .date(user, date)
-                            .registerCloseDate(user, registerCloseDate)
-                            .userGrp(user, userGrp)
-                            .location(user, location)
-                            .description(user, description)
-                            .staffInCharge(user, staffInCharge)
-                            .totalSlots(user, totalSlots)
-                            .committeeSlots(user, committeeSlots)
-                            .visbility(user, visbility);
-        Camp.camps.add(newCamp);
-        System.out.println("Camp has been created.");
-    }
-
-    public void DeleteCamp(User user)
-    {
-        //User is not staff so cannot delete
-        if (!(user instanceof Staff))
-        {
-            System.out.println("You do not have the authorisation to delete this camp.");
-            return;
-        }
-
-        System.out.println(campName + " have been deleted.");
-        camps.remove(this);
-        
-    }
-
-    public String GetCampName()
+    public String GetCampName() 
     {
         return campName;
     }
 
-    public String GetUserGroup()
+    public void SetCampName(String campName) 
     {
+        this.campName = campName;
+    }
+
+    public String GetDate() 
+    {
+        return date;
+    }
+
+    public void SetDate(String date) 
+    {
+        this.date = date;
+    }
+
+    public String GetRegisterCloseDate() 
+    {
+        return registerCloseDate;
+    }
+
+    public void SetRegisterCloseDate(String registerCloseDate) 
+    {
+        this.registerCloseDate = registerCloseDate;
+    }
+
+    public String GetUserGrp() {
         return userGrp;
     }
 
-    public boolean IsVisible()
+    public void SetUserGrp(String userGrp) 
+    {
+        this.userGrp = userGrp;
+    }
+
+    public String GetLocation() 
+    {
+        return location;
+    }
+
+    public void SetLocation(String location) 
+    {
+        this.location = location;
+    }
+
+    public String GetDescription() 
+    {
+        return description;
+    }
+
+    public void SetDescription(String description) 
+    {
+        this.description = description;
+    }
+
+    public String GetStaffInCharge() 
+    {
+        return staffInCharge;
+    }
+
+    public void SetStaffInCharge(String staffInCharge) 
+    {
+        this.staffInCharge = staffInCharge;
+    }
+
+    public int GetTotalSlots() 
+    {
+        return totalSlots;
+    }
+
+    public void SetTotalSlots(int totalSlots) 
+    {
+        this.totalSlots = totalSlots;
+    }
+
+    public int GetCommitteeSlots() 
+    {
+        return committeeSlots;
+    }
+
+    public void SetCommitteeSlots(int committeeSlots) 
+    {
+        this.committeeSlots = committeeSlots;
+    }
+
+    public boolean IsVisible() 
     {
         return visibility;
     }
 
-    public ArrayList<Student> GetAttendees(User user)
+    public void SetVisibility(boolean visibility) 
     {
-        if(user instanceof Student)
-        {
-            System.out.prinln("You do not have access to this.");
-            return null;
-        }
+        this.visibility = visibility;
+    }
 
+    public ArrayList<Student> GetAttendees() 
+    {
         return attendees;
     }
 
-    public ArrayList<CCM> GetCommitteeMembers(User user)
+    public boolean AddAttendee(Student student)
     {
-        if(user instanceof Student)
+        //There are slots left to join and student is not removed
+        if(attendees.size() < totalSlots && !studentRemoved.contains(student))
         {
-            System.out.prinln("You do not have access to this.");
-            return null;
+            attendees.add(student);
+            return true;
         }
 
+        return false;
+    }
+
+    public boolean RemoveAttendee(Student student)
+    {
+        if(attendees.contains(student))
+        {
+            attendees.remove(student);
+            studentRemoved.add(student);
+            return true;
+        }
+
+        return false;
+    }
+
+    public ArrayList<Student> GetStudentRemoved() 
+    {
+        return studentRemoved;
+    }
+
+    public ArrayList<CCM> GetCommitteeMembers() 
+    {
         return committeeMembers;
     }
 
-    public ArrayList<Enquiries> GetEnquires()
+    public boolean AddCommitteeMember(CCM ccm)
+    {
+        if(committeeMembers.size() < committeeSlots)
+        {
+            committeeMembers.add(ccm);
+            return true;
+        }
+
+        return false;
+    }
+
+    public ArrayList<Enquiries> GetEnquires() 
     {
         return enquires;
     }
 
-    public ArrayList<Enquiries> GetSuggestions()
+    public ArrayList<Suggestions> GetSuggestions() 
     {
         return suggestions;
-    }
-
-    //Methods used to Edit Camp details
-     public Camp campName(User user, string campName)
-    {
-        //User is not staff so cannot edit
-        if (!(user instanceof Staff))
-        {
-            System.out.println("You do not have the authorisation to edit this camp.");
-            return null;
-        } 
-
-        this.campName = campName;
-        return this;
-    }
-
-    public Camp date(User user, string date)
-    {
-        //User is not staff so cannot edit
-        if (!(user instanceof Staff))
-        {
-            System.out.println("You do not have the authorisation to edit this camp.");
-            return null;
-        } 
-
-        this.date = date;
-        return this;
-    }
-
-    public Camp registerCloseDate(User user, string registerCloseDate)
-    {
-        //User is not staff so cannot edit
-        if (!(user instanceof Staff))
-        {
-            System.out.println("You do not have the authorisation to edit this camp.");
-            return null;
-        } 
-
-        this.registerCloseDate = registerCloseDate;
-        return this;
-    }
-    
-    public Camp userGrp(User user, string userGrp)
-    {
-        //User is not staff so cannot edit
-        if (!(user instanceof Staff))
-        {
-            System.out.println("You do not have the authorisation to edit this camp.");
-            return null;
-        } 
-
-        this.userGrp = userGrp;
-        return this;
-    }
-    
-    public Camp location(User user, string location)
-    {
-        //User is not staff so cannot edit
-        if (!(user instanceof Staff))
-        {
-            System.out.println("You do not have the authorisation to edit this camp.");
-            return null;
-        } 
-
-        this.location = location;
-        return this;
-    }
-    
-    public Camp description(User user, string description)
-    {
-        //User is not staff so cannot edit
-        if (!(user instanceof Staff))
-        {
-            System.out.println("You do not have the authorisation to edit this camp.");
-            return null;
-        } 
-
-        this.description = description;
-        return this;
-    }
-    
-    public Camp staffInCharge(User user, string staffInCharge)
-    {
-        //User is not staff so cannot edit
-        if (!(user instanceof Staff))
-        {
-            System.out.println("You do not have the authorisation to edit this camp.");
-            return null;
-        } 
-
-        this.staffInCharge = staffInCharge;
-        return this;
-    }
-    
-    public Camp totalSlots(User user, int totalSlots)
-    {
-        //User is not staff so cannot edit
-        if (!(user instanceof Staff))
-        {
-            System.out.println("You do not have the authorisation to edit this camp.");
-            return null;
-        } 
-
-        this.camtotalSlotspName = totalSlots;
-        return this;
-    }
-    
-    public Camp committeeSlots(User user, int committeeSlots)
-    {
-        //User is not staff so cannot edit
-        if (!(user instanceof Staff))
-        {
-            System.out.println("You do not have the authorisation to edit this camp.");
-            return null;
-        } 
-
-        this.committeeSlots = committeeSlots;
-        return this;
-    }
-
-    public Camp visbility(User user, boolean visbility)
-    {
-        //User is not staff so cannot edit
-        if (!(user instanceof Staff))
-        {
-            System.out.println("You do not have the authorisation to edit this camp.");
-            return null;
-        } 
-
-        this.visbility = visbility;
-        return this;
     }
 }
