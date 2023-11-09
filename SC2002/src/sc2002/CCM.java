@@ -1,9 +1,30 @@
 package sc2002;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class CCM {
+    
     private int myPoints = 0;
-    private List<Suggestions> mySuggestions;
+    ArrayList<Suggestions> mySuggestions;
+    
+    public CCM(int myPoints, ArrayList<Suggestions> mySuggestions){
+        this.myPoints = myPoints;
+        mySuggestions = new ArrayList<Suggestions>();
+    }
+
+    public int getPoints(){
+        return myPoints;
+    }
+
+    public void setMyPoints(int myPoints) {
+        this.myPoints = myPoints;
+    }
+
+    public ArrayList<Suggestions> getMySuggestions() {
+        return mySuggestions;
+    }
+
+    public void setMySuggestions(ArrayList<Suggestions> mySuggestions) {
+        this.mySuggestions = mySuggestions;
+    }
 }

@@ -13,19 +13,19 @@ public class Suggestions {
     }
     
     // Getter and setter methods for the attributes
-    public setSuggestions(String suggestion, String suggestedBy, boolean status) {
+    public void setSuggestions(String suggestion, String suggestedBy, boolean status) {
         this.suggestion = suggestion;
         this.suggestedBy = suggestedBy;
         this.status = status;
     }
 
-    public getSuggestion(){
+    public String getSuggestion(){
         return suggestion;
     }
-    public getSuggestedBy(){
+    public String getSuggestedBy(){
         return suggestedBy;
     }
-    public isStatus(){
+    public boolean isStatus(){
         return status;
     }
 }

@@ -1,64 +1,29 @@
 package sc2002;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class Enquiries {
-	private Map<Student, List<String>> enquiriesList;
+	private String enquiry;
+    private String reply;
+    private String replyBy;
+    private String askBy;
+    private String Status;
 	
 	public Enquiries() {
-		enquiriesList = new HashMap<>();
 	}
 	
-	public void AddEnquiries(Student student, String enquiry) {
-		List<String> enquiries = enquiriesList.get(student);
-		if(enquiries == null) {
-			enquiries = new ArrayList<>();
-			enquiriesList.put(student, enquiries);
-		}
-		enquiries.add(enquiry);
+	public void MyEnquiries(Student student, String enquiry) {
+		
 	}
 	
-	public void DeleteEnquiries(Student student, String enquiry) {
-		List<String> enquiries = enquiriesList.get(student);
-		if(enquiries != null) {
-			enquiries.remove(enquiry);
-			if(enquiries.isEmpty()) {
-				enquiriesList.remove(student);
-			}
-		}
+	public void AllEnquiries(Student student, String enquiry) {
 	}
 	
-	public void EditEnquiries(Student student, String oldEnquiry, String newEnquiry) {
-		List<String> enquiries = enquiriesList.get(student);
-		if(enquiries != null) {
-			int index = enquiries.indexOf(oldEnquiry);
-			
-			if (index != -1) {
-				enquiries.indexOf(index, newEnquiry);
-			}
-		}
+	public void EditEnquiries(Student student, String oldEnquiry, String newEnquiry) {	
 	}
 	
 	public void ViewEnquiries() {
-		StringBuilder result = new StringBuilder();
-		for (Map.Entry<Student, List<String>> entry : enquiriesList.entrySet()){
-			Student student = entry.getKey();
-			result.append("Student: ").append(student.getName()).append("\n");
-			result.append("Enquiries: ").append(entry.getValue()).append("\n");
-		}
-		return result.toString();
+
 	}
 	
-	public String ReplyEnquiries(User user, Student student) {
-		if (user instanceof Staff) {
-			List<String> enquiries = enquiriesList.get(student);
-			if (enquiries != null && !enquiries.isEmpty()) {
-				System.out.println("Enquiries")
-			}
-		}
-	}
 	
 }
