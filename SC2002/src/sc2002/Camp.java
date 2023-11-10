@@ -20,7 +20,7 @@ public class Camp
     private ArrayList<Student> attendees;
     private ArrayList<Student> studentRemoved;
     private ArrayList<CCM> committeeMembers;
-    private ArrayList<Enquiries> enquires;
+    private ArrayList<Enquiries> enquiries;
     private ArrayList<Suggestions> suggestions;
 
     public Camp(String campName, String date, String registerCloseDate, String userGrp, String location, 
@@ -40,7 +40,7 @@ public class Camp
         attendees = new ArrayList<Student>(totalSlots);
         studentRemoved = new ArrayList<Student>(totalSlots);
         committeeMembers = new ArrayList<CCM>(committeeSlots);
-        enquires = new ArrayList<Enquiries>();
+        enquiries = new ArrayList<Enquiries>();
         suggestions = new ArrayList<Suggestions>();
     }
 
@@ -195,11 +195,45 @@ public class Camp
 
     public ArrayList<Enquiries> GetEnquires() 
     {
-        return enquires;
+        return enquiries;
     }
 
     public ArrayList<Suggestions> GetSuggestions() 
     {
         return suggestions;
+    }
+
+    public void AddSuggestions(Suggestions suggestion) {
+        suggestions.add(suggestion);
+    }
+
+    public void DeleteSuggestions(CCM ccm, Suggestions suggestion) {
+        Suggestions suggestionToRemove = null;
+        for (Suggestions s : suggestions) {
+            if (s.getSuggestion().equals(suggestion) && s.getSuggestedBy().equals(ccm)) {
+                suggestionToRemove = s;
+                break;
+            }
+        }
+        if (suggestionToRemove != null) {
+            suggestions.remove(suggestionToRemove);
+        }
+    }
+
+    public void ReplyEnquiries(CCM ccm, String enquiry, String reply) {
+        Enquiries enquiryToReply = null;
+        for (Enquiries e : enquiries) {
+            if (e.getEnquiry().equals(enquiry)) {
+                enquiryToReply = e;
+                break;
+            }
+        }
+        if (enquiryToReply != null) {
+            enquiryToReply.setReply(reply);
+            //enquiryToReply.setReplyBy(ccm); How to convert CCM data type to string?
+
+            // Increment the points of the Enquiries
+            ccm.setPoints(ccm.getPoints() + 1);
+        }
     }
 }
