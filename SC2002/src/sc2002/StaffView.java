@@ -7,16 +7,27 @@ public class StaffView implements EnquiriesView, CampView, SuggestionsView{
 		super();
 	}
 
+	public void DisplayAllCamps(ArrayList<Camp> camp) {
+		 for (Camp campname : camp) {
+			 System.out.println(campname.GetCampName());
+	}}
+
+
 	@Override
-	public void DisplaySuggestions(Camp camp) {
-		System.out.println("");
+	public String DisplaySuggestions() {
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 	@Override
-	public void DisplayAllCamps(Camp camp) {
-		System.out.println("");
+	public void DisplayMyCamps(ArrayList<Camp> camps) {
+		// TODO Auto-generated method stub
+		
 	}
+
 	@Override
-	public void DisplayMyCamp(Camp camp) {
-		System.out.println("");
+	public void displayAllEnquiries() {
+		// TODO Auto-generated method stub
+		
 	}
 }

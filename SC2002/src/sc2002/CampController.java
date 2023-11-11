@@ -16,7 +16,7 @@ public class CampController
         return instance;
     }
 
-    private CampController()
+    public CampController()
     {
         camps = new ArrayList<Camp>();
     }

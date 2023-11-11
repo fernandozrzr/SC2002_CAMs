@@ -4,25 +4,25 @@ import java.util.ArrayList;
 
 public class Staff extends User {
 	
-  private ArrayList<String> createdCamps;
+  private ArrayList<Camp> createdCamps;
 	
 	public Staff() {
 		super();
 		createdCamps = new ArrayList<>();
 	}
 	
-	public ArrayList<String> getMyCamps() {
+	public ArrayList<Camp> getMyCamps() {
 		return createdCamps;
 	}
 	
-	public void addMyCamps(String campname) {
+	public void addMyCamps(Camp campname) {
 		createdCamps.add(campname);
 	}
-	public void removeCamps(String campname) {
-		 String campToRemove = null;
+	public void removeCamps(Camp campname) {
+		 	Camp campToRemove = null;
 
 		    // Search for the camp with the specified name
-		    for (String camp : createdCamps) {
+		    for (Camp camp : createdCamps) {
 		        if (camp.equals(campname)) {
 		            campToRemove = camp;
 		            break; // Stop searching once found
