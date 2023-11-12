@@ -198,29 +198,14 @@ public class Camp
         return enquiries;
     }
 
-    public ArrayList<Suggestions> GetSuggestions() 
+    public ArrayList<Suggestions> GetSuggestion() 
     {
         return suggestions;
     }
 
-    public void AddSuggestions(Suggestions suggestion) {
-        suggestions.add(suggestion);
-    }
+   
 
-    public void DeleteSuggestions(CCM ccm, Suggestions suggestion) {
-        Suggestions suggestionToRemove = null;
-        for (Suggestions s : suggestions) {
-            if (s.getSuggestion().equals(suggestion) && s.getSuggestedBy().equals(ccm)) {
-                suggestionToRemove = s;
-                break;
-            }
-        }
-        if (suggestionToRemove != null) {
-            suggestions.remove(suggestionToRemove);
-        }
-    }
-
-    public void ReplyEnquiries(CCM ccm, String enquiry, String reply) {
+    public void ReplyEnquiry(CCM ccm, String enquiry, String reply) {
         Enquiries enquiryToReply = null;
         for (Enquiries e : enquiries) {
             if (e.getEnquiry().equals(enquiry)) {

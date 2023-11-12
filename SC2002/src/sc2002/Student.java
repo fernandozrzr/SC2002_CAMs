@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Student extends User {
 	public static ArrayList<Enquiries> myEnquiries;
 	private ArrayList<Camp> registeredCamps;
+	
 	public Student() {
 		ArrayList<Enquiries> myEnquiries = new ArrayList<>();
 		ArrayList<Camp> registeredCamps = new ArrayList<>();

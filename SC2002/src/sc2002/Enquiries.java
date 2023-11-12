@@ -1,24 +1,20 @@
+// Enquiries.java
 package sc2002;
 
-import java.util.ArrayList;
-
 public class Enquiries {
-	private String enquiry;
+    private String enquiry;
     private String reply;
     private String replyBy;
     private String askBy;
     private String status;
-	private ArrayList<Enquiries> myEnquiries;
-	
-	public Enquiries(String enquiry, String reply, String replyBy, String askBy, String status) {
-		this.enquiry = enquiry;
-		this.reply = reply;
-		this.replyBy = replyBy;
-		this.askBy = askBy;
-		this.status = status;
 
-		this.myEnquiries = Student.myEnquiries;
-	}
+    public Enquiries(String enquiry, String reply, String replyBy, String askBy, String status) {
+        this.enquiry = enquiry;
+        this.reply = reply;
+        this.replyBy = replyBy;
+        this.askBy = askBy;
+        this.status = status;
+    }
 
 	public String getEnquiry() {
 		return enquiry;
@@ -59,10 +55,5 @@ public class Enquiries {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
-	public boolean AddEnquiries(String enquiry) {	
-            this.myEnquiries.add(enquiry);
-            return true;
-        }
-    }
+	
 }
