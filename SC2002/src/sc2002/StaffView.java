@@ -18,7 +18,7 @@ public class StaffView implements EnquiriesView, CampView, SuggestionsView{
 	}
 
 	@Override
-	public void displayAllEnquiries(Camp camp) {
+	public void DisplayAllEnquiries(Camp camp) {
 		// TODO Auto-generated method stub
 		
 	}
