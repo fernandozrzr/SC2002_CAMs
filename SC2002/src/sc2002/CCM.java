@@ -25,7 +25,6 @@ public class CCM {
     public ArrayList<Suggestions> getMySuggestions() {
         return mySuggestions;
     }
-    
     public void AddSuggestion(Suggestions suggestion) {
         mySuggestions.add(suggestion);
     }

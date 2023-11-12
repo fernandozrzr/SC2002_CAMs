@@ -23,18 +23,22 @@ public class CCMController {
 
     public void DeleteSuggestion(Camp camp, CCM ccm, Suggestions suggestion) {
         // Delete a suggestion from the camp's suggestions list
+        // Camp Controller here
     }
 
     public void AddSuggestion(Camp camp, Suggestions suggestion) {
         // Add a suggestion to the camp's suggestions list
+        // Camp Controller here
     }
 
     public void EditSuggestion(Camp camp, Suggestions suggestion) {
         // Add a suggestion to the camp's suggestions list
+        // Camp Controller here
     }
 
     public void ReplyEnquiry(Camp camp, CCM ccm, String enquiry, String reply) {
         // Add a reply to a particular enquiry, and leave the replyBy person, and increment the point of the replyBy ccm
+        // CampController here, may nid to edit the line below
         camp.ReplyEnquiry(ccm, enquiry, reply);
     }
 
