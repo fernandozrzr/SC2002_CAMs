@@ -11,11 +11,11 @@ public class Staff extends User {
 		createdCamps = new ArrayList<>();
 	}
 	
-	public ArrayList<Camp> getMyCamps() {
+	public ArrayList<Camp> GetMyCamps() {
 		return createdCamps;
 	}
 	
-	public void addMyCamps(Camp campname) {
+	public void AddMyCamps(Camp campname) {
 		createdCamps.add(campname);
 	}
 	public void removeCamps(Camp campname) {

@@ -57,11 +57,12 @@ public class CampController
         return false;
     }
 
-    public void AddCamp(String campName, String date, String registerCloseDate, String userGrp, String location, 
+    public Camp AddCamp(String campName, String date, String registerCloseDate, String userGrp, String location, 
                             String desc, String staffInCharge, int totalSlots, int committeeSlots, boolean visibility)
     {
         Camp camp = new Camp(campName, date, registerCloseDate, userGrp, 
                 location, desc, staffInCharge, totalSlots, committeeSlots, visibility);
         camps.add(camp);
+        return camp; //Added for for StaffController
     }
 }
