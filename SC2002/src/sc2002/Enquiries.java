@@ -2,19 +2,28 @@
 package sc2002;
 
 public class Enquiries {
+	private int enquiryId;
     private String enquiry;
     private String reply;
     private String replyBy;
     private String askBy;
     private String status;
 
-    public Enquiries(String enquiry, String reply, String replyBy, String askBy, String status) {
-        this.enquiry = enquiry;
+    public Enquiries(int enquiryId, String enquiry, String reply, String replyBy, String askBy, String status) {
+        this.enquiryId = enquiryId;
+		this.enquiry = enquiry;
         this.reply = reply;
         this.replyBy = replyBy;
         this.askBy = askBy;
         this.status = status;
     }
+
+	public int getEnquiryId() {
+		return enquiryId;
+	}
+	public void setEnquiryId(int enquiryId) {
+		this.enquiryId = enquiryId;
+	}
 
 	public String getEnquiry() {
 		return enquiry;
@@ -55,5 +64,4 @@ public class Enquiries {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
 }
