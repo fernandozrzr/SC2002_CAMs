@@ -65,4 +65,34 @@ public class CampController
         camps.add(camp);
         return camp; //Added for for StaffController
     }
+
+    public boolean AddSuggestion(Camp camp, CCM ccm, Suggestions suggestion)
+    {
+        camp.AddSuggestion(ccm, suggestion);
+        return true;
+    }
+
+    public boolean RemoveSuggestion(Camp camp, CCM ccm, Suggestions suggestion)
+    {
+        return camp.RemoveSuggestion(ccm, suggestion);
+    }
+
+    public boolean AddEnquiry(Camp camp, Student student, Enquiries enqury)
+    {
+        camp.AddEnquiry(student, enqury);
+        return true;
+    }
+
+    public boolean RemoveEnquiry(Camp camp, Student student, Enquiries enqury)
+    {
+        return camp.RemoveEnquiry(student, enqury);
+    }
+
+    public void ReplyEnquiry(Camp camp, Student student, String enquiry, String reply, String replyBy)
+    {
+        Enquiries e = camp.GetEnquiry(student, enquiry);
+        e.setReply(reply);
+        e.setReplyBy(replyBy);
+        e.setStatus("Replied");
+    }
 }

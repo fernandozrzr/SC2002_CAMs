@@ -23,12 +23,12 @@ public class CCMController {
 
     public void DeleteSuggestion(Camp camp, CCM ccm, Suggestions suggestion) {
         // Delete a suggestion from the camp's suggestions list
-        // Camp Controller here
+        CampController.GetInstance().RemoveSuggestion(camp, ccm, suggestion);
     }
 
-    public void AddSuggestion(Camp camp, Suggestions suggestion) {
+    public void AddSuggestion(Camp camp, CCM ccm, Suggestions suggestion) {
         // Add a suggestion to the camp's suggestions list
-        // Camp Controller here
+        CampController.GetInstance().AddSuggestion(camp, ccm, suggestion);
     }
 
     public void EditSuggestion(Camp camp, Suggestions suggestion) {
@@ -36,10 +36,10 @@ public class CCMController {
         // Camp Controller here
     }
 
-    public void ReplyEnquiry(Camp camp, CCM ccm, String enquiry, String reply) {
+    public void ReplyEnquiry(Camp camp, Student student, String enquiry, String reply, String replyBy) {
         // Add a reply to a particular enquiry, and leave the replyBy person, and increment the point of the replyBy ccm
         // CampController here, may nid to edit the line below
-        camp.ReplyEnquiry(ccm, enquiry, reply);
+        CampController.GetInstance().ReplyEnquiry(camp, student, enquiry, reply, replyBy);
     }
 
     public int GetPoints(CCM ccm) {

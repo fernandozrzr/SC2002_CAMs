@@ -19,7 +19,7 @@ public class StaffController {
 	
 	public void ViewAllCamp()
     {
-		staffViewManager.DisplayAllCamps(campManager.GetCamps());
+		staffViewManager.DisplayAllCamps();
     }
 	public Camp CreateCamp(String campName, String date, String closedate, String userGrp, String location, String description, String staffIC, int totalSlots, int CommitteeSlots, boolean Visibility)
     {

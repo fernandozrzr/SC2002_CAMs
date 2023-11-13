@@ -1,6 +1,7 @@
 package sc2002;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Camp 
 {
@@ -20,8 +21,8 @@ public class Camp
     private ArrayList<Student> attendees;
     private ArrayList<Student> studentRemoved;
     private ArrayList<CCM> committeeMembers;
-    private ArrayList<Enquiries> enquiries;
-    private ArrayList<Suggestions> suggestions;
+    private HashMap<Student, ArrayList<Enquiries>> enquiries;
+    private HashMap<CCM, ArrayList<Suggestions>> suggestions;
 
     public Camp(String campName, String date, String registerCloseDate, String userGrp, String location, 
                     String desc, String staffInCharge, int totalSlots, int committeeSlots, boolean visibility)
@@ -40,8 +41,8 @@ public class Camp
         attendees = new ArrayList<Student>(totalSlots);
         studentRemoved = new ArrayList<Student>(totalSlots);
         committeeMembers = new ArrayList<CCM>(committeeSlots);
-        enquiries = new ArrayList<Enquiries>();
-        suggestions = new ArrayList<Suggestions>();
+        enquiries = new HashMap<Student, ArrayList<Enquiries>>();
+        suggestions = new HashMap<CCM, ArrayList<Suggestions>>();
     }
 
     public String GetCampName() 
@@ -193,32 +194,67 @@ public class Camp
         return false;
     }
 
-    public ArrayList<Enquiries> GetEnquires() 
+    public void AddSuggestion(CCM committee, Suggestions suggestion)
     {
-        return enquiries;
+        if(!suggestions.containsKey(committee))
+            suggestions.put(committee, new ArrayList<Suggestions>());
+        
+        suggestions.get(committee).add(suggestion);
     }
 
-    public ArrayList<Suggestions> GetSuggestion() 
+    public boolean RemoveSuggestion(CCM committee, Suggestions suggestion)
     {
-        return suggestions;
-    }
-
-   
-
-    public void ReplyEnquiry(CCM ccm, String enquiry, String reply) {
-        Enquiries enquiryToReply = null;
-        for (Enquiries e : enquiries) {
-            if (e.getEnquiry().equals(enquiry)) {
-                enquiryToReply = e;
-                break;
+        //Check if the suggestions list have any sugguestion from this member
+        if(suggestions.containsKey(committee))
+        {
+            //Check if the sugguestions has been suggested by this member
+            if(suggestions.get(committee).contains(suggestion))
+            {
+                suggestions.get(committee).remove(suggestion);
+                return true;
             }
-        }
-        if (enquiryToReply != null) {
-            enquiryToReply.setReply(reply);
-            //enquiryToReply.setReplyBy(ccm); How to convert CCM data type to string?
 
-            // Increment the points of the Enquiries
-            ccm.setPoints(ccm.getPoints() + 1);
+            return false;
         }
+
+        return false;
+    }
+
+    public void AddEnquiry(Student student, Enquiries enquiry)
+    {
+        if(!enquiries.containsKey(student))
+            enquiries.put(student, new ArrayList<Enquiries>());
+        
+        enquiries.get(student).add(enquiry);
+    }
+
+    public boolean RemoveEnquiry(Student student, Enquiries enquiry)
+    {
+        //Check if the Enquiries list have any enquiry from this student
+        if(enquiries.containsKey(student))
+        {
+            //Check if the Enquiries has been enquired by this student
+            if(enquiries.get(student).contains(enquiry))
+            {
+                enquiries.get(student).remove(enquiry);
+                return true;
+            }
+
+            return false;
+        }
+
+        return false;
+    }
+
+    public Enquiries GetEnquiry(Student student, String enquiry)
+    {
+        //Check if the Enquiries list have any enquiry from this student
+        if(enquiries.containsKey(student))
+        {
+            for(Enquiries e : enquiries.get(student))
+                if(e.getEnquiry() == enquiry) return e;
+        }
+
+        return null;
     }
 }
