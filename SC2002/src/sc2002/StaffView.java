@@ -12,17 +12,23 @@ public class StaffView implements EnquiriesView, CampView, SuggestionsView{
 	}}
 
 	@Override
-	public void DisplayMySuggestions(CCM ccm) {
-		// TODO Auto-generated method stub
+	public void DisplayAllSuggestions(Camp camp) {
+		for (Camp campname : camp) {
+			 System.out.println(campname.GetSuggestion());
+		}
 		
 	}
 
 	@Override
 	public void DisplayAllEnquiries(Camp camp) {
-		// TODO Auto-generated method stub
-		
+		for (Camp campname : camp) {
+			 System.out.println(campname.GetEnquires());
+		}
 	}
 
 	public void DisplayMyCamps(ArrayList<Camp> camp) {
+		for (Camp campname : camp) {
+			 System.out.println(campname.GetCampName());
+		}
 	}
 }

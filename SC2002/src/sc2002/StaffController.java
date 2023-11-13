@@ -38,22 +38,24 @@ public class StaffController {
     {
 		campManager.ToggleVisibility(camp, state);
     }
-	public void ViewSuggestions()
+	public void ViewSuggestions(Camp camp)
+    {
+		staffViewManager.DisplayAllSuggestions(camp);
+    }
+	public void ApproveSuggestions(int index)
     {
     }
-	public void ApproveSuggestions()
+	public void ViewEnquiries(Camp camp)
     {
+		staffViewManager.DisplayAllEnquiries(camp);
     }
-	public void ViewEnquiries()
-    {
-    }
-	public void ReplyEnquiries()
+	public void ReplyEnquiries(String reply)
     {
     }
 	public void GenerateList()
     {
     }
-	public void GenerateReport()
+	public void GenerateReport(Camp camp)
     {
     }
 	
