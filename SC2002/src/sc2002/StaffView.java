@@ -6,10 +6,6 @@ public class StaffView implements EnquiriesView, CampView, SuggestionsView{
 	public StaffView() {
 		super();
 	}
-	public void DisplayAllCamps(ArrayList<Camp> camp) {
-		 for (Camp campname : camp) {
-			 System.out.println(campname.GetCampName());
-	}}
 
 	@Override
 	public void DisplayAllSuggestions(Camp camp) {

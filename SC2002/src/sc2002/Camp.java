@@ -149,24 +149,29 @@ public class Camp
         return attendees;
     }
 
-    public boolean AddAttendee(Student student)
+    public boolean AddAttendee(Student student) //TODO CHECK WHETHER REGISTERATION DATE HAS PASSED
     {
         //There are slots left to join and student is not removed
         if(attendees.size() < totalSlots && !studentRemoved.contains(student))
         {
             attendees.add(student);
+            System.out.println("You have successfully registered for " + campName + " as an attendee");
             return true;
         }
 
+        System.out.println("The Camp is either fully registered, the registeration date has passed or " + 
+            "you have previously withdrawn from this camp.");
         return false;
     }
 
     public boolean RemoveAttendee(Student student)
     {
-        if(attendees.contains(student))
+        if(attendees.contains(student))//TODO CHECK IF STUDENT IS A CCM OF THIS CAMP
         {
             attendees.remove(student);
             studentRemoved.add(student);
+            System.out.println("You have successfully withdrawn from " + campName);
+
             return true;
         }
 
@@ -183,14 +188,17 @@ public class Camp
         return committeeMembers;
     }
 
-    public boolean AddCommitteeMember(CCM ccm)
+    public boolean AddCommitteeMember(CCM ccm)//TODO CHECK IF CCM IS AREADY A CCM IN ANOTHER CAMP
     {
         if(committeeMembers.size() < committeeSlots)
         {
             committeeMembers.add(ccm);
+            System.out.println("You have successfully registered for " + campName + " as a Committee Member");
+
             return true;
         }
-
+        System.out.println("The Camp is either fully registered, the registeration date has passed or " + 
+            "you are already a committee member of another camp.");
         return false;
     }
 
