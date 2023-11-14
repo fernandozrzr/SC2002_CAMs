@@ -8,7 +8,7 @@ public interface CampView
     {
         ArrayList<Camp> camps = CampController.GetInstance().GetCamps();
         for(int i = 0; i < camps.size(); ++i)
-            System.out.println("(" + i + 1 + ") " + camps.get(i).GetCampName());
+            System.out.println("(" + (i + 1) + ") " + camps.get(i).GetCampName());
     }
 	
     public void DisplayMyCamps(ArrayList<Camp> camps);

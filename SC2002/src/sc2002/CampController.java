@@ -16,7 +16,7 @@ public class CampController
         return instance;
     }
 
-    public CampController()
+    private CampController()
     {
         camps = new ArrayList<Camp>();
     }
@@ -26,35 +26,35 @@ public class CampController
         return camps;
     }
 
-    public boolean AddAttendee(Camp camp, Student student)
+    public boolean AddAttendee(int campID, Student student)
     {
-        return camp.AddAttendee(student);
+        return camps.get(campID).AddAttendee(student);
     }
 
-    public boolean RemoveAttendee(Camp camp, Student student)
+    public boolean RemoveAttendee(int campID, Student student)
     {
-        return camp.RemoveAttendee(student);
+        return camps.get(campID).RemoveAttendee(student);
     }
 
-    public boolean AddCommitteeMember(Camp camp, CCM ccm)
+    public boolean AddCommitteeMember(int campID, CCM ccm)
     {
-        return camp.AddCommitteeMember(ccm);
+        return camps.get(campID).AddCommitteeMember(ccm);
     }
 
-    public void ToggleVisibility(Camp camp, boolean state)
+    public void ToggleVisibility(int campID, boolean state)
     {
-        camp.SetVisibility(state);
+        camps.get(campID).SetVisibility(state);
     }
 
-    public boolean DeleteCamp(Camp camp)
+    public boolean DeleteCamp(int campID)
     {
-        if(camps.contains(camp))
+        if(campID > 0 && campID < camps.size())
         {
-            camps.remove(camp);
+            camps.remove(campID);
             return true;
         }
-
-        return false;
+        else
+            throw new IndexOutOfBoundsException("Index" + campID + "is out of bounds.");
     }
 
     public Camp AddCamp(String campName, String date, String registerCloseDate, String userGrp, String location, 
@@ -66,31 +66,31 @@ public class CampController
         return camp; //Added for for StaffController
     }
 
-    public boolean AddSuggestion(Camp camp, CCM ccm, Suggestions suggestion)
+    public boolean AddSuggestion(int campID, CCM ccm, Suggestions suggestion)
     {
-        camp.AddSuggestion(ccm, suggestion);
+        camps.get(campID).AddSuggestion(ccm, suggestion);
         return true;
     }
 
-    public boolean RemoveSuggestion(Camp camp, CCM ccm, Suggestions suggestion)
+    public boolean RemoveSuggestion(int campID, CCM ccm, Suggestions suggestion)
     {
-        return camp.RemoveSuggestion(ccm, suggestion);
+        return camps.get(campID).RemoveSuggestion(ccm, suggestion);
     }
 
-    public boolean AddEnquiry(Camp camp, Student student, Enquiries enqury)
+    public boolean AddEnquiry(int campID, Student student, Enquiries enqury)
     {
-        camp.AddEnquiry(student, enqury);
+        camps.get(campID).AddEnquiry(student, enqury);
         return true;
     }
 
-    public boolean RemoveEnquiry(Camp camp, Student student, Enquiries enqury)
+    public boolean RemoveEnquiry(int campID, Student student, Enquiries enqury)
     {
-        return camp.RemoveEnquiry(student, enqury);
+        return camps.get(campID).RemoveEnquiry(student, enqury);
     }
 
-    public void ReplyEnquiry(Camp camp, Student student, String enquiry, String reply, String replyBy)
+    public void ReplyEnquiry(int campID, Student student, String enquiry, String reply, String replyBy)
     {
-        Enquiries e = camp.GetEnquiry(student, enquiry);
+        Enquiries e = camps.get(campID).GetEnquiry(student, enquiry);
         e.setReply(reply);
         e.setReplyBy(replyBy);
         e.setStatus("Replied");

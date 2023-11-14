@@ -6,6 +6,9 @@ public class Main
 {
     public static void main(String[] args)
     {
+        CampController.GetInstance().AddCamp("Camp1", "14/11/2023", "31/11/2023", 
+        "SCSE", "NTU", "Gd Camp", "Dr Loke", 10, 3, true);
+
         Auth();
     }
 

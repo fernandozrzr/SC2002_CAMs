@@ -21,25 +21,25 @@ public class CCMController {
         return ccm;
     }
 
-    public void DeleteSuggestion(Camp camp, CCM ccm, Suggestions suggestion) {
+    public void DeleteSuggestion(int campID, CCM ccm, Suggestions suggestion) {
         // Delete a suggestion from the camp's suggestions list
-        CampController.GetInstance().RemoveSuggestion(camp, ccm, suggestion);
+        CampController.GetInstance().RemoveSuggestion(campID, ccm, suggestion);
     }
 
-    public void AddSuggestion(Camp camp, CCM ccm, Suggestions suggestion) {
+    public void AddSuggestion(int campID, CCM ccm, Suggestions suggestion) {
         // Add a suggestion to the camp's suggestions list
-        CampController.GetInstance().AddSuggestion(camp, ccm, suggestion);
+        CampController.GetInstance().AddSuggestion(campID, ccm, suggestion);
     }
 
-    public void EditSuggestion(Camp camp, Suggestions suggestion) {
+    public void EditSuggestion(int campID, Suggestions suggestion) {
         // Add a suggestion to the camp's suggestions list
         // Camp Controller here
     }
 
-    public void ReplyEnquiry(Camp camp, Student student, String enquiry, String reply, String replyBy) {
+    public void ReplyEnquiry(int campID, Student student, String enquiry, String reply, String replyBy) {
         // Add a reply to a particular enquiry, and leave the replyBy person, and increment the point of the replyBy ccm
         // CampController here, may nid to edit the line below
-        CampController.GetInstance().ReplyEnquiry(camp, student, enquiry, reply, replyBy);
+        CampController.GetInstance().ReplyEnquiry(campID, student, enquiry, reply, replyBy);
     }
 
     public int GetPoints(CCM ccm) {
