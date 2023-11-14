@@ -4,11 +4,19 @@ import java.util.ArrayList;
 
 public interface CampView 
 {
-    public default void DisplayAllCamps()
+    public default ArrayList<Integer> DisplayAllCamps()
     {
+        ArrayList<Integer> indexes = new ArrayList<Integer>();
+
         ArrayList<Camp> camps = CampController.GetInstance().GetCamps();
         for(int i = 0; i < camps.size(); ++i)
+        {
             System.out.println("(" + (i + 1) + ") " + camps.get(i).GetCampName());
+            indexes.add(i);
+        }
+
+        //Returns the index of the camps displayed so if any functions needs access the camp can use
+        return indexes;
     }
 	
     public void DisplayMyCamps(ArrayList<Camp> camps);

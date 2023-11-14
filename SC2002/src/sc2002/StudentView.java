@@ -11,10 +11,11 @@ public class StudentView implements CampView, EnquiriesView
 
     ///////////////////////////////////////////////////         Implmenting interface functions         ///////////////////////////////////////////////////
     @Override
-    public void DisplayAllCamps()
+    public ArrayList<Integer> DisplayAllCamps()
     {
         // TODO Auto-generated method stub
-
+        //
+        return null;
     }
 
     @Override

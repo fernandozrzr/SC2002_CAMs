@@ -13,7 +13,7 @@ public class StaffController {
     }
 	
 	public StaffController() {
-		this.campManager = new CampController();
+		this.campManager = CampController.GetInstance();
 		this.staffViewManager = new StaffView();
     }
 	
@@ -30,13 +30,13 @@ public class StaffController {
     {
 		
     }
-	public void DeleteCamp(Camp camp)
+	public void DeleteCamp(int campID)
     {
-		campManager.DeleteCamp(camp);
+		campManager.DeleteCamp(campID);
     }
-	public void ToggeVisibility(Camp camp, boolean state)
+	public void ToggeVisibility(int campID, boolean state)
     {
-		campManager.ToggleVisibility(camp, state);
+		campManager.ToggleVisibility(campID, state);
     }
 	public void ViewSuggestions(Camp camp)
     {
