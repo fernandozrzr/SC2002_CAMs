@@ -5,6 +5,8 @@ import java.util.HashMap;
 
 public class Camp 
 {
+    private int campID;
+
     private String campName;
     private String date;
     private String registerCloseDate;
@@ -24,9 +26,10 @@ public class Camp
     private HashMap<Student, ArrayList<Enquiries>> enquiries;
     private HashMap<CCM, ArrayList<Suggestions>> suggestions;
 
-    public Camp(String campName, String date, String registerCloseDate, String userGrp, String location, 
+    public Camp(int campID, String campName, String date, String registerCloseDate, String userGrp, String location, 
                     String desc, String staffInCharge, int totalSlots, int committeeSlots, boolean visibility)
     {
+        this.campID = campID;
         this.campName = campName;
         this.date = date;
         this.registerCloseDate = registerCloseDate;
@@ -43,6 +46,11 @@ public class Camp
         committeeMembers = new ArrayList<CCM>(committeeSlots);
         enquiries = new HashMap<Student, ArrayList<Enquiries>>();
         suggestions = new HashMap<CCM, ArrayList<Suggestions>>();
+    }
+
+    public int GetCampID()
+    {
+        return campID;
     }
 
     public String GetCampName() 

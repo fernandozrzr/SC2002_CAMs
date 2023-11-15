@@ -50,7 +50,7 @@ public class CampController
     {
         if(campID > 0 && campID < camps.size())
         {
-            camps.remove(campID);
+            camps.set(campID, null);
             return true;
         }
         else
@@ -60,9 +60,18 @@ public class CampController
     public Camp AddCamp(String campName, String date, String registerCloseDate, String userGrp, String location, 
                             String desc, String staffInCharge, int totalSlots, int committeeSlots, boolean visibility)
     {
-        Camp camp = new Camp(campName, date, registerCloseDate, userGrp, 
+        //Determine campID
+        int campID = camps.indexOf(null); // Get Index of the first empty space in array
+        if(campID == -1) //No Empty space in array 
+            campID = camps.size();
+
+        Camp camp = new Camp(campID, campName, date, registerCloseDate, userGrp, 
                 location, desc, staffInCharge, totalSlots, committeeSlots, visibility);
-        camps.add(camp);
+
+        if(campID == camps.size())
+            camps.add(camp);
+        else
+            camps.set(campID, camp);
         return camp; //Added for for StaffController
     }
 

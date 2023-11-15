@@ -12,7 +12,7 @@ public interface CampView
         for(int i = 0; i < camps.size(); ++i)
         {
             System.out.println("(" + (i + 1) + ") " + camps.get(i).GetCampName());
-            indexes.add(i);
+            indexes.add(camps.get(i).GetCampID());
         }
 
         //Returns the index of the camps displayed so if any functions needs access the camp can use

@@ -3,8 +3,6 @@ package sc2002;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import javax.sound.sampled.SourceDataLine;
-
 public class StudentController 
 {
     private static StudentController instance = null;
