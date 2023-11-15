@@ -3,7 +3,7 @@ package sc2002;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-public class CCM {
+public class CCM extends Student{
     
     private int myPoints = 0;
     ArrayList<Suggestions> mySuggestions;

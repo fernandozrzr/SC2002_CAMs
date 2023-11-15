@@ -2,10 +2,11 @@
 package sc2002;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class EnquiriesController {
     private static EnquiriesController instance = null;
-    private ArrayList<Enquiries> enquiries;
+    private HashMap<Student,ArrayList<Enquiries>> enquiries;
 
     public static EnquiriesController getInstance() {
         if (instance == null)
@@ -16,7 +17,7 @@ public class EnquiriesController {
 
     private EnquiriesController() {
         // Initialize enquiries list
-        enquiries = new ArrayList<>();
+        enquiries = new HashMap<Student,ArrayList<Enquiries>>();
     }
 
     public ArrayList<Enquiries> getEnquiries() {

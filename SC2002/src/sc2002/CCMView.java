@@ -1,6 +1,8 @@
 package sc2002;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CCMView implements SuggestionsView {
     
@@ -19,21 +21,27 @@ public class CCMView implements SuggestionsView {
         }
     }
 
-    public void DisplayAllEnquiries(Camp camp) {
-        //display all enquiries under a particular camp
-         ArrayList<Enquiries> enquiries = camp.GetEnquires();
-
-        System.out.println("All Enquiries for Camp " + camp.GetCampName() + ":");
-        if (enquiries.isEmpty()) {
-            System.out.println("No enquiries found for this camp.");
-        } else {
-            for (Enquiries enquiry : enquiries) {
-                System.out.println("Enquiry: " + enquiry.getEnquiry());
-                System.out.println("Asked by: " + enquiry.getAskBy());
-                System.out.println("Reply: " + enquiry.getReply());
-                System.out.println();
+    public void DisplayAllEnquiries(Camp camp, User user) {
+    // Check if the user is a staff or CCM
+        if (user instanceof Staff || user instanceof CCM) {
+            HashMap<Student, ArrayList<Enquiries>> enquiriesMap = camp.GetCampEnquiries();
+            if (enquiriesMap.isEmpty()) {
+                System.out.println("No enquiries found for this camp.");
+            } else {
+                // display all enquiries under a particular camp
+                for (Map.Entry<Student, ArrayList<Enquiries>> entry : enquiriesMap.entrySet()) {
+                    ArrayList<Enquiries> studentEnquiries = entry.getValue();
+                    System.out.println("All Enquiries for Camp " + camp.GetCampName() + ":");
+                    for (Enquiries enquiry : studentEnquiries) {
+                        System.out.println("Enquiry: " + enquiry.getEnquiry());
+                        System.out.println("Asked by: " + enquiry.getAskBy());
+                        System.out.println("Reply: " + enquiry.getReply());
+                        System.out.println();
+                    }
+                }
             }
+        } else {
+            System.out.println("You do not have permission to view all enquiries.");
         }
     }
-
 }

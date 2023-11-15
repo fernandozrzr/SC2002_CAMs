@@ -265,4 +265,7 @@ public class Camp
 
         return null;
     }
+    public HashMap<Student, ArrayList<Enquiries>> GetCampEnquiries() {
+        return enquiries;
+    }
 }
