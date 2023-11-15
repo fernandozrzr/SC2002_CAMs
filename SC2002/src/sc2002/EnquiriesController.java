@@ -8,7 +8,7 @@ public class EnquiriesController {
     private static EnquiriesController instance = null;
     private HashMap<Student,ArrayList<Enquiries>> enquiries;
 
-    public static EnquiriesController getInstance() {
+    public static EnquiriesController GetInstance() {
         if (instance == null)
             instance = new EnquiriesController();
 
@@ -20,17 +20,17 @@ public class EnquiriesController {
         enquiries = new HashMap<Student,ArrayList<Enquiries>>();
     }
 
-    public ArrayList<Enquiries> getEnquiries() {
+    public ArrayList<Enquiries> GetEnquiries() {
         return enquiries;
     }
 
     // Add an enquiry to the enquiries list
-    public boolean addEnquiry(Enquiries enquiry) {
+    public boolean AddEnquiry(Enquiries enquiry) {
         return this.enquiries.add(enquiry);
     }
 
     // Fetch and display enquiries for a specific student
-    public void viewMyEnquiries(Student student) {
+    public void ViewMyEnquiries(Student student) {
         ArrayList<Enquiries> studentEnquiries = student.getMyEnquiries();
         for (Enquiries enquiry : studentEnquiries) {
             System.out.println(enquiry);

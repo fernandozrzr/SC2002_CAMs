@@ -52,7 +52,7 @@ public class StudentController
                     // Show all camps with their respective slots available beside and option to register 
                     ArrayList<Integer> campIndexes = view.DisplayAllCamps();
                     System.out.print("Enter the index of the camp to register: ");
-                    int index = input.nextInt();
+                    int index = input.nextInt() - 1;
 
                     //Invalid Choice so exit out of case
                     if(index < 0 || index > campIndexes.size())
@@ -81,7 +81,21 @@ public class StudentController
                 {
                     // Show All camps and options to submit enquires
                     ArrayList<Integer> campIndexes = view.DisplayAllCamps();
-                    
+
+                    System.out.print("Enter the index of the camp to enquire: ");
+                    int index = input.nextInt() - 1;
+
+                    //Check if the input is valid
+                    if(index < 0 || index > campIndexes.size())
+                    {
+                        System.out.println("You have entered an invalid choice. \n");
+                        break;
+                    }
+
+                    System.out.print("Enter you enquiry: ");
+                    String enquiry = input.next();
+
+                    // EnquiriesController.GetInstance().AddEnquiry(null)
                     break;
                 }
                 case 4: // View my enquires
