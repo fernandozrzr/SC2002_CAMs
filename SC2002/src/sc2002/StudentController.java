@@ -37,7 +37,6 @@ public class StudentController
                 if(choice < 0 || choice > 6)
                 System.out.println("Invalid choice please try again\n");
             }while(choice < 0 || choice > 6);
-            
 
             switch(choice)
             {
@@ -45,6 +44,7 @@ public class StudentController
                 {
                     // Show all the camps that student can view and options to view all details of the camp
                     ArrayList<Integer> campIndexes = view.DisplayAllCamps();
+
                     break;
                 }
                 case 2: // Register For Camp
@@ -95,7 +95,7 @@ public class StudentController
                     System.out.print("Enter you enquiry: ");
                     String enquiry = input.next();
 
-                    // EnquiriesController.GetInstance().AddEnquiry(null)
+                    EnquiriesController.GetInstance().AddEnquiry(index, enquiry, null);
                     break;
                 }
                 case 4: // View my enquires
