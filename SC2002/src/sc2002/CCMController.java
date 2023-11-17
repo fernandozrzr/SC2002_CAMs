@@ -36,6 +36,8 @@ public class CCMController {
         Suggestions _suggestion = new Suggestions(ids++, suggestion, false);
         ccm.AddMySuggestion(_suggestion);
         CampController.GetInstance().AddSuggestion(campID, ccm, _suggestion);
+        // Increment points for the CCM
+        ccm.SetPoints(ccm.GetPoints()+1);
     }
 
     public void EditSuggestion(int campID, CCM ccm, int suggestionID, String edited) {
