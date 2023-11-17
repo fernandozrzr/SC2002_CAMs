@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class CCMController {
     private static CCMController instance = null;
+    private int ids = 0;
     private ArrayList<CCM> ccm;
 
     public static CCMController GetInstance() {
@@ -21,19 +22,24 @@ public class CCMController {
         return ccm;
     }
 
-    public void DeleteSuggestion(int campID, CCM ccm, Suggestions suggestion) {
+    public void DeleteSuggestion(int campID, CCM ccm, int suggestionID) {
         // Delete a suggestion from the camp's suggestions list
-        CampController.GetInstance().RemoveSuggestion(campID, ccm, suggestion);
+        Suggestions s = ccm.FindSuggestion(suggestionID);
+        ccm.DeleteMySuggestion(s);
+        CampController.GetInstance().RemoveSuggestion(campID, ccm, s);
     }
 
-    public void AddSuggestion(int campID, CCM ccm, Suggestions suggestion) {
+    public void AddSuggestion(int campID, CCM ccm, String suggestion) {
         // Add a suggestion to the camp's suggestions list
-        CampController.GetInstance().AddSuggestion(campID, ccm, suggestion);
+        Suggestions _suggestion = new Suggestions(ids++, suggestion, false);
+        ccm.AddMySuggestion(_suggestion);
+        CampController.GetInstance().AddSuggestion(campID, ccm, _suggestion);
     }
 
-    public void EditSuggestion(int campID, Suggestions suggestion) {
+    public void EditSuggestion(int campID, CCM ccm, int suggestionID, String edited) {
         // Add a suggestion to the camp's suggestions list
-        // Camp Controller here
+        Suggestions s = ccm.FindSuggestion(suggestionID);
+        s.SetSuggestion(edited);
     }
 
     public void ReplyEnquiry(int campID, Student student, String enquiry, String reply, String replyBy) {
@@ -44,11 +50,11 @@ public class CCMController {
 
     public int GetPoints(CCM ccm) {
         // return the number of points the CampComitteeMember has
-        return ccm.getPoints();
+        return ccm.GetPoints();
     }
 
     public String GenerateList(Camp camp, String role, String format) {
-        // return a generated list in excel
+        // return a generated list in txt
         return "list";
     }
 

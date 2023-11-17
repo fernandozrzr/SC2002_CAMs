@@ -1,22 +1,23 @@
+
 package sc2002;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CCMView implements SuggestionsView {
+public class CCMView{
     
 
     public CCMView() {
     }
 
-    public void DisplayMySuggestions(CCM ccm){
+    public void DisplayAllSuggestions(int campID, CCM ccm){
         //implement code to print out all the suggestions the Camp Comittee Member has written has written
-        System.out.println("Suggestions by Camp Committee Member " + ccm.getPoints() + ":");
+        System.out.println("Suggestions by Camp Committee Member " + ccm.GetPoints() + ":");
         for (Suggestions suggestion : ccm.getMySuggestions()) {
-            System.out.println("Suggestion: " + suggestion.getSuggestion());
-            System.out.println("Suggested by: " + suggestion.getSuggestedBy());
-            System.out.println("Status: " + (suggestion.isStatus() ? "Completed" : "Pending"));
+            System.out.println("Suggestion: " + suggestion.GetSuggestion());
+            System.out.println("Suggested by: " + ccm.getName());
+            System.out.println("Status: " + (suggestion.IsStatus() ? "Completed" : "Pending"));
             System.out.println();
         }
     }
