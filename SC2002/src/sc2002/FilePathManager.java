@@ -11,7 +11,7 @@ public class FilePathManager {
 	
 	public static String getFilePath(int domain) {
 		filePathList[0] = "src\\student_list.txt";
-		filePathList[1] = "src\\FilePath\\staff_list.txt";
+		filePathList[1] = "src\\staff_list.txt";
 		
 	return filePathList[domain-1];
 	}
