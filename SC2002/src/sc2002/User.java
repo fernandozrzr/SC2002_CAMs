@@ -1,4 +1,4 @@
-package CAMS;
+package sc2002;
 
 public class User {
 
