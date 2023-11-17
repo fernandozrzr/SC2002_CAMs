@@ -1,5 +1,8 @@
 package sc2002;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class StaffController {
 	
 	private CampController campManager;
@@ -26,7 +29,7 @@ public class StaffController {
 		Camp newcamp=campManager.AddCamp(campName, date, closedate, userGrp, location, description, staffIC, totalSlots, CommitteeSlots, Visibility);
 		return newcamp;
     }
-	public void EditCamp()
+	public void EditCamp(int campID)
     {
 		
     }
@@ -38,16 +41,18 @@ public class StaffController {
     {
 		campManager.ToggleVisibility(campID, state);
     }
-	public void ViewSuggestions(Camp camp)
+	public void ViewSuggestions(int CampID)
     {
-		staffViewManager.DisplayAllSuggestions(camp);
+		HashMap<CCM, ArrayList<Suggestions>> map = campManager.GetCamps().get(CampID).getSuggestion();
+		staffViewManager.DisplayAllSuggestions(map);
     }
 	public void ApproveSuggestions(int index)
     {
     }
-	public void ViewEnquiries(Camp camp)
-    {
-		staffViewManager.DisplayAllEnquiries(camp);
+	public void ViewEnquiries(int CampID)
+    {	
+		HashMap<Student, ArrayList<Enquiries>> map = campManager.GetCamps().get(CampID).getEnquiries();
+		staffViewManager.DisplayAllEnquiries(map);
     }
 	public void ReplyEnquiries(String reply)
     {

@@ -14,9 +14,15 @@ public class Staff extends User {
 	public ArrayList<Camp> GetMyCamps() {
 		return createdCamps;
 	}
+	public void viewCreatedCamps()
+	{
+		for (Camp camp : createdCamps) {
+	       System.out.println("CampID: "+ camp.GetCampID()+" Camp Name: "+ camp.GetCampName());
+	}}
 	
 	public void AddMyCamps(Camp campname) {
 		createdCamps.add(campname);
+		
 	}
 	public void removeCamps(Camp campname) {
 		 	Camp campToRemove = null;

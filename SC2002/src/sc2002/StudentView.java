@@ -2,7 +2,7 @@ package sc2002;
 
 import java.util.ArrayList;
 
-public class StudentView implements CampView, EnquiriesView
+public class StudentView implements CampView
 {
     public StudentView()
     {

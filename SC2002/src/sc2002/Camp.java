@@ -217,6 +217,7 @@ public class Camp
         
         suggestions.get(committee).add(suggestion);
     }
+    
 
     public boolean RemoveSuggestion(CCM committee, Suggestions suggestion)
     {
@@ -273,7 +274,12 @@ public class Camp
 
         return null;
     }
-    public HashMap<Student, ArrayList<Enquiries>> GetCampEnquiries() {
+    public HashMap<Student, ArrayList<Enquiries>> getEnquiries() {
         return enquiries;
     }
+    public HashMap<CCM, ArrayList<Suggestions>> getSuggestion()
+    {
+    	return suggestions;
+    }
+
 }
