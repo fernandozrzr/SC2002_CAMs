@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class CCM extends Student{
     
     private int myPoints = 0;
+    private int suggestionId;
     ArrayList<Suggestions> mySuggestions;
     Scanner sc= new Scanner(System.in);
     
@@ -14,31 +15,43 @@ public class CCM extends Student{
         mySuggestions = new ArrayList<Suggestions>();
     }
 
-    public int getPoints(){
+    public int GetPoints(){
         return myPoints;
     }
 
-    public void setPoints(int myPoints) {
+    public void SetPoints(int myPoints) {
         this.myPoints = myPoints;
     }
 
     public ArrayList<Suggestions> getMySuggestions() {
         return mySuggestions;
     }
-    public void AddSuggestion(Suggestions suggestion) {
+    public void AddMySuggestion(Suggestions suggestion) {
         mySuggestions.add(suggestion);
     }
 
-    public void DeleteSuggestion(Suggestions suggestion) {
+    public void DeleteMySuggestion(Suggestions suggestion) {
         mySuggestions.remove(suggestion);
     }
 
-    public void EditSuggestion(Suggestions oldSuggestion, Suggestions newSuggestion) {
+    public void EditMySuggestion(Suggestions oldSuggestion, Suggestions newSuggestion) {
         int index = mySuggestions.indexOf(oldSuggestion);
         if (index != -1) {
             mySuggestions.set(index, newSuggestion);
         } else {
             System.out.println("Suggestion not found for editing.");
         }
+    }
+
+    public Suggestions FindSuggestion(int suggestionID)
+    {
+        for(int i = 0; i < mySuggestions.size(); ++i)
+        {
+            if(mySuggestions.get(i).GetID() == suggestionID)
+                return mySuggestions.get(i);
+        }
+
+        System.out.println("Suggestion ID: " + suggestionID + " does not exist");
+        return null;
     }
 }
