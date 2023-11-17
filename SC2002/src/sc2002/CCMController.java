@@ -1,6 +1,8 @@
 // CCMController.java
 package sc2002;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class CCMController {
@@ -37,14 +39,24 @@ public class CCMController {
     }
 
     public void EditSuggestion(int campID, CCM ccm, int suggestionID, String edited) {
-        // Add a suggestion to the camp's suggestions list
+        // Edit a suggestion in the camp's suggestions list
         Suggestions s = ccm.FindSuggestion(suggestionID);
         s.SetSuggestion(edited);
     }
 
-    public void ReplyEnquiry(int campID, Student student, String enquiry, String reply, String replyBy) {
+    public void ReplyEnquiry(int campID, CCM ccm, Student student, String enquiry, String reply, String replyBy) {
         // Add a reply to a particular enquiry, and leave the replyBy person, and increment the point of the replyBy ccm
-        // CampController here, may nid to edit the line below
+        Camp camp = CampController.GetInstance().GetCamps().get(campID);    
+        Enquiries e = camp.GetEnquiry(student, enquiry);
+
+        if (e != null && e.getStatus().equals("Open")) {
+            e.setReply(reply);
+            e.setStatus("Replied");
+            e.setReplyBy(replyBy);
+
+            // Increment points for the CCM
+            ccm.SetPoints(ccm.GetPoints()+1);
+        }
         CampController.GetInstance().ReplyEnquiry(campID, student, enquiry, reply, replyBy);
     }
 
@@ -53,9 +65,54 @@ public class CCMController {
         return ccm.GetPoints();
     }
 
-    public String GenerateList(Camp camp, String role, String format) {
-        // return a generated list in txt
-        return "list";
+    public String GenerateList(int campID, String roleFilter) {
+        Camp camp = CampController.GetInstance().GetCamps().get(campID);
+
+        if (camp != null) {
+            ArrayList<Student> attendees = camp.GetAttendees();
+            ArrayList<CCM> committeeMembers = camp.GetCommitteeMembers();
+    
+
+            StringBuilder report = new StringBuilder();
+            report.append("Camp Details:\n");
+            report.append("Camp Name: ").append(camp.GetCampName()).append("\n");
+            report.append("Date: ").append(camp.GetDate()).append("\n");
+            report.append("Location: ").append(camp.GetLocation()).append("\n");
+            report.append("Staff in Charge: ").append(camp.GetStaffInCharge()).append("\n");
+
+            // Apply filters and generate participant list
+            report.append("\nParticipants List:\n");
+            for (Student attendee : attendees) {
+                if (roleFilter.equals("attendee")) {
+                    report.append("Attendee: ").append(attendee.GetName()).append("\n");
+                }
+            }
+            for (CCM ccm : committeeMembers) {
+                if (roleFilter.equals("ccm")) {
+                    report.append("CCM: ").append(ccm.GetName()).append("\n");
+                }
+            }
+            if (roleFilter.equals("staff")) {
+                report.append("Staff: ").append(camp.GetStaffInCharge()).append("\n");
+            }
+
+            // Write the report to a txt file
+            String fileName = camp.GetCampName() + "_Participant_List.txt";
+            WriteToFile(fileName, report.toString());
+
+            return fileName;
+        } else {
+            return "Camp not found.";
+        }
+    }
+
+    private void WriteToFile(String fileName, String content) {
+        try (FileWriter writer = new FileWriter(fileName)) {
+            writer.write(content);
+            System.out.println("Report generated successfully: " + fileName);
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
     }
 
 

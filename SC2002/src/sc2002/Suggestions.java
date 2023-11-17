@@ -15,14 +15,14 @@ public class Suggestions {
     
     // Getter and setter methods for the attributes
     
-    public String getSuggestion(){
+    public String GetSuggestion(){
         return suggestion;
     }
-    public void setSuggestion(String suggestion) {
+    public void SetSuggestion(String suggestion) {
         this.suggestion = suggestion;
     }
 
-    public boolean isStatus(){
+    public boolean IsStatus(){
         return status;
     }
 

@@ -1,4 +1,3 @@
-
 package sc2002;
 
 import java.util.ArrayList;
@@ -6,9 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CCMView{
-    
-
     public CCMView() {
+        super();
     }
 
     public void DisplayAllSuggestions(int campID, CCM ccm){
@@ -16,16 +14,16 @@ public class CCMView{
         System.out.println("Suggestions by Camp Committee Member " + ccm.GetPoints() + ":");
         for (Suggestions suggestion : ccm.getMySuggestions()) {
             System.out.println("Suggestion: " + suggestion.GetSuggestion());
-            System.out.println("Suggested by: " + ccm.getName());
+            System.out.println("Suggested by: " + ccm.GetName());
             System.out.println("Status: " + (suggestion.IsStatus() ? "Completed" : "Pending"));
             System.out.println();
         }
     }
 
     public void DisplayAllEnquiries(Camp camp, User user) {
-    // Check if the user is a staff or CCM
+        // Check if the user is a staff or CCM
         if (user instanceof Staff || user instanceof CCM) {
-            HashMap<Student, ArrayList<Enquiries>> enquiriesMap = camp.GetCampEnquiries();
+            HashMap<Student, ArrayList<Enquiries>> enquiriesMap = camp.getEnquiries();
             if (enquiriesMap.isEmpty()) {
                 System.out.println("No enquiries found for this camp.");
             } else {

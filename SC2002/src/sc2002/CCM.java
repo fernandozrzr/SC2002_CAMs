@@ -6,9 +6,8 @@ import java.util.Scanner;
 public class CCM extends Student{
     
     private int myPoints = 0;
-    private int suggestionId;
     ArrayList<Suggestions> mySuggestions;
-    Scanner sc= new Scanner(System.in);
+    Scanner sc = new Scanner(System.in);
     
     public CCM(int myPoints, ArrayList<Suggestions> mySuggestions){
         this.myPoints = myPoints;
@@ -54,4 +53,6 @@ public class CCM extends Student{
         System.out.println("Suggestion ID: " + suggestionID + " does not exist");
         return null;
     }
+
+    
 }
