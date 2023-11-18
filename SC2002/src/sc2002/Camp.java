@@ -136,7 +136,10 @@ public class Camp
     {
         return committeeSlots;
     }
-
+    public ArrayList<CCM> GetCommitteeList() 
+    {
+        return committeeMembers;
+    }
     public void SetCommitteeSlots(int committeeSlots) 
     {
         this.committeeSlots = committeeSlots;

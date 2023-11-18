@@ -6,8 +6,8 @@ public class Staff extends User {
 	
   private ArrayList<Camp> createdCamps;
 	
-	public Staff() {
-		super();
+	public Staff(String name, String userID, String faculty) {
+		super(name, userID, faculty);
 		createdCamps = new ArrayList<>();
 	}
 	
