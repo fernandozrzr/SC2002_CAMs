@@ -3,26 +3,30 @@ package sc2002;
 import java.util.ArrayList;
 
 public class Student extends User {
-	public static ArrayList<Enquiries> myEnquiries;
-	private ArrayList<Camp> registeredCamps;
+	protected ArrayList<Enquiries> myEnquiries;
+	protected ArrayList<Camp> registeredCamps;
 	
-	public Student() {
-		ArrayList<Enquiries> myEnquiries = new ArrayList<>();
-		ArrayList<Camp> registeredCamps = new ArrayList<>();
+	public Student(String name, String userID, String faculty){
+		super(name, userID, faculty);
 	}
 	
 	public ArrayList<Enquiries> getMyEnquiries() {
-        return myEnquiries;
-    }
+        	return myEnquiries;
+    	}
 
 	public void viewMyEnquiries() {
 		for (Enquiries enquiry : myEnquiries) {
-            System.out.println(enquiry); 
-        }
+            		System.out.println(enquiry); 
+        	}
 	}
+	
 	public void viewRegisteredCamp() {
 		for (Camp camp : registeredCamps) {
-            System.out.println(camp);
-        }
+            		System.out.println(camp);
+        	}
 	}
+	
+	public ArrayList<Camp> GetRegisteredCamps() {
+        	return registeredCamps;
+    	}
 }
