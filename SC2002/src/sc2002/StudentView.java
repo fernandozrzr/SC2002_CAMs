@@ -6,30 +6,43 @@ public class StudentView implements CampView
 {
     public StudentView()
     {
-
+    	super();
     }
 
     ///////////////////////////////////////////////////         Implmenting interface functions         ///////////////////////////////////////////////////
-    // @Override
-    // public ArrayList<Integer> DisplayAllCamps()
-    // {
-    //     // TODO Auto-generated method stub
-    //     //
-    //     return null;
-    // }
+    @Override
+    public ArrayList<Integer> DisplayAllCamps()
+    {
+        ArrayList<Camp> allCamps = CampController.GetInstance().GetCamps();
+        ArrayList<Integer> eligibleCamps = new ArrayList<Integer>();
+        
+        int x = 0;
+        
+        for(int i = 0; i < allCamps.size(); ++i)
+        {
+            if (allCamps.get(i).IsVisible() == true && allCamps.get(i).GetUserGrp() == camsApp.currentUser.getFaculty())
+            	eligibleCamps.add(allCamps.get(i).GetCampID());
+            	System.out.println("(" + (x + 1) + ") " + allCamps.get(i).GetCampName());
+            	x++;
+        }
+        
+        return eligibleCamps;
+    }
 
     @Override
     public void DisplayMyCamps(ArrayList<Camp> camp) 
     {
-        // TODO Auto-generated method stub
-        
+        for (Camp camp : myCamps) {
+            System.out.println(camp);
+        }
     }
 
     @Override
     public void DisplayAllEnquiries(Camp camp) 
     {
-        // TODO Auto-generated method stub
-        
+        for (Enquiries enquiry : myEnquiries) {
+            System.out.println(enquiry); 
+        }
     }
     
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
