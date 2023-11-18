@@ -83,8 +83,12 @@ public class StudentController
                                 System.out.println("Invalid Request");
                             break;
                         case 2:
-                            if(camsApp.currentUser instanceof CCM)
-                                CampController.GetInstance().AddCommitteeMember(campIndexes.get(index), (CCM)camsApp.currentUser);
+                            if(camsApp.currentUser instanceof Student) {
+                            	Student s = (Student)camsApp.currentUser;
+                            	CCM currentUser = new CCM(0,s.GetRegisteredCamps(), s.getMyEnquiries());;
+                            	camsApp.currentUser = currentUser;
+                            	CampController.GetInstance().AddCommitteeMember(campIndexes.get(index), (CCM)camsApp.currentUser);
+                            }
                             else
                                 System.out.println("Invalid Request");
                             break;
