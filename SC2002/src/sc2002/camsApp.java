@@ -1,7 +1,6 @@
 package sc2002;
 
 import java.util.*;
-import CAMS.CSVreader;
 
 /*
  *  
@@ -15,20 +14,23 @@ public class camsApp {
 	//public static Hashtable<String, String> passwordDict = new Hashtable<>();
 
 	public static void main(String args[]) throws Exception {
+		
 		Scanner sc = new Scanner(System.in);
 		boolean a = true;
 
-		System.out.println("_______  _______  __   __  _______ \r\n" + "|       ||   _   ||  |_|  ||       |\r\n"
-				+ "|       ||  |_|  ||       ||  _____|\r\n" + "|       ||       ||       || |_____ \r\n"
-				+ "|      _||       ||       ||_____  |\r\n" + "|     |_ |   _   || ||_|| | _____| |\r\n"
-				+ "|_______||__| |__||_|   |_||_______|\r\n" + "=================================================");
-		System.out.println("Welcome to CAMs! \n");
-
 		// main loop start
 		do {
-
+			//initialize currentUser
+			currentUser = null;
+			
 			//user select domain and input validation
 			do {
+				System.out.println("_______  _______  __   __  _______ \r\n" + "|       ||   _   ||  |_|  ||       |\r\n"
+						+ "|       ||  |_|  ||       ||  _____|\r\n" + "|       ||       ||       || |_____ \r\n"
+						+ "|      _||       ||       ||_____  |\r\n" + "|     |_ |   _   || ||_|| | _____| |\r\n"
+						+ "|_______||__| |__||_|   |_||_______|\r\n" + "=================================================");
+				System.out.println("Welcome to CAMs! \n");
+				System.out.println(currentUser);
 				System.out.println("Please select your domain: \n" 
 									+ "1. Student \n" 
 									+ "2. Staff\n"
@@ -52,7 +54,7 @@ public class camsApp {
 				String password = sc.next();
 
 				//set currentUser after verification
-				currentUser = Auth.login( userID, password, domain);
+				Auth.login(userID, password, domain);
 				
 				// user not found, loop again
 				if (currentUser == null) {
@@ -69,16 +71,18 @@ public class camsApp {
 					//switch to respective main loop
 					switch(domain) {
 					case 1: //student 
+						StudentController studentController  =new StudentController();
+						studentController.StudentMenu();
 		
 						break;
 					case 2: //staff
-						
-						StaffViewController.StaffMainLoop(currentUser);
+						StaffController staffController = new StaffController();
+						staffController.StaffMainLoop();
 						break;
 					}
 				}
 			}
-			
+			currentUser =null;
 		} while (a == true );
 
 	}

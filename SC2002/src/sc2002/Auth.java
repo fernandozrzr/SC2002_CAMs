@@ -6,6 +6,7 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Scanner;
+
 import java.util.Enumeration;
 import java.util.HashMap;
 
@@ -15,120 +16,132 @@ public class Auth {
 	static Hashtable<String, String> studentPasswordDict = new Hashtable<>();
 	static Hashtable<String, String> staffPasswordDict = new Hashtable<>();
 
-	// call file manager class to fill up the dictionary
-	/*
-	 * public Auth(String userID, String password) { this.userID = userID;
-	 * this.password = password; }
-	 */
-
-	public static User login( String userID, String password, int domain) {
+	public static void login( String userID, String password, int domain) {
 		
 		System.out.println("in Auth.login");
 
-		//initialize passwordDict
-		Hashtable<String, String> passwordDict = null;
-		
 		//check if respective passwordDict is load before 
 		switch(domain) {
-		case 1: 
+		case 1: //student
 			if(studentPasswordDict.isEmpty()==true) {
 				try {
 					studentPasswordDict = getPasswordDict(domain);
-					passwordDict = studentPasswordDict;
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
+			// valid user
+			if ( studentPasswordDict.containsKey(userID)) {
+				if (studentPasswordDict.get(userID).equals(password)) {
+					System.out.print("Login succesful!");
+					try {
+						camsApp.currentUser = FileManager.createUserObject(userID, FileManager.getFilePath(domain),domain);
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					// if user still using default password
+					if(studentPasswordDict.get(userID).equals("Password")) {
+						System.out.println("Please change your password!!!");
+						ChangePassword(camsApp.currentUser);
+					}				
+				}
+				
+				// user found but wrong password
+				else {
+					System.out.println("Wrong passsword!");
+				}
+			}
+			
+			// default case
 			else {
-				passwordDict = studentPasswordDict;
+				System.out.println("user not found!");
 			}
 			break;
-		case 2:
+			
+		case 2://staff
 			if(staffPasswordDict.isEmpty()==true) {
 				try {
 					staffPasswordDict = getPasswordDict(domain);
-					passwordDict =  staffPasswordDict;
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
-			else {
-				passwordDict = staffPasswordDict;
+			//passwordDict =  staffPasswordDict;
+			// valid user
+			if ( staffPasswordDict.containsKey(userID)) {
+				if (staffPasswordDict.get(userID).equals(password)) {
+					System.out.print("Login succesful!");
+					try {
+						camsApp.currentUser = FileManager.createUserObject(userID, FileManager.getFilePath(domain),domain);
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					// if user still using default password
+					if(staffPasswordDict.get(userID).equals("Password")) {
+						System.out.println("Please change your password!!!");
+						ChangePassword(camsApp.currentUser);
+					}	
+				}
+				
+				// user found but wrong password
+				else {
+					System.out.println("Wrong passsword!");
+				}
 			}
 			
+			// default case
+			else {
+				System.out.println("user not found!");
+			}
 			break;
 		}
 		
-		System.out.println(passwordDict);
-		// initialize currentUser to default
-		User currentUser = null;
-
-		// valid user
-		// System.out.println(passwordDict.containsKey(userID));
-		if ( passwordDict.containsKey(userID)) {
-
-			System.out.println("This user!");
-			// System.out.println( passwordDict.get(userID));
-
-			if (passwordDict.get(userID).equals(password)) {
-
-				System.out.print("Login succesful!");
-				try {
-					currentUser = FileManager.createUserObject(userID, FileManager.getFilePath(domain),domain);
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			// user found but wrong password
-			else {
-				System.out.println("Wrong passsword lol!");
-			}
-		}
-		// default case
-		else {
-			System.out.println("user not found!");
-		}
-		//passwordDict.clear();
-		// System.out.println("exit auth.login()...");
-		return currentUser;
+		System.out.println(studentPasswordDict);
+		System.out.println(staffPasswordDict);
 	}
-
+	
+	
 	public static void ChangePassword(User currentUser) {
-		
-		//get user input 
+		 
 		Scanner sc= new Scanner(System.in);
+		String user;
+		
+		//display currentUser details
 		System.out.println("Change Password");
 		System.out.println("UserID: "+currentUser.getUserID());
+		
+		//get user new password
 		System.out.println("Enter new Password:\n");
 		String newpass =sc.next();
 		
-		
+		//check the user domain 
 		String type = currentUser.getClass().toString();
 		type=type.substring(type.lastIndexOf("S"));
-		System.out.println(type);
+		
+		//update respective passworDict
 		switch(type) {
 		case "Student":
-			System.out.println("Changing password for Student...");
-			String user = currentUser.getUserID();
-			studentPasswordDict.replace(user,newpass);
+			System.out.println("Change password for Student...");
+			user = currentUser.getUserID();
+			studentPasswordDict.put(user,newpass);
 			System.out.println(studentPasswordDict);
 			System.out.println("done");
 			break;
 			
 		case "Staff" :
-			System.out.println("Changing password for Staff...");
+			System.out.println("Change password for Staff...");
 			user =currentUser.getUserID();
 			staffPasswordDict.put(user, newpass);
 			System.out.println(staffPasswordDict);
 			System.out.println("done");
 			break;
 		}
-		System.out.println("exit change passoword");
-		
-		
+		System.out.println("Password changed successfully...");	
 	}
 	
 	public static Hashtable<String,String> getPasswordDict(int domain) throws Exception {

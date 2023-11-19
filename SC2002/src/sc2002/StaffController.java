@@ -6,6 +6,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import java.util.HashMap;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime; 
+
 
 public class StaffController {
 	
@@ -23,6 +28,129 @@ public class StaffController {
 		this.campManager = CampController.GetInstance();
 		this.staffViewManager = new StaffView();
     }
+		
+	public void StaffMainLoop() {
+			
+			int choice=-1;
+			//staff main loop 
+			do {
+				do {
+					//print the menu
+					staffViewManager.menu();
+					Scanner sc = new Scanner(System.in);
+					try {
+						choice = sc.nextInt();
+					}
+					catch(InputMismatchException e){
+						}
+				}while(choice<1 || choice >13);
+				
+				switch(choice) {
+				case 1: //create/edit/view all camp 
+					Staffmenu1();
+					break;
+				case 12:
+					Auth.ChangePassword(camsApp.currentUser);
+					break;
+				case 13: //logout
+					System.out.println("Exiting StaffMainLoop...");
+					break;
+				}
+				
+			}while(choice !=13);
+			
+		}
+	
+	
+	public void Staffmenu1() {
+		
+		boolean loop= true;
+		boolean exit =false;
+		String sel = null;
+		
+		do {
+			System.out.println("Please enter your choice: \n"
+					+ "\"view\" to view all camp\n"
+					+ "\"create\" to create new camp\n"
+					+ "\"edit\" to edit a camp\n"
+					+ "\"exit\" to exit this page\n");
+			do {
+				Scanner sc= new Scanner(System.in);
+				try {
+					sel = sc.next();
+					sel = sel.toLowerCase();
+					loop= false;
+				}catch(InputMismatchException e) {
+					System.out.println("Please correct selection!");
+				}				
+			}while(loop == true);
+			
+			switch(sel) {
+			case "view":
+				System.out.println("View All Camp");
+				ViewAllCamp();
+				break;
+			case "create":
+				System.out.println("Create a Camp");
+				break;
+			case "edit":
+				System.out.println("Edit a Camp");
+				break;
+			case "exit":
+				System.out.println("Exiting Staff camp menu 1...");
+				exit = true;
+				break;
+			default:
+				System.out.println("Please enter correct selection!");
+				break;
+			}
+		}while(exit = false);	
+	}
+	
+	public void CreateCampMgr() {
+		
+		boolean Visibility= true;
+		
+		Scanner sc = new Scanner(System.in);
+		System.out.println("camp name: ");
+		String campName = sc.next();
+		System.out.println("camp close date: ");
+		String closeDate = sc.next();
+		System.out.println("camp user group: ");
+		String userGrp = sc.next();
+		System.out.println("camp location: ");
+		String location = sc.next();
+		System.out.println("camp description: ");
+		String description = sc.next();
+		System.out.println("camp staff in charge: ");
+		String staffIC = sc.next();
+		System.out.println("no. of camp member slots: ");
+		int totalSlots = sc.nextInt();
+		System.out.println("no. of camp committee member slots: ");
+		int CommittessSlots = sc.nextInt();
+		String visibility = null;
+		do {
+			System.out.println("camp visibility: (T\\F)");
+			visibility = sc.next().toLowerCase();
+			
+			switch(visibility) {
+			case "t":
+				Visibility = true;
+				break;
+			case "f":
+				Visibility = false;
+				break;
+			default: 
+				visibility = null;
+				break;
+			}
+			
+		}while(visibility==null);
+		
+		String date = LocalDateTime.now().toString();
+		CreateCamp(campName, date, closeDate, userGrp, location, description, staffIC, totalSlots, CommittessSlots, Visibility);
+	
+	}
 	
 	public void ViewAllCamp()
     {

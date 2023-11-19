@@ -15,12 +15,15 @@ public class FileManager {
 	private static String faculty;
 	private static String password;
 	private static User currentUser;
-	private static String[] filePathList = new String[] {"src\\FilePath\\student_list.txt","src\\FilePath\\staff_list.txt"};
+	private static String[] filePathList = new String[] {"SC2002_CAMs\\SC2002\\src\\student_list.txt","SC2002_CAMs\\SC2002\\src\\staff_list.txt"};
 
-	static Hashtable<String, String> passwordDict = new Hashtable<>();
+	
 
 	
 	public static Hashtable readFile(String filePath) throws FileNotFoundException {
+		Hashtable<String, String> passwordDict = new Hashtable<>();
+		
+		passwordDict.clear();
 		System.out.println("in fm.readFile");
 		Scanner input = new Scanner(new File(filePath)); // read txt file
 		input.nextLine(); // to skip the first row ( title )

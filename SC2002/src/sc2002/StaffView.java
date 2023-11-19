@@ -4,11 +4,36 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+//import CAMS.User;
+
 public class StaffView implements  CampView{
+	
 	public StaffView() {
 		super();
+		
+	}
+	
+	public void menu() {
+		System.out.println("Welcome staff "+ camsApp.currentUser.getName());
+		System.out.println("Please enter your choice: \n"
+				+ "camp\n"
+				+ "1. create/edit/view all camp \n"
+				+ "4. Delete camp\n"
+				+ "5. Toggle visibility\n\n"
+				+ "suggestion\n"
+				+ "6. View suggestion\n"
+				+ "7. Approve sggestion\n\n"
+				+ "enquiries\n"
+				+ "8. View Enquiries\n"
+				+ "9. Reply Enquiries\n\n"
+				+ "other\n"
+				+ "10. Generate list\n"
+				+ "11. Generate report\n"
+				+ "12. Change Password\n"
+				+ "13. Log Out\n");
 	}
 
+	
 
 	public void DisplayAllEnquiries(HashMap<Student, ArrayList<Enquiries>> map) {
 		for (Map.Entry<Student, ArrayList<Enquiries>> entry : map.entrySet()) {
@@ -38,6 +63,7 @@ public class StaffView implements  CampView{
 	        }
 	    }
 	}
+
 
 
 

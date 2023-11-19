@@ -9,7 +9,7 @@ public class StudentController
 
     private StudentView view = null;
 
-    private StudentController()
+     StudentController()
     {
         view = new StudentView();
     }

@@ -14,7 +14,7 @@ public class CCMView{
         System.out.println("Suggestions by Camp Committee Member " + ccm.GetPoints() + ":");
         for (Suggestions suggestion : ccm.getMySuggestions()) {
             System.out.println("Suggestion: " + suggestion.GetSuggestion());
-            System.out.println("Suggested by: " + ccm.GetName());
+            System.out.println("Suggested by: " + ccm.getName());
             System.out.println("Status: " + (suggestion.IsStatus() ? "Completed" : "Pending"));
             System.out.println();
         }

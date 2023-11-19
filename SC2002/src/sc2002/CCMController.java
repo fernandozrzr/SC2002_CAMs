@@ -86,12 +86,12 @@ public class CCMController {
             report.append("\nParticipants List:\n");
             for (Student attendee : attendees) {
                 if (roleFilter.equals("attendee")) {
-                    report.append("Attendee: ").append(attendee.GetName()).append("\n");
+                    report.append("Attendee: ").append(attendee.getName()).append("\n");
                 }
             }
             for (CCM ccm : committeeMembers) {
                 if (roleFilter.equals("ccm")) {
-                    report.append("CCM: ").append(ccm.GetName()).append("\n");
+                    report.append("CCM: ").append(ccm.getName()).append("\n");
                 }
             }
             if (roleFilter.equals("staff")) {
