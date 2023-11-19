@@ -31,13 +31,14 @@ public class StaffController {
 		
 	public void StaffMainLoop() {
 			
+		Scanner sc = new Scanner(System.in);
+		
 			int choice=-1;
 			//staff main loop 
 			do {
 				do {
 					//print the menu
 					staffViewManager.menu();
-					Scanner sc = new Scanner(System.in);
 					try {
 						choice = sc.nextInt();
 					}
@@ -49,15 +50,39 @@ public class StaffController {
 				case 1: //create/edit/view all camp 
 					Staffmenu1();
 					break;
-				case 12:
+				case 2: //delete camp
+					//display all camp 
+					ViewAllCamp();
+					//get input 
+					System.out.println("please select a camp to delete： ");
+					int sel = sc.nextInt();
+					//call function
+					DeleteCamp(sel);
+					break;
+				case 3: //toggle visibility 
+					break;
+				case 4: //view suggestion
+					break;
+				case 5: //approve suggestion 
+					break;
+				case 6: // view enquires 
+					
+					break;
+				case 7: // reply enquires
+					break;
+				case 8: //generate list
+					break;
+				case 9: //generate report
+					break;
+				case 10:
 					Auth.ChangePassword(camsApp.currentUser);
 					break;
-				case 13: //logout
+				case 11: //logout
 					System.out.println("Exiting StaffMainLoop...");
 					break;
 				}
 				
-			}while(choice !=13);
+			}while(choice !=11);
 			
 		}
 	
@@ -65,7 +90,7 @@ public class StaffController {
 	public void Staffmenu1() {
 		
 		boolean loop= true;
-		boolean exit =false;
+		boolean exit =true;
 		String sel = null;
 		
 		do {
@@ -92,6 +117,7 @@ public class StaffController {
 				break;
 			case "create":
 				System.out.println("Create a Camp");
+				CreateCampMgr();
 				break;
 			case "edit":
 				System.out.println("Edit a Camp");
@@ -110,25 +136,43 @@ public class StaffController {
 	public void CreateCampMgr() {
 		
 		boolean Visibility= true;
+		//String visibility = null;
 		
 		Scanner sc = new Scanner(System.in);
+		
+		//input validation????
+		
 		System.out.println("camp name: ");
 		String campName = sc.next();
+		
+		//change to date datatype?
 		System.out.println("camp close date: ");
 		String closeDate = sc.next();
+		
+		//check if this group exitst ? set to enum ?
 		System.out.println("camp user group: ");
 		String userGrp = sc.next();
 		System.out.println("camp location: ");
 		String location = sc.next();
 		System.out.println("camp description: ");
 		String description = sc.next();
+		
+		//check if the staff exists???
 		System.out.println("camp staff in charge: ");
 		String staffIC = sc.next();
+		
 		System.out.println("no. of camp member slots: ");
 		int totalSlots = sc.nextInt();
 		System.out.println("no. of camp committee member slots: ");
 		int CommittessSlots = sc.nextInt();
-		String visibility = null;
+		try {
+			System.out.println("camp visibility: (true\\false)");
+			Visibility = sc.nextBoolean();
+		}catch(InputMismatchException e) {
+			
+		}
+		
+		/*
 		do {
 			System.out.println("camp visibility: (T\\F)");
 			visibility = sc.next().toLowerCase();
@@ -146,7 +190,7 @@ public class StaffController {
 			}
 			
 		}while(visibility==null);
-		
+		*/
 		String date = LocalDateTime.now().toString();
 		CreateCamp(campName, date, closeDate, userGrp, location, description, staffIC, totalSlots, CommittessSlots, Visibility);
 	
