@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import java.util.HashMap;
 import java.util.InputMismatchException;
+import java.util.Map.Entry;
 import java.util.Scanner;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime; 
@@ -44,6 +45,7 @@ public class StaffController {
 					}
 					catch(InputMismatchException e){
 						}
+					sc.close();
 				}while(choice<1 || choice >13);
 				
 				switch(choice) {
@@ -107,7 +109,8 @@ public class StaffController {
 					loop= false;
 				}catch(InputMismatchException e) {
 					System.out.println("Please correct selection!");
-				}				
+				}
+				sc.close();
 			}while(loop == true);
 			
 			switch(sel) {
@@ -131,6 +134,7 @@ public class StaffController {
 				break;
 			}
 		}while(exit = false);	
+		
 	}
 	
 	public void CreateCampMgr() {
@@ -193,7 +197,7 @@ public class StaffController {
 		*/
 		String date = LocalDateTime.now().toString();
 		CreateCamp(campName, date, closeDate, userGrp, location, description, staffIC, totalSlots, CommittessSlots, Visibility);
-	
+		sc.close();
 	}
 	
 	public void ViewAllCamp()
@@ -207,8 +211,105 @@ public class StaffController {
 		return newcamp;
     }
 	public void EditCamp(int campID)
-    {
-		//not done
+    {	
+		Camp editcamp = null;
+		ArrayList<Camp> camps = campManager.GetCamps();
+    	for (Camp camp : camps) {
+    		if (camp.GetCampID() == campID) { // Assuming CampID is a field in the Camp class
+    			editcamp = camp;
+    			break;
+    		}
+    	}
+    	if(editcamp!= null) {
+    	
+			Scanner scanner = new Scanner(System.in);
+			System.out.println("\nMenu:");
+	        System.out.println("1. Set Camp Name");
+	        System.out.println("2. Set Date");
+	        System.out.println("3. Set Register Close Date");
+	        System.out.println("4. Set User Group");
+	        System.out.println("5. Set Location");
+	        System.out.println("6. Set Description");
+	        System.out.println("7. Set Staff in Charge");
+	        System.out.println("8. Set Total Slots");
+	        System.out.println("9. Set Committee Slots");
+	        System.out.println("10. Toggle Visibility");
+	        System.out.println("11. Exit");
+	        System.out.print("Enter your choice: ");
+	        int choice = scanner.nextInt();
+	        
+	        switch (choice) {
+	            case 1:
+	                System.out.print("Enter Camp Name: ");
+	                scanner.nextLine(); // Consume the newline character
+	                String campName = scanner.nextLine();
+	                editcamp.SetCampName(campName);
+	                break;
+	            case 2:
+	                System.out.print("Enter Date: ");
+	                scanner.nextLine(); // Consume the newline character
+	                String date = scanner.nextLine();
+	                editcamp.SetDate(date);
+	                break;
+	            case 3:
+	                System.out.print("Enter Register Close Date: ");
+	                scanner.nextLine(); // Consume the newline character
+	                String registerCloseDate = scanner.nextLine();
+	                editcamp.SetRegisterCloseDate(registerCloseDate);
+	                break;
+	            case 4:
+	                System.out.print("Enter User Group: ");
+	                scanner.nextLine(); // Consume the newline character
+	                String userGroup = scanner.nextLine();
+	                editcamp.SetUserGrp(userGroup);
+	                break;
+	            case 5:
+	                System.out.print("Enter Location: ");
+	                scanner.nextLine(); // Consume the newline character
+	                String location = scanner.nextLine();
+	                editcamp.SetLocation(location);
+	                break;
+	            case 6:
+	                System.out.print("Enter Description: ");
+	                scanner.nextLine(); // Consume the newline character
+	                String description = scanner.nextLine();
+	                editcamp.SetDescription(description);
+	                break;
+	            case 7:
+	                System.out.print("Enter Staff in Charge: ");
+	                scanner.nextLine(); // Consume the newline character
+	                String staffInCharge = scanner.nextLine();
+	                editcamp.SetStaffInCharge(staffInCharge);
+	                break;
+	            case 8:
+	                System.out.print("Enter Total Slots: ");
+	                int totalSlots = scanner.nextInt();
+	                editcamp.SetTotalSlots(totalSlots);
+	                break;
+	            case 9:
+	                System.out.print("Enter Committee Slots: ");
+	                int committeeSlots = scanner.nextInt();
+	                editcamp.SetCommitteeSlots(committeeSlots);
+	                break;
+	            case 10:
+	            	System.out.print("Set Visibility: true or false?");
+	                boolean newVisibility = scanner.nextBoolean();
+	                editcamp.SetVisibility(newVisibility);
+	                System.out.println("Visibility toggled to: " + newVisibility);
+	                break;
+	            case 11:
+	                System.out.println("Exiting menu.");
+	                scanner.close();
+	                return;
+	            default:
+	                System.out.println("Invalid choice. Please enter a number from 1 to 11.");
+	                break;
+	        }
+	        scanner.close();}
+    	else {
+    		System.out.println("CampId does not exist");
+    	}
+        
     }
 	public void DeleteCamp(int campID)
     {
@@ -266,9 +367,38 @@ public class StaffController {
     	}
 		
     }
-	public void ApproveSuggestions(int index)
+	public void ApproveSuggestions(int CampID, int SuggestionID ,Boolean status)
     {
-		//not done
+		ArrayList<Camp> camps = campManager.GetCamps();
+    	boolean campExists= false;
+    	Camp selectedCamp = null;
+    	for (Camp camp : camps) {
+    		if (camp.GetCampID() == CampID) { // Assuming CampID is a field in the Camp class
+    			selectedCamp = camp;
+    			campExists = true;
+    			break;
+    		}
+    	}	
+    	if(campExists) {
+    		HashMap<CCM, ArrayList<Suggestions>> map = selectedCamp.getSuggestion();
+    		for (Entry<CCM, ArrayList<Suggestions>> entry : map.entrySet()) {
+    		    ArrayList<Suggestions> suggestions = entry.getValue();
+    		    for (Suggestions sgst : suggestions) {
+    		        if (sgst.GetID()==(SuggestionID)) {
+    		            // Access the reply variable
+    		        	sgst.setStatus(status);
+    		            // Do something with the reply variable
+    		        	if(status)
+    		        		System.out.println("Suggestion approved!");
+    		        	else
+    		        		System.out.println("Suggestion unapproved!");
+    		            return;
+    		        }
+    		    }
+    		}}
+    	else {
+    		System.out.println("CampID or Suggestion does not exist.");
+    	}
     }
 	public void ViewEnquiries(int CampID)
     {	ArrayList<Camp> camps = campManager.GetCamps();
@@ -320,7 +450,7 @@ public class StaffController {
     		    }
     		}}
     	else {
-    		System.out.println("CampID or EnquiryID does not exist.");
+    		System.out.println("CampID or Enquiry does not exist.");
     	}
     }
 	public void GenerateList(int CampID, String participantType) {
@@ -342,7 +472,7 @@ public class StaffController {
 	        // Get participants based on the specified participantType
 	        if (participantType.equalsIgnoreCase("Student")||participantType.equalsIgnoreCase("All")) {
 	        	ArrayList<Student> filterlist = selectedCamp.GetAttendees();
-	        	try (BufferedWriter writer = new BufferedWriter(new FileWriter("Participant_List.csv"))) {
+	        	try (BufferedWriter writer = new BufferedWriter(new FileWriter("Student_List.csv"))) {
 		            // Write header for CSV file
 		            writer.write("CampID, CampName, ParticipantName, Role");
 		            writer.newLine();
@@ -366,7 +496,7 @@ public class StaffController {
 	        }  
 	        if (participantType.equalsIgnoreCase("CCM")||participantType.equalsIgnoreCase("All")) {
 	        	ArrayList<CCM> flterlist = selectedCamp.GetCommitteeList();
-	        	try (BufferedWriter writer = new BufferedWriter(new FileWriter("Participant_List.csv"))) {
+	        	try (BufferedWriter writer = new BufferedWriter(new FileWriter("CCM_List.csv"))) {
 	            // Write header for CSV file
 	        		writer.write("CampID, CampName, ParticipantName, Role");
 	        		writer.newLine();

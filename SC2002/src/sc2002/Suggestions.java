@@ -25,9 +25,13 @@ public class Suggestions {
     public boolean IsStatus(){
         return status;
     }
-
+    
     public int GetID()
     {
         return id;
+    }
+    public void setStatus(boolean status){
+        this.status = status;
+        return;
     }
 }
