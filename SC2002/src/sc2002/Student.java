@@ -10,23 +10,19 @@ public class Student extends User {
 		super(name, userID, faculty);
 	}
 	
-	public ArrayList<Enquiries> getMyEnquiries() {
-        	return myEnquiries;
-    	}
+	public ArrayList<Enquiries> GetMyEnquiries() {
+		return myEnquiries;
+    }
 
-	public void viewMyEnquiries() {
-		for (Enquiries enquiry : myEnquiries) {
-            		System.out.println(enquiry); 
-        	}
-	}
-	
-	public void viewRegisteredCamp() {
-		for (Camp camp : registeredCamps) {
-            		System.out.println(camp);
-        	}
+	public void AddMyEnquiries(Enquiries enquiry){
+		myEnquiries.add(enquiry);
 	}
 	
 	public ArrayList<Camp> GetRegisteredCamps() {
         	return registeredCamps;
     	}
+
+	public void AddRegisteredCamps(Camp camp){
+		registeredCamps.add(camp);
+	}
 }
