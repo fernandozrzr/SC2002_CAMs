@@ -32,16 +32,18 @@ public class StudentView implements CampView
     @Override
     public void DisplayMyCamps(ArrayList<Camp> camp) 
     {
-        for (Camp camp : myCamps) {
-            System.out.println(camp);
+    	for (Camp campTemp : camp) {
+    		if (campTemp.GetCampID() == ((Student)camsApp.currentUser).ccmID)
+    			System.out.println("Registered for Camp " + campTemp.GetCampName() + " as camp committee member.");
+    		else
+    			System.out.println("Registered for Camp " + campTemp.GetCampName() + " as attendee.");
         }
     }
 
-    @Override
-    public void DisplayAllEnquiries(Camp camp) 
+    public void DisplayMyEnquiries(ArrayList<Enquiries> enquiry) 
     {
-        for (Enquiries enquiry : myEnquiries) {
-            System.out.println(enquiry); 
+        for (Enquiries enquiryTemp : enquiry) {
+            System.out.println(enquiryTemp); 
         }
     }
     
