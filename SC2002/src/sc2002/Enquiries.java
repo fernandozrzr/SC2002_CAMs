@@ -6,15 +6,15 @@ public class Enquiries {
     private String enquiry;
     private String reply;
     private String replyBy;
-    private String askBy;
-    private String status;
+    private Student askBy;
+    private int status;
 
-    public Enquiries(int enquiryId, String enquiry, String reply, String replyBy, String askBy, String status) {
+    public Enquiries(int enquiryId, String enquiry, String reply, String replyBy, Student currentUser, int status) {
         this.enquiryId = enquiryId;
 		this.enquiry = enquiry;
         this.reply = reply;
         this.replyBy = replyBy;
-        this.askBy = askBy;
+        this.askBy = currentUser;
         this.status = status;
     }
 
@@ -53,20 +53,20 @@ public class Enquiries {
 	}
 
 	// Get and Set enquirer details
-	public String GetAskBy() {
+	public Student GetAskBy() {
 		return askBy;
 	}
 
-	public void SetAskBy(String askBy) {
+	public void SetAskBy(Student askBy) {
 		this.askBy = askBy;
 	}
 
-	// Get and Set enquiry status
-	public String GetStatus() {
+	// Get and Set enquiry status (0 - not replied, 1 - replied)
+	public int GetStatus() {
 		return status;
 	}
 
-	public void SetStatus(String status) {
+	public void SetStatus(int status) {
 		this.status = status;
 	}
 }
