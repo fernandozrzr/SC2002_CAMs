@@ -45,7 +45,7 @@ public class StudentView implements CampView
     {
         for(int i = 0; i < enquries.size(); ++i)
         {
-            
+            if(enquries.get(i).)
         }
         for (Enquiries enquiryTemp : enquiry) 
         {

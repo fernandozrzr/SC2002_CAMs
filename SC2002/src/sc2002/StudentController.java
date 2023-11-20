@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import javax.sound.midi.Soundbank;
+
 public class StudentController 
 {
     private static StudentController instance = null;
@@ -268,7 +270,7 @@ public class StudentController
 
     private void CampMenu()
     {
-        String[] choices = {"view all", "view registered",  "view details", "register", "exit"};
+        String[] choices = {"view all", "view registered",  "view details", "register", "withdraw", "exit"};
         String choice = "";
         boolean exit = false;
 
@@ -283,7 +285,8 @@ public class StudentController
                 System.out.println("\"" + choices[1] + "\" to view registered camps");
                 System.out.println("\"" + choices[2] + "\" to view a camp's details");
                 System.out.println("\"" + choices[3] + "\" to register for a camp");
-                System.out.println("\"" + choices[4] + "\" to exit this page");
+                System.out.println("\"" + choices[4] + "\" to withdraw from a camp");
+                System.out.println("\"" + choices[5] + "\" to exit this page");
                 System.out.print("Please enter your choice as stated above: ");
 
                 try
@@ -409,6 +412,41 @@ public class StudentController
                     break;
                 }
 
+                case "withdraw":
+                {
+                    int campIndex = -1;
+                	System.out.print("Enter the ID of the camp to register: ");
+
+                    try
+                    {
+                        campIndex = sc.nextInt();
+                    }
+                    catch (InputMismatchException e) 
+                    {
+                        System.out.println("Invalid Option!");
+                    }
+
+                    //Invalid Choice so exit out of case
+                    if(campIndex < 0 || campIndex > eligibleCamps.size())
+                    {
+                        System.out.println("You have entered an invalid choice. \n");
+                        break;
+                    }
+                    
+                    if(camsApp.currentUser instanceof Student)
+                    {
+                        Student s = (Student)camsApp.currentUser;
+                        CampController.GetInstance().RemoveAttendee(eligibleCamps.get(campIndex).GetCampID(), s);
+                        s.RemoveRegisteredCamps(eligibleCamps.get(campIndex));
+                    }
+                    else if(camsApp.currentUser instanceof CCM)
+                    {
+                        System.out.println("You have entered an invalid choice, User is not a Student \n");
+                    }
+
+                    break;
+                }
+
                 case "exit":
                 {
                     exit = true;
@@ -492,10 +530,13 @@ public class StudentController
 
     private void ProfileMenu()
     {
-        
+        System.out.println("Name: " + camsApp.currentUser.getName());
+        System.out.println("ID: " + camsApp.currentUser.getUserID());
+        System.out.println("Faculty: " + camsApp.currentUser.getFaculty());
+        System.out.println("You are not registered as a Committee Member in any camp");
     }
 
-    private boolean IsValidChoice(String userChoice, String[] choices)
+    protected boolean IsValidChoice(String userChoice, String[] choices)
     {
         for(String choice : choices)
         {
