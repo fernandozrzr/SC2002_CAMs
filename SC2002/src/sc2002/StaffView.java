@@ -8,9 +8,15 @@ import java.util.Map;
 
 public class StaffView implements  CampView{
 	
+	private static StaffView instance = null;
 	public StaffView() {
 		super();
-		
+	}
+	public static StaffView GetInstance() {
+		if(instance == null)
+            instance =  new StaffView();
+
+        return instance;
 	}
 	
 	public void menu() {
@@ -47,7 +53,7 @@ public class StaffView implements  CampView{
 
 	public void DisplayMyCamps(ArrayList<Camp> camp) {
 		for (Camp campname : camp) {
-			 System.out.println(campname.GetCampName());
+			 System.out.println("CampID: "+ campname.GetCampID() + " Camp Name: " + campname.GetCampName());
 		}
 	}
 	public void DisplayAllSuggestions(HashMap<CCM, ArrayList<Suggestions>> map) {
@@ -61,6 +67,8 @@ public class StaffView implements  CampView{
 	        }
 	    }
 	}
+
+	
 
 
 

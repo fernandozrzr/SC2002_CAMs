@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
 
 public class StaffController {
 	
-	private CampController campManager;
-	private StaffView staffViewManager;
+	private CampController campManager = null;
+	private StaffView staffViewManager = null;
 	private static StaffController instance = null;
 	 
 	public static StaffController GetInstance() {
@@ -27,7 +27,7 @@ public class StaffController {
 	
 	public StaffController() {
 		this.campManager = CampController.GetInstance();
-		this.staffViewManager = new StaffView();
+		this.staffViewManager = StaffView.GetInstance();
     }
 		
 	public void StaffMainLoop() {
