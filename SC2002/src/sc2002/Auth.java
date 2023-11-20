@@ -18,7 +18,7 @@ public class Auth {
 
 	public static void login( String userID, String password, int domain) {
 		
-		System.out.println("in Auth.login");
+		//System.out.println("in Auth.login");
 
 		//check if respective passwordDict is load before 
 		switch(domain) {
@@ -34,7 +34,7 @@ public class Auth {
 			// valid user
 			if ( studentPasswordDict.containsKey(userID)) {
 				if (studentPasswordDict.get(userID).equals(password)) {
-					System.out.print("Login succesful!");
+					System.out.println("Login succesful!");
 					try {
 						camsApp.currentUser = FileManager.createUserObject(userID, FileManager.getFilePath(domain),domain);
 					} catch (FileNotFoundException e) {
@@ -44,7 +44,7 @@ public class Auth {
 					
 					// if user still using default password
 					if(studentPasswordDict.get(userID).equals("Password")) {
-						System.out.println("Please change your password!!!");
+						System.out.println("\nPlease change your password!!!");
 						ChangePassword(camsApp.currentUser);
 					}				
 				}
@@ -83,7 +83,7 @@ public class Auth {
 					}
 					// if user still using default password
 					if(staffPasswordDict.get(userID).equals("Password")) {
-						System.out.println("Please change your password!!!");
+						System.out.println("\nPlease change your password!!!");
 						ChangePassword(camsApp.currentUser);
 					}	
 				}
@@ -101,8 +101,8 @@ public class Auth {
 			break;
 		}
 		
-		System.out.println(studentPasswordDict);
-		System.out.println(staffPasswordDict);
+		//System.out.println(studentPasswordDict);
+		//System.out.println(staffPasswordDict);
 	}
 	
 	
@@ -119,6 +119,9 @@ public class Auth {
 		System.out.println("Enter new Password:\n");
 		String newpass =sc.next();
 		
+		//check password security
+		String strength = passwordStrength(newpass);
+		
 		//check the user domain 
 		String type = currentUser.getClass().toString();
 		type=type.substring(type.lastIndexOf("S"));
@@ -129,23 +132,61 @@ public class Auth {
 			System.out.println("Change password for Student...");
 			user = currentUser.getUserID();
 			studentPasswordDict.put(user,newpass);
-			System.out.println(studentPasswordDict);
-			System.out.println("done");
+			//System.out.println(studentPasswordDict);
 			break;
 			
 		case "Staff" :
 			System.out.println("Change password for Staff...");
 			user =currentUser.getUserID();
 			staffPasswordDict.put(user, newpass);
-			System.out.println(staffPasswordDict);
-			System.out.println("done");
+			//System.out.println(staffPasswordDict);
 			break;
 		}
 		System.out.println("Password changed successfully...");	
+		System.out.println("new Password strength: " + strength);
 	}
 	
 	public static Hashtable<String,String> getPasswordDict(int domain) throws Exception {
 		return FileManager.readFile(FileManager.getFilePath(domain));
+	}
+	
+	public static String passwordStrength(String newpass){
+		
+		   boolean LowerChar= false;
+		   boolean UpperChar = false;
+		   boolean Digit = false;
+		   boolean SpecialChar = false;
+		   boolean MinLength = false;
+		   
+		   String special_chars = "!(){}[]:;<>?,@#$%^&*+=_-~`|./'";
+		   String strength;
+		   char[] ch= newpass.toCharArray();
+		   
+		   for(int i=0; i<newpass.length(); i++){
+			   if(Character.isLowerCase(ch[i])){
+			       LowerChar = true;
+			   }
+			   if(Character.isUpperCase(ch[i])){
+			       UpperChar = true;
+			   }
+			   if(Character.isDigit(ch[i])){
+			       Digit = true;
+			   }
+			   if(special_chars.contains(String.valueOf(ch[i]))){
+			       SpecialChar = true;
+			   }
+			}
+			if (newpass.length() >= 6){
+			   MinLength = true;
+			}
+			if(MinLength && Digit && UpperChar && SpecialChar && LowerChar){
+				   strength = "Strong";
+				} else if (MinLength && ((UpperChar && LowerChar) || Digit || SpecialChar )) {
+				   strength = "Medium";
+				}else{
+				   strength = "Weak";
+				}
+			return strength;
 	}
 
 }

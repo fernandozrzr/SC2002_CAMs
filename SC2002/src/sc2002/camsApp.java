@@ -30,7 +30,7 @@ public class camsApp {
 						+ "|      _||       ||       ||_____  |\r\n" + "|     |_ |   _   || ||_|| | _____| |\r\n"
 						+ "|_______||__| |__||_|   |_||_______|\r\n" + "=================================================");
 				System.out.println("Welcome to CAMs! \n");
-				System.out.println(currentUser);
+				//System.out.println(currentUser);
 				System.out.println("Please select your domain: \n" 
 									+ "1. Student \n" 
 									+ "2. Staff\n"
@@ -58,7 +58,7 @@ public class camsApp {
 				
 				// user not found, loop again
 				if (currentUser == null) {
-					System.out.print(" user == null ");
+					//System.out.print(" user == null ");
 					a = true;
 				} 
 				
@@ -66,7 +66,7 @@ public class camsApp {
 				else {
 					
 					//check current user 
-					System.out.printf("current user: %s %s %s %s\n",currentUser.getName(),currentUser.getFaculty(), currentUser.getUserID(),currentUser.getClass());
+					//System.out.printf("current user: %s %s %s %s\n",currentUser.getName(),currentUser.getFaculty(), currentUser.getUserID(),currentUser.getClass());
 					
 					//switch to respective main loop
 					switch(domain) {

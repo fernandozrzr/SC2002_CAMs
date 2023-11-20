@@ -39,10 +39,15 @@ public class StaffController {
 			//staff main loop 
 			do {
 				choice=-1;
-				do {					
-					//print the menu
-					staffViewManager.menu();
-					choice = sc.nextInt();
+				do {			
+					try {
+						//print the menu
+						staffViewManager.menu();
+						choice = sc.nextInt();
+					}catch (InputMismatchException e) {
+						System.out.println("Invalid input");
+						sc.nextLine();
+					}
 				}while(choice<1 || choice >11);
 				
 				switch(choice) {
@@ -85,8 +90,14 @@ public class StaffController {
 					ReplyEnquiries(campID,enID,reply);
 					break;
 				case 7: //generate list
+					campID = getCampIDInput();
+					System.out.println("Please enter a user group: \n"
+							+ "Student\\CCM\\All");
+					String userGrp = sc.next();
+					GenerateList(campID,userGrp);
 					break;
 				case 8: //generate report
+					GenerateReport(getCampIDInput());
 					break;
 				case 9:
 					Auth.ChangePassword(camsApp.currentUser);
@@ -105,13 +116,11 @@ public class StaffController {
 		
 		boolean exit =false;
 		String sel = null;
-
 			System.out.println("Please enter your choice: \n"
 					+ "\"view\" to view all camp\n"
 					+ "\"create\" to create new camp\n"
 					+ "\"edit\" to edit a camp\n"
 					+ "\"exit\" to exit this page\n");
-			
 				Scanner sc= new Scanner(System.in);
 				try {
 					sel = sc.next();

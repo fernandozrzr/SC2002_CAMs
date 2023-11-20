@@ -20,7 +20,7 @@ public class FileManager {
 		Hashtable<String, String> passwordDict = new Hashtable<>();
 		
 		passwordDict.clear();
-		System.out.println("in fm.readFile");
+		//System.out.println("in fm.readFile");
 		Scanner input = new Scanner(new File(filePath)); // read txt file
 		input.nextLine(); // to skip the first row ( title )
 		while (input.hasNextLine()) {
@@ -37,7 +37,7 @@ public class FileManager {
 
 	public static User createUserObject(String userID, String filepath, int domain) throws FileNotFoundException {
 		
-		System.out.println("in fm.createUserObject");
+		//System.out.println("in fm.createUserObject");
 		Scanner input = new Scanner(new File(filepath)); // read txt file
 		input.nextLine(); // skip first line
 		while (input.hasNextLine()) {
@@ -52,11 +52,11 @@ public class FileManager {
 				switch(domain) {
 				case 1: //student
 					currentUser = new Student(element[0], userid, element[2]);
-					System.out.printf(("current user: %s %s %s\n"), element[0], userid, element[2]);
+					//System.out.printf(("current user: %s %s %s\n"), element[0], userid, element[2]);
 					break;
 				case 2: //staff
 					currentUser = new Staff(element[0], userid, element[2]);
-					System.out.printf(("current user: %s %s %s\n"), element[0], userid, element[2]);
+					//System.out.printf(("current user: %s %s %s\n"), element[0], userid, element[2]);
 					break;
 				}
 				//String name = element[0];

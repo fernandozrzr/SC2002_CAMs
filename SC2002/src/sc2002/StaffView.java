@@ -24,19 +24,18 @@ public class StaffView implements  CampView{
 		System.out.println("Please enter your choice: \n"
 				+ "camp\n"
 				+ "1. create/edit/view all camp \n"
-				+ "2. Delete camp\n"
-				+ "3. Toggle visibility\n\n"
+				+ "2. Delete camp\n\n"
 				+ "suggestion\n"
-				+ "4. View suggestion\n"
-				+ "5. Approve sggestion\n\n"
+				+ "3. View suggestion\n"
+				+ "4. Approve sggestion\n\n"
 				+ "enquiries\n"
-				+ "6. View Enquiries\n"
-				+ "7. Reply Enquiries\n\n"
+				+ "5. View Enquiries\n"
+				+ "6. Reply Enquiries\n\n"
 				+ "other\n"
-				+ "8. Generate list\n"
-				+ "9. Generate report\n"
-				+ "10. Change Password\n"
-				+ "11. Log Out\n");
+				+ "7. Generate list\n"
+				+ "8. Generate report\n"
+				+ "9. Change Password\n"
+				+ "10. Log Out\n");
 	}
 	
 	//Input Hash map of enquires to display all
