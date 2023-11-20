@@ -11,45 +11,52 @@ public class StudentView implements CampView
 
     ///////////////////////////////////////////////////         Implmenting interface functions         ///////////////////////////////////////////////////
     @Override
-    public ArrayList<Integer> DisplayAllCamps()
+    public void DisplayAllCamps()
     {
         ArrayList<Camp> allCamps = CampController.GetInstance().GetCamps();
-        ArrayList<Integer> eligibleCamps = new ArrayList<Integer>();
         
         int x = 0;
         
         for(int i = 0; i < allCamps.size(); ++i)
         {
-            if (allCamps.get(i).IsVisible() == true && allCamps.get(i).GetUserGrp() == camsApp.currentUser.getFaculty())
-            	eligibleCamps.add(allCamps.get(i).GetCampID());
+            if (allCamps.get(i).IsVisible() && allCamps.get(i).GetUserGrp() == camsApp.currentUser.getFaculty())
+            {
             	System.out.println("(" + (x + 1) + ") " + allCamps.get(i).GetCampName());
-            	x++;
+            	++x;
+            }
         }
         
-        return eligibleCamps;
     }
 
     @Override
     public void DisplayMyCamps(ArrayList<Camp> camp) 
     {
-    	for (Camp campTemp : camp) {
-    		if (campTemp.GetCampID() == ((Student)camsApp.currentUser).ccmID)
-    			System.out.println("Registered for Camp " + campTemp.GetCampName() + " as camp committee member.");
-    		else
-    			System.out.println("Registered for Camp " + campTemp.GetCampName() + " as attendee.");
+        if(camp.size() == 0)
+        {
+            System.out.println("You are not registerd in any camps");
+            return;
         }
+
+    	for (Camp campTemp : camp) 
+            System.out.println("Registered for Camp " + campTemp.GetCampName() + " as an attendee.");
     }
 
-    public void DisplayMyEnquiries(ArrayList<Enquiries> enquiry) 
+    public void DisplayMyEnquiries(ArrayList<Enquiries> enquries) 
     {
-        for (Enquiries enquiryTemp : enquiry) {
+        for(int i = 0; i < enquries.size(); ++i)
+        {
+            
+        }
+        for (Enquiries enquiryTemp : enquiry) 
+        {
+            System.out.println();
             System.out.println(enquiryTemp); 
         }
     }
     
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////         Main Loop Stuff         /////////////////////////////////////////////////////////////////////
-    public void DisplayMenu()
+    public void DisplayMainMenu()
     {
         System.out.println("/////////////////////////////////////////////////////////////////////////");
         System.out.println("//////////////////////        Student Menu        ///////////////////////");

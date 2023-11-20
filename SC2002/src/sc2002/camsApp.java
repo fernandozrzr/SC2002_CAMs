@@ -71,13 +71,11 @@ public class camsApp {
 					//switch to respective main loop
 					switch(domain) {
 					case 1: //student 
-						StudentController studentController  =new StudentController();
-						studentController.StudentMenu();
+						StudentController.GetInstance().StudentMenu();
 		
 						break;
 					case 2: //staff
-						StaffController staffController = new StaffController();
-						staffController.StaffMainLoop();
+						StaffController.GetInstance().StaffMainLoop();
 						break;
 					}
 				}

@@ -272,7 +272,7 @@ public class Camp
         if(enquiries.containsKey(student))
         {
             for(Enquiries e : enquiries.get(student))
-                if(e.getEnquiry() == enquiry) return e;
+                if(e.GetEnquiry() == enquiry) return e;
         }
 
         return null;

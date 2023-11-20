@@ -7,41 +7,50 @@ public class Student extends User {
 	protected ArrayList<Camp> registeredCamps;
 	protected int ccmID;
 	
-	public Student(String name, String userID, String faculty){
+	public Student(String name, String userID, String faculty)
+	{
 		super(name, userID, faculty);
 	}
 	
 	// For camps
-	public ArrayList<Camp> GetRegisteredCamps() {
+	public ArrayList<Camp> GetRegisteredCamps() 
+	{
         	return registeredCamps;
     	}
 
-	public void AddRegisteredCamps(Camp camp){
+	public void AddRegisteredCamps(Camp camp)
+	{
 		registeredCamps.add(camp);
 	}
 	
-	public void RemoveRegisteredCamps(Camp camp){
+	public void RemoveRegisteredCamps(Camp camp)
+	{
 		registeredCamps.remove(camp);
 	}
 	
 	// For enquiries
-	public ArrayList<Enquiries> GetMyEnquiries() {
+	public ArrayList<Enquiries> GetMyEnquiries() 
+	{
 		return myEnquiries;
     	}
 
-	public void AddMyEnquiry(Enquiries enquiry){
+	public void AddMyEnquiry(Enquiries enquiry)
+	{
 		myEnquiries.add(enquiry);
 	}
 	
-	public void RemoveMyEnquiry(Enquiries enquiry){
+	public void RemoveMyEnquiry(Enquiries enquiry)
+	{
 		myEnquiries.remove(enquiry);
 	}
 	
-	public void EditMyEnquiry(int index, String newEnquiry) {
+	public void EditMyEnquiry(int index, String newEnquiry) 
+	{
 		myEnquiries.get(index).SetEnquiry(newEnquiry);
 	}
 	
-	public Enquiries FindEnquiry(int enquiryID) {
+	public Enquiries FindEnquiry(int enquiryID) 
+	{
 		for (int i = 0; i < myEnquiries.size(); ++i) {
 			if (myEnquiries.get(i).GetEnquiryId() == enquiryID) 
 				return myEnquiries.get(i);
@@ -49,6 +58,11 @@ public class Student extends User {
 		
 		System.out.println("Enquiry not found.");
 		return null;
+	}
+
+	public int GetccmID()
+	{
+		return ccmID;
 	}
 	
 }

@@ -100,8 +100,8 @@ public class CampController
     public void ReplyEnquiry(int campID, Student student, String enquiry, String reply, String replyBy)
     {
         Enquiries e = camps.get(campID).GetEnquiry(student, enquiry);
-        e.setReply(reply);
-        e.setReplyBy(replyBy);
-        e.setStatus("Replied");
+        e.SetReply(reply);
+        e.SetReplyBy(replyBy);
+        e.SetStatus(STATUS.CLOSED);
     }
 }

@@ -51,10 +51,10 @@ public class CCMController {
         Camp camp = CampController.GetInstance().GetCamps().get(campID);    
         Enquiries e = camp.GetEnquiry(student, enquiry);
 
-        if (e != null && e.getStatus().equals("Open")) {
-            e.setReply(reply);
-            e.setStatus("Replied");
-            e.setReplyBy(replyBy);
+        if (e != null && e.GetStatus() == STATUS.OPEN) {
+            e.SetReply(reply);
+            e.SetStatus(STATUS.CLOSED);
+            e.SetReplyBy(replyBy);
 
             // Increment points for the CCM
             ccm.SetPoints(ccm.GetPoints()+1);

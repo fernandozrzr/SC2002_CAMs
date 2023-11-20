@@ -1,21 +1,27 @@
 // Enquiries.java
 package sc2002;
 
+enum STATUS
+{
+	OPEN,
+	CLOSED
+}
+
 public class Enquiries {
 	private int enquiryId;
     private String enquiry;
     private String reply;
     private String replyBy;
     private Student askBy;
-    private int status;
+    private STATUS status; //0 for Not replied, 1 for replied
 
-    public Enquiries(int enquiryId, String enquiry, String reply, String replyBy, Student currentUser, int status) {
+    public Enquiries(int enquiryId, String enquiry, String reply, String replyBy, Student currentUser) {
         this.enquiryId = enquiryId;
 		this.enquiry = enquiry;
         this.reply = reply;
         this.replyBy = replyBy;
         this.askBy = currentUser;
-        this.status = status;
+		this.status = STATUS.OPEN;
     }
 
     // Get and Set enquiry ID and enquiry
@@ -62,11 +68,11 @@ public class Enquiries {
 	}
 
 	// Get and Set enquiry status (0 - not replied, 1 - replied)
-	public int GetStatus() {
+	public STATUS GetStatus() {
 		return status;
 	}
 
-	public void SetStatus(int status) {
+	public void SetStatus(STATUS status) {
 		this.status = status;
 	}
 }

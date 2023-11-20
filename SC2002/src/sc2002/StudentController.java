@@ -1,6 +1,7 @@
 package sc2002;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class StudentController 
@@ -8,9 +9,12 @@ public class StudentController
     private static StudentController instance = null;
     private int enqID = 0;
     private StudentView view = null;
-    StudentController()
+    private ArrayList<Camp> eligibleCamps = null;
+
+    private StudentController()
     {
         view = new StudentView();
+        eligibleCamps = new ArrayList<Camp>();
     }
 
     public static StudentController GetInstance()
@@ -19,23 +23,22 @@ public class StudentController
             instance = new StudentController();
 
         return instance;
-    }
-    
-    public ArrayList<Camp> allCamps = CampController.GetInstance().GetCamps();
-    public ArrayList<Integer> campIDs = view.DisplayAllCamps();
-    
+    }    
+
     // Add an enquiry
-    public void AddEnquiry(int campID, String enquiry, String reply, String replyBy, Student askBy, int status) {
-    	Enquiries newEnquiry = new Enquiries(enqID++, enquiry, reply, replyBy, askBy, status);
+    public void AddEnquiry(int campID, String enquiry, String reply, String replyBy, Student askBy) 
+    {
+    	Enquiries newEnquiry = new Enquiries(enqID++, enquiry, reply, replyBy, askBy);
     	askBy.AddMyEnquiry(newEnquiry);
     	CampController.GetInstance().AddEnquiry(campID, askBy, newEnquiry);
     }
     
     // Delete an enquiry
-    public void DeleteEnquiry(int campID, Student askBy, int enquiryID) {
+    public void DeleteEnquiry(int campID, Student askBy, int enquiryID) 
+    {
     	if (askBy.FindEnquiry(enquiryID) == null)
 			System.out.println("Enquiry not found.");
-		else if (askBy.FindEnquiry(enquiryID).GetStatus() == 1)
+		else if (askBy.FindEnquiry(enquiryID).GetStatus() == STATUS.CLOSED)
 			System.out.println("Enquiry cannot be deleted as it is already processed.");
 		else {
 			Enquiries tempEnquiry = askBy.FindEnquiry(enquiryID);
@@ -45,21 +48,34 @@ public class StudentController
     }
     
     // Edit an enquiry
-    public void EditEnquiry(int campID, Student askBy, int enquiryID, String newEnquiry) {
+    public void EditEnquiry(int campID, Student askBy, int enquiryID, String newEnquiry) 
+    {
 		if (askBy.FindEnquiry(enquiryID) == null)
 			System.out.println("Enquiry not found.");
-		else if (askBy.FindEnquiry(enquiryID).GetStatus() == 1)
+		else if (askBy.FindEnquiry(enquiryID).GetStatus() == STATUS.CLOSED)
 			System.out.println("Enquiry cannot be edited as it is already processed.");
 		else {
 			int index = askBy.myEnquiries.indexOf(askBy.FindEnquiry(enquiryID));
 			askBy.EditMyEnquiry(index, newEnquiry);
 		}
     }
+
+    private void InitEligibleCamps()
+    {
+        eligibleCamps.clear();
+
+        for(Camp camp : CampController.GetInstance().GetCamps())
+        {
+            if(camp.IsVisible() && camp.GetUserGrp() == camsApp.currentUser.getFaculty())
+                eligibleCamps.add(camp);
+        }
+    }
     
     
     ///////////////////////////////////////////////////         Main Loop Stuff         ///////////////////////////////////////////////////
     public void StudentMenu()
     {
+        InitEligibleCamps();
         int choice = -1;
         Scanner input = new Scanner(System.in);
 
@@ -149,11 +165,11 @@ public class StudentController
                         System.out.println("You have entered an invalid choice. \n");
                         break;
                     }
-                    
-                    else {
+                    else 
+                    {
                     	System.out.print("Enter your enquiry: ");
                         String enquiry = input.next();
-                        AddEnquiry(campID, enquiry, null, null, (Student)camsApp.currentUser, 0);
+                        AddEnquiry(campID, enquiry, null, null, (Student)camsApp.currentUser);
                     }
                     
                     break;
@@ -248,6 +264,245 @@ public class StudentController
             }
         }
         
+    }
+
+    private void CampMenu()
+    {
+        String[] choices = {"view all", "view registered",  "view details", "register", "exit"};
+        String choice = "";
+        boolean exit = false;
+
+        Scanner sc = new Scanner(System.in);
+        
+        while(!exit)
+        {
+            //Printing out the options and checking if validity
+            do
+            {
+                System.out.println("\"" + choices[0] + "\" to view all camps");
+                System.out.println("\"" + choices[1] + "\" to view registered camps");
+                System.out.println("\"" + choices[2] + "\" to view a camp's details");
+                System.out.println("\"" + choices[3] + "\" to register for a camp");
+                System.out.println("\"" + choices[4] + "\" to exit this page");
+                System.out.print("Please enter your choice as stated above: ");
+
+                try
+                {
+                    choice = sc.nextLine();
+                    choice = choice.toLowerCase();
+                }
+                catch(InputMismatchException e) 
+                {
+                    System.out.println("Invalid Option!");
+                }
+                
+            }while(!IsValidChoice(choice, choices));
+
+            //Execute function based on choice
+            switch (choice) 
+            {
+                case "view all":
+                {
+                    view.DisplayAllCamps();
+                    break;
+                }
+
+                case "view registered":
+                {
+                    Student user = null;
+
+                    if(camsApp.currentUser instanceof Student)
+                    {
+                        user = (Student)(camsApp.currentUser);
+                    }
+                    else
+                    {
+                        System.out.println("Invalid request, User is not a Student");
+                        break;
+                    }
+
+                    view.DisplayMyCamps(user.GetRegisteredCamps());
+                    break;
+                }
+                
+                case "view details":
+                {
+                    System.out.print("Enter the ID of the camp you want to view details of: ");
+                    int campID = -1;
+
+                    //Error Checking
+                    try
+                    {
+                        campID = sc.nextInt();
+                    }
+                    catch (InputMismatchException e) 
+                    {
+                        System.out.println("Invalid Option!");
+                    }
+
+                    view.DisplayCampDetails(campID);
+
+                    break;
+                }
+                
+                case "register":
+                {
+                    // Show all camps with their respective slots available beside and option to register 
+                    int campIndex = -1;
+                	System.out.print("Enter the ID of the camp to register: ");
+
+                    try
+                    {
+                        campIndex = sc.nextInt();
+                    }
+                    catch (InputMismatchException e) 
+                    {
+                        System.out.println("Invalid Option!");
+                    }
+
+                    //Invalid Choice so exit out of case
+                    if(campIndex < 0 || campIndex > eligibleCamps.size())
+                    {
+                        System.out.println("You have entered an invalid choice. \n");
+                        break;
+                    }
+
+                    int type = -1;
+                    System.out.print("Would you like to join as an (1) Attendee or (2) Camp Committee Memmber: ");
+
+                    try
+                    {
+                        type = sc.nextInt();
+                    }
+                    catch (InputMismatchException e) 
+                    {
+                        System.out.println("Invalid Option!");
+                    }
+
+                    switch(type)
+                    {
+                        case 1:
+                            if(camsApp.currentUser instanceof Student) 
+                            {
+                            	((Student) camsApp.currentUser).AddRegisteredCamps(eligibleCamps.get(campIndex));
+                                CampController.GetInstance().AddAttendee(eligibleCamps.get(campIndex).GetCampID(), (Student)camsApp.currentUser);
+                            }
+                            else
+                                System.out.println("Invalid Request, User is not a Student");
+                            break;
+                        case 2:
+                            if(camsApp.currentUser instanceof Student) 
+                            {
+                            	Student s = (Student)camsApp.currentUser;
+                            	s.ccmID = eligibleCamps.get(campIndex).GetCampID();
+                                
+                            	CCM currentUser = new CCM(s.getName(), s.getUserID(), s.getFaculty(), s.GetMyEnquiries(), s.GetRegisteredCamps(), s.GetccmID();
+                            	camsApp.currentUser = currentUser;
+                            	CampController.GetInstance().AddCommitteeMember(currentUser.ccmID, currentUser);
+                            }
+                            else
+                                System.out.println("You have entered an invalid choice, User is not a Student \n");
+                            break;
+                        default:
+                            System.out.println("You have entered an invalid choice");
+                    }
+                    break;
+                }
+
+                case "exit":
+                {
+                    exit = true;
+                    break;
+                }
+            
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void EnquiriesMenu()
+    {
+        String[] choices = {"view", "edit",  "delete", "submit", "exit"};
+        String choice = "";
+        boolean exit = false;
+
+        Scanner sc = new Scanner(System.in);
+        
+        while(!exit)
+        {
+            //Printing out the options and checking if validity
+            do
+            {
+                System.out.println("\"" + choices[0] + "\" to view enquires submitted");
+                System.out.println("\"" + choices[1] + "\" to edit an enquriy");
+                System.out.println("\"" + choices[2] + "\" to delete an enquiry");
+                System.out.println("\"" + choices[3] + "\" to submit an enquiry");
+                System.out.println("\"" + choices[4] + "\" to exit this page");
+                System.out.print("Please enter your choice as stated above: ");
+
+                try
+                {
+                    choice = sc.nextLine();
+                    choice = choice.toLowerCase();
+                }
+                catch(InputMismatchException e) 
+                {
+                    System.out.println("Invalid Option!");
+                }
+                
+            }while(!IsValidChoice(choice, choices));
+
+            switch (choice) {
+                case "view":
+                {
+
+                    break;
+                }
+
+                case "edit":
+                {
+
+                    break;
+                }
+
+                case "delete":
+                {
+
+                    break;
+                }
+
+                case "submit":
+                {
+
+                    break;
+                }
+
+                case "exit":
+                {
+                    exit = true;
+                    break;
+                }
+            
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void ProfileMenu()
+    {
+        
+    }
+
+    private boolean IsValidChoice(String userChoice, String[] choices)
+    {
+        for(String choice : choices)
+        {
+            if(userChoice == choice) return true;
+        }
+
+        return false;
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

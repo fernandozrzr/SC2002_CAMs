@@ -9,10 +9,14 @@ public class CCM extends Student{
     ArrayList<Suggestions> mySuggestions;
     Scanner sc = new Scanner(System.in);
     
-    public CCM(String name, String userID, String faculty,int myPoints, ArrayList<Suggestions> mySuggestions){
+    public CCM(String name, String userID, String faculty, ArrayList<Enquiries> myEnquiries, ArrayList<Camp> registeredCamps, int ccmID)
+    {
     	super(name, userID, faculty);
-        this.myPoints = myPoints;
-        mySuggestions = new ArrayList<Suggestions>();
+        this.myPoints = 0;
+        this.myEnquiries  = myEnquiries;
+        this.registeredCamps = registeredCamps;
+        this.ccmID = ccmID;
+        this.mySuggestions = new ArrayList<Suggestions>();
     }
 
 	public int GetPoints(){

@@ -1,22 +1,14 @@
 package sc2002;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.util.Dictionary;
 import java.util.Hashtable;
-import java.util.List;
 import java.util.Scanner;
 
 public class FileManager {
-
 	private static User currentUser;
-	private static String[] filePathList = new String[] {"SC2002_CAMs\\SC2002\\src\\student_list.txt","SC2002_CAMs\\SC2002\\src\\staff_list.txt"};
+	private static String[] filePathList = new String[] {/*"SC2002_CAMs\\SC2002\\src\\*/"student_list.txt",/*"SC2002_CAMs\\SC2002\\srs\\*/ "staff_list.txt"};
 
-	
-
-	
-	public static Hashtable readFile(String filePath) throws FileNotFoundException {
+	public static Hashtable<String, String> readFile(String filePath) throws FileNotFoundException {
 		Hashtable<String, String> passwordDict = new Hashtable<>();
 		
 		passwordDict.clear();
@@ -46,7 +38,6 @@ public class FileManager {
 			String userid = element[1];
 			userid = userid.substring(0, userid.indexOf("@"));
 
-			// System.out.println(userid);
 			if (userid.equals(userID)) {
 				
 				switch(domain) {

@@ -32,9 +32,9 @@ public class CCMView{
                     ArrayList<Enquiries> studentEnquiries = entry.getValue();
                     System.out.println("All Enquiries for Camp " + camp.GetCampName() + ":");
                     for (Enquiries enquiry : studentEnquiries) {
-                        System.out.println("Enquiry: " + enquiry.getEnquiry());
-                        System.out.println("Asked by: " + enquiry.getAskBy());
-                        System.out.println("Reply: " + enquiry.getReply());
+                        System.out.println("Enquiry: " + enquiry.GetEnquiry());
+                        System.out.println("Asked by: " + enquiry.GetAskBy());
+                        System.out.println("Reply: " + enquiry.GetReply());
                         System.out.println();
                     }
                 }
