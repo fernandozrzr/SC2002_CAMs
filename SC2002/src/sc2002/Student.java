@@ -16,7 +16,7 @@ public class Student extends User {
 	public ArrayList<Camp> GetRegisteredCamps() 
 	{
         	return registeredCamps;
-    	}
+	}
 
 	public void AddRegisteredCamps(Camp camp)
 	{

@@ -9,13 +9,14 @@ enum STATUS
 
 public class Enquiries {
 	private int enquiryId;
+	private int campID;
     private String enquiry;
     private String reply;
     private String replyBy;
     private Student askBy;
     private STATUS status; //0 for Not replied, 1 for replied
 
-    public Enquiries(int enquiryId, String enquiry, String reply, String replyBy, Student currentUser) {
+    public Enquiries(int enquiryId, int campID, String enquiry, String reply, String replyBy, Student currentUser) {
         this.enquiryId = enquiryId;
 		this.enquiry = enquiry;
         this.reply = reply;
@@ -31,6 +32,14 @@ public class Enquiries {
 	
 	public void SetEnquiryId(int enquiryId) {
 		this.enquiryId = enquiryId;
+	}
+
+	public int GetCampID() {
+		return campID;
+	}
+
+	public void SetCampID(int campID) {
+		this.campID = campID;
 	}
 
 	public String GetEnquiry() {

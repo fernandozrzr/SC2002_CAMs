@@ -1,6 +1,7 @@
 package sc2002;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class StudentView implements CampView
 {
@@ -41,16 +42,16 @@ public class StudentView implements CampView
             System.out.println("Registered for Camp " + campTemp.GetCampName() + " as an attendee.");
     }
 
-    public void DisplayMyEnquiries(ArrayList<Enquiries> enquries) 
+    public void DisplayMyEnquiries(ArrayList<Enquiries> enquiries) 
     {
-        for(int i = 0; i < enquries.size(); ++i)
+        ArrayList<Camp> campList = CampController.GetInstance().GetCamps();
+        int count = 1;
+
+        for(Enquiries enquiry : enquiries)
         {
-            if(enquries.get(i).)
-        }
-        for (Enquiries enquiryTemp : enquiry) 
-        {
-            System.out.println();
-            System.out.println(enquiryTemp); 
+            System.out.println("(" + (count++) + ") " + enquiry.GetEnquiry() + " [" + enquiry.GetStatus() + ", " + campList.get(enquiry.GetCampID()).GetCampName() + "]");
+            if(enquiry.GetStatus() == STATUS.CLOSED)
+                System.out.println("\t\t" + "Answer: " + enquiry.GetReply());
         }
     }
     
@@ -62,12 +63,12 @@ public class StudentView implements CampView
         System.out.println("//////////////////////        Student Menu        ///////////////////////");
         System.out.println("/////////////////////////////////////////////////////////////////////////");
 
-        System.out.println("(1) View All Camps");// Show all the camps that student can view and options to view all details of the camp
-        System.out.println("(2) Register For Camp"); // Show all camps with their respective slots available beside and option to register 
-        System.out.println("(3) Submit Enquires Regarding Camp");// Show All camps and options to submit enquires
-        System.out.println("(4) View My Enquires"); // Show all of student's enquires and options to delete and edit them
-        System.out.println("(5) View My Profile"); // Show whether student is CCM
-        System.out.println("(6) View Registered Camps"); // Show camps that they registered for, roles (attendee or ccm) and option to withdraw from camp
+        System.out.println("Profile");
+        System.out.println("\t(1) View Profile");
+        System.out.println("Camps");
+        System.out.println("\t(2) View / Register / Withdraw");
+        System.out.println("Enquiry");
+        System.out.println("\t(3) View / Edit / Delete / Submit");
 
         System.out.println("/////////////////////////////////////////////////////////////////////////");
         System.out.print("Enter your Choice: ");

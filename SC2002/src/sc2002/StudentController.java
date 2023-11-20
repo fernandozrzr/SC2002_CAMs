@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import javax.sound.midi.Soundbank;
 
 public class StudentController 
 {
@@ -30,13 +29,13 @@ public class StudentController
     // Add an enquiry
     public void AddEnquiry(int campID, String enquiry, String reply, String replyBy, Student askBy) 
     {
-    	Enquiries newEnquiry = new Enquiries(enqID++, enquiry, reply, replyBy, askBy);
+    	Enquiries newEnquiry = new Enquiries(enqID++, campID, enquiry, reply, replyBy, askBy);
     	askBy.AddMyEnquiry(newEnquiry);
     	CampController.GetInstance().AddEnquiry(campID, askBy, newEnquiry);
     }
     
     // Delete an enquiry
-    public void DeleteEnquiry(int campID, Student askBy, int enquiryID) 
+    public void DeleteEnquiry(Student askBy, int enquiryID) 
     {
     	if (askBy.FindEnquiry(enquiryID) == null)
 			System.out.println("Enquiry not found.");
@@ -45,12 +44,12 @@ public class StudentController
 		else {
 			Enquiries tempEnquiry = askBy.FindEnquiry(enquiryID);
 			askBy.RemoveMyEnquiry(tempEnquiry);
-			CampController.GetInstance().RemoveEnquiry(campID, askBy, tempEnquiry);
+			CampController.GetInstance().RemoveEnquiry(tempEnquiry.GetCampID(), askBy, tempEnquiry);
 		}
     }
     
     // Edit an enquiry
-    public void EditEnquiry(int campID, Student askBy, int enquiryID, String newEnquiry) 
+    public void EditEnquiry(Student askBy, int enquiryID, String newEnquiry) 
     {
 		if (askBy.FindEnquiry(enquiryID) == null)
 			System.out.println("Enquiry not found.");
@@ -83,186 +82,30 @@ public class StudentController
 
         while(choice != 0)
         {
-            do //Make sure user input is correct and valid
+            view.DisplayMainMenu();
+            try
             {
-                view.DisplayMenu();
                 choice = input.nextInt();
-                if(choice < 0 || choice > 6)
-                System.out.println("Invalid choice please try again\n");
-            } while(choice < 0 || choice > 6);
-
-            switch(choice)
+            }
+            catch(InputMismatchException e) 
             {
-                case 1: // View all Camps
-                {
-                    // Show all the camps that student can view and options to view all details of the camp
-                    System.out.print("Enter the ID of the camp you want to view details of (0 to go back): ");
-                    int id = input.nextInt() - 1;
+                System.out.println("Invalid Input!");
+                break;
+            }
 
-                    //Invalid Choice so exit out of case
-                    if (id == 0)
-                    	break;
-                    else if(id < -1 || id > campIDs.size())
-                    {
-                        System.out.println("You have entered an invalid choice. \n");
-                        break;
-                    }
-                    
-                    view.DisplayCampDetails(id);
+            switch (choice) {
+                case 1:
+                    ProfileMenu();
                     break;
-                }
-                
-                case 2: // Register For Camp
-                {
-                    // Show all camps with their respective slots available beside and option to register 
-                	System.out.print("Enter the ID of the camp to register: ");
-                    int id = input.nextInt() - 1;
-
-                    //Invalid Choice so exit out of case
-                    if(id < 0 || id > campIDs.size())
-                    {
-                        System.out.println("You have entered an invalid choice. \n");
-                        break;
-                    }
-
-                    System.out.print("Would you like to join as an (1) Attendee or (2) Camp Committee Memmber: ");
-                    int type = input.nextInt();
-
-                    switch(type)
-                    {
-                        case 1:
-                            if(camsApp.currentUser instanceof Student) {
-                                CampController.GetInstance().AddAttendee(campIDs.get(id), (Student)camsApp.currentUser);
-                            	((Student) camsApp.currentUser).AddRegisteredCamps(allCamps.get(id));
-                            }
-                            else
-                                System.out.println("Invalid Request");
-                            break;
-                        case 2:
-                            if(camsApp.currentUser instanceof Student) {
-                            	Student s = (Student)camsApp.currentUser;
-                            	s.ccmID = campIDs.get(id);
-                            	CCM currentUser = new CCM(s.getName(), s.getUserID(), s.getFaculty(), 0, null);;
-                            	camsApp.currentUser = currentUser;
-                            	CampController.GetInstance().AddCommitteeMember(campIDs.get(id), (CCM)camsApp.currentUser);
-                            }
-                            else
-                                System.out.println("You have entered an invalid choice. \n");
-                            break;
-                        default:
-                            System.out.println("You have entered an invalid choice");
-                    }
+                case 2:
+                    CampMenu();
                     break;
-                }
-                
-                case 3: // Submit Enquiries Regarding camp
-                {
-                    // Show All camps and options to submit enquiries
-                	System.out.print("Enter the ID of the camp you want to enquire about: ");
-                    int campID = input.nextInt() - 1;
-
-                    // Check if the input is valid
-                    if(campID < 0 || campID > campIDs.size())
-                    {
-                        System.out.println("You have entered an invalid choice. \n");
-                        break;
-                    }
-                    else 
-                    {
-                    	System.out.print("Enter your enquiry: ");
-                        String enquiry = input.next();
-                        AddEnquiry(campID, enquiry, null, null, (Student)camsApp.currentUser);
-                    }
-                    
+                case 3:
+                    EnquiriesMenu();
                     break;
-                }
-                
-                case 4: // View my enquiries
-                {
-                    // Show all of student's enquiries and options to delete and edit them
-                	view.DisplayMyEnquiries(((Student)camsApp.currentUser).GetMyEnquiries());
-                	
-                	System.out.print("Would you like to (1) Edit an enquiry or (2) Delete an enquiry (0 to go back): ");
-                    int temp = input.nextInt() - 1;
-
-                    // Go back
-                    if (temp == 0)
-                    	break;
-                    	
-                    // Edit an enquiry
-                    else if (temp == 1){
-                    	System.out.print("Enter the campID of the enquiry you want to edit: ");
-                        int campID = input.nextInt();
-                    	
-                    	System.out.print("Enter the enquiry you want to edit: ");
-                        int enquiryID = input.nextInt();
-                        
-                        System.out.print("Enter the edited enquiry: ");
-                        String newEnquiry = input.next();
-                        
-                        EditEnquiry(campID,(Student)camsApp.currentUser, enquiryID, newEnquiry);
-                        
-                        break;
-                    }
-                    
-                    // Remove an enquiry
-                    else if (temp == 2) {
-                    	System.out.print("Enter the campID of the enquiry you want to edit: ");
-                    	int campID = input.nextInt();
-                        
-                    	System.out.print("Enter the enquiry you want to delete: ");
-                    	int enquiryID = input.nextInt();
-                        
-                        DeleteEnquiry(campID, (Student)camsApp.currentUser, enquiryID);
-                        break;
-                    }
-                    
-                    // Invalid input
-                    else{
-                    	System.out.println("You have entered an invalid choice. \n");
-                        break;
-                    }
-                }
-                
-                case 5: // View my profile
-                {
-                    System.out.println("Name: " + camsApp.currentUser.getName() + "\n");
-                    System.out.println("ID: " + camsApp.currentUser.getUserID() + "\n");
-                    System.out.println("Faculty: " + camsApp.currentUser.getFaculty() + "\n");
-                    break;
-                }
-                
-                case 6: // View registered camps
-                {
-                	// Show camps that they registered for and roles (attendee or ccm)
-                	view.DisplayMyCamps(((Student)camsApp.currentUser).GetRegisteredCamps());
-                	
-                	// Withdraw from camp
-                	System.out.print("Enter the ID of the camp to withdraw from (0 to go back): ");
-                    int id = input.nextInt() - 1;
-
-                    // Check if the input is valid
-                    if (id == 0)
-                    	break;
-                    else if(id < -1 || id > campIDs.size()){
-                        System.out.println("You have entered an invalid choice. \n");
-                        break;
-                    }
-                    
-                    // If user is camp committee member, not allowed to withdraw from camp
-                    else if (id == ((Student)camsApp.currentUser).ccmID) {
-                    	System.out.println("You are not allowed to withdraw. \n");
-                    }
-                    
-                    // Withdraw from camp
-                    else{
-                        CampController.GetInstance().RemoveAttendee(campIDs.get(id), (Student)camsApp.currentUser);
-                    	((Student) camsApp.currentUser).RemoveRegisteredCamps(allCamps.get(id));
-                    }
-
-                	break;
-                }
+            
                 default:
+                    break;
             }
         }
         
@@ -281,6 +124,10 @@ public class StudentController
             //Printing out the options and checking if validity
             do
             {
+                System.out.println();
+                System.out.println("/////////////////////////////////////////////////////////////////////////");
+                System.out.println("///////////////////////        Camp Menu        ////////////////////////");
+                System.out.println("/////////////////////////////////////////////////////////////////////////");
                 System.out.println("\"" + choices[0] + "\" to view all camps");
                 System.out.println("\"" + choices[1] + "\" to view registered camps");
                 System.out.println("\"" + choices[2] + "\" to view a camp's details");
@@ -296,7 +143,8 @@ public class StudentController
                 }
                 catch(InputMismatchException e) 
                 {
-                    System.out.println("Invalid Option!");
+                    System.out.println("Invalid Input!");
+                    break;
                 }
                 
             }while(!IsValidChoice(choice, choices));
@@ -340,7 +188,8 @@ public class StudentController
                     }
                     catch (InputMismatchException e) 
                     {
-                        System.out.println("Invalid Option!");
+                        System.out.println("Invalid Input!");
+                        break;
                     }
 
                     view.DisplayCampDetails(campID);
@@ -360,7 +209,8 @@ public class StudentController
                     }
                     catch (InputMismatchException e) 
                     {
-                        System.out.println("Invalid Option!");
+                        System.out.println("Invalid Input!");
+                        break;
                     }
 
                     //Invalid Choice so exit out of case
@@ -379,7 +229,8 @@ public class StudentController
                     }
                     catch (InputMismatchException e) 
                     {
-                        System.out.println("Invalid Option!");
+                        System.out.println("Invalid Input!");
+                        break;
                     }
 
                     switch(type)
@@ -391,7 +242,7 @@ public class StudentController
                                 CampController.GetInstance().AddAttendee(eligibleCamps.get(campIndex).GetCampID(), (Student)camsApp.currentUser);
                             }
                             else
-                                System.out.println("Invalid Request, User is not a Student");
+                                System.out.println("Invalid request, User is not a Student");
                             break;
                         case 2:
                             if(camsApp.currentUser instanceof Student) 
@@ -399,12 +250,12 @@ public class StudentController
                             	Student s = (Student)camsApp.currentUser;
                             	s.ccmID = eligibleCamps.get(campIndex).GetCampID();
                                 
-                            	CCM currentUser = new CCM(s.getName(), s.getUserID(), s.getFaculty(), s.GetMyEnquiries(), s.GetRegisteredCamps(), s.GetccmID();
+                            	CCM currentUser = new CCM(s.getName(), s.getUserID(), s.getFaculty(), s.GetMyEnquiries(), s.GetRegisteredCamps(), s.GetccmID());
                             	camsApp.currentUser = currentUser;
                             	CampController.GetInstance().AddCommitteeMember(currentUser.ccmID, currentUser);
                             }
                             else
-                                System.out.println("You have entered an invalid choice, User is not a Student \n");
+                                System.out.println("Invalid request, User is not a Student");
                             break;
                         default:
                             System.out.println("You have entered an invalid choice");
@@ -423,7 +274,8 @@ public class StudentController
                     }
                     catch (InputMismatchException e) 
                     {
-                        System.out.println("Invalid Option!");
+                        System.out.println("Invalid Input!");
+                        break;
                     }
 
                     //Invalid Choice so exit out of case
@@ -441,7 +293,7 @@ public class StudentController
                     }
                     else if(camsApp.currentUser instanceof CCM)
                     {
-                        System.out.println("You have entered an invalid choice, User is not a Student \n");
+                        System.out.println("Invalid request, User is not a Student");
                     }
 
                     break;
@@ -472,6 +324,10 @@ public class StudentController
             //Printing out the options and checking if validity
             do
             {
+                System.out.println();
+                System.out.println("/////////////////////////////////////////////////////////////////////////");
+                System.out.println("/////////////////////        Enquiries Menu        //////////////////////");
+                System.out.println("/////////////////////////////////////////////////////////////////////////");
                 System.out.println("\"" + choices[0] + "\" to view enquires submitted");
                 System.out.println("\"" + choices[1] + "\" to edit an enquriy");
                 System.out.println("\"" + choices[2] + "\" to delete an enquiry");
@@ -486,7 +342,8 @@ public class StudentController
                 }
                 catch(InputMismatchException e) 
                 {
-                    System.out.println("Invalid Option!");
+                    System.out.println("Invalid Input!");
+                    break;
                 }
                 
             }while(!IsValidChoice(choice, choices));
@@ -494,25 +351,106 @@ public class StudentController
             switch (choice) {
                 case "view":
                 {
-
+                    if(camsApp.currentUser instanceof Student)
+                        view.DisplayMyEnquiries(((Student)camsApp.currentUser).GetMyEnquiries());
+                    else
+                        System.out.println("Invalid request, User is not a Student");
                     break;
                 }
 
                 case "edit":
                 {
+                    int enquiryIndex = -1;
+                	System.out.print("Enter the ID of the enquiry to edit: ");
 
+                    try
+                    {
+                        enquiryIndex = sc.nextInt() - 1;
+                    }
+                    catch (InputMismatchException e) 
+                    {
+                        System.out.println("Invalid Input!");
+                        break;
+                    }
+
+                    if(enquiryIndex < 0 || enquiryIndex > ((Student)camsApp.currentUser).GetMyEnquiries().size())
+                    {
+                        System.out.println("You have entered an invalid choice. \n");
+                        break;
+                    }
+
+                    if(camsApp.currentUser instanceof Student)
+                        EditEnquiry((Student)camsApp.currentUser, enquiryIndex, choice);
+                    else
+                        System.out.println("Invalid request, User is not a Student");
                     break;
                 }
 
                 case "delete":
                 {
+                    int enquiryIndex = -1;
+                	System.out.print("Enter the ID of the enquiry to delete: ");
 
+                    try
+                    {
+                        enquiryIndex = sc.nextInt() - 1;
+                    }
+                    catch (InputMismatchException e) 
+                    {
+                        System.out.println("Invalid Input!");
+                        break;
+                    }
+
+                    if(enquiryIndex < 0 || enquiryIndex > ((Student)camsApp.currentUser).GetMyEnquiries().size())
+                    {
+                        System.out.println("You have entered an invalid choice. \n");
+                        break;
+                    }
+
+                    if(camsApp.currentUser instanceof Student)
+                        DeleteEnquiry((Student)camsApp.currentUser, enquiryIndex);
+                    else
+                        System.out.println("Invalid request, User is not a Student");
                     break;
                 }
 
                 case "submit":
                 {
+                    int campIndex = -1;
+                    view.DisplayAllCamps();
+                	System.out.print("Enter the ID of the camp you want to enquire about: ");
 
+                    try
+                    {
+                        campIndex = sc.nextInt() - 1;
+                    }
+                    catch (InputMismatchException e) 
+                    {
+                        System.out.println("Invalid Input!");
+                        break;
+                    }
+
+                    if(campIndex < 0 || campIndex > eligibleCamps.size())
+                    {
+                        System.out.println("You have entered an invalid choice. \n");
+                        break;
+                    }
+
+                    String enquiry = "";
+                    try
+                    {
+                        enquiry = sc.nextLine();
+                    }
+                    catch (InputMismatchException e) 
+                    {
+                        System.out.println("Invalid Input!");
+                        break;
+                    }
+
+                    if(camsApp.currentUser instanceof Student)
+                        AddEnquiry(eligibleCamps.get(campIndex).GetCampID(), enquiry, null, null, (Student)camsApp.currentUser);
+                    else
+                        System.out.println("Invalid request, User is not a Student");
                     break;
                 }
 
@@ -540,7 +478,7 @@ public class StudentController
     {
         for(String choice : choices)
         {
-            if(userChoice == choice) return true;
+            if(userChoice.equals(choice)) return true;
         }
 
         return false;
