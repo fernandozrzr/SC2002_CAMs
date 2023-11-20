@@ -10,10 +10,6 @@ import java.util.Scanner;
 
 public class FileManager {
 
-	private static String name;
-	private static String userID;
-	private static String faculty;
-	private static String password;
 	private static User currentUser;
 	private static String[] filePathList = new String[] {"SC2002_CAMs\\SC2002\\src\\student_list.txt","SC2002_CAMs\\SC2002\\src\\staff_list.txt"};
 
@@ -30,9 +26,8 @@ public class FileManager {
 		while (input.hasNextLine()) {
 			String line = input.nextLine();
 			String[] element = line.split("\t");
-			//userID = element[1];
 			element[1] = element[1].substring(0, element[1].indexOf("@"));
-			//System.out.println(element[1]);
+			
 			passwordDict.put(element[1], "Password");
 
 		}

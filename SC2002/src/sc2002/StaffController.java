@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Map.Entry;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime; 
@@ -34,84 +35,90 @@ public class StaffController {
 			
 		Scanner sc = new Scanner(System.in);
 		
-			int choice=-1;
+		int choice;
 			//staff main loop 
 			do {
-				do {
+				choice=-1;
+				do {					
 					//print the menu
 					staffViewManager.menu();
-					try {
-						choice = sc.nextInt();
-					}
-					catch(InputMismatchException e){
-						}
-					sc.close();
-				}while(choice<1 || choice >13);
+					choice = sc.nextInt();
+				}while(choice<1 || choice >11);
 				
 				switch(choice) {
 				case 1: //create/edit/view all camp 
 					Staffmenu1();
 					break;
 				case 2: //delete camp
-					//display all camp 
-					ViewAllCamp();
-					//get input 
-					System.out.println("please select a camp to delete： ");
-					int sel = sc.nextInt();
-					//call function
-					DeleteCamp(sel);
+					DeleteCamp(getCampIDInput());
 					break;
-				case 3: //toggle visibility 
+				case 3: //view suggestion
+					ViewSuggestions(getCampIDInput());
 					break;
-				case 4: //view suggestion
+				case 4: //approve suggestion 
+					int campID =getCampIDInput();
+					ViewSuggestions(campID);
+					System.out.println("Please select a suggestion: ");
+					int sugID = sc.nextInt();
+					System.out.println("(A)Approve / (D)Decline ?");
+					String AD = sc.next().toLowerCase();
+					switch(AD) {
+					case "a":
+						ApproveSuggestions(campID,sugID,true);
+						break;
+					case "d":
+						ApproveSuggestions(campID,sugID,false);
+						break;
+					}
 					break;
-				case 5: //approve suggestion 
+				case 5: // view enquires 
+					ViewEnquiries(getCampIDInput());
 					break;
-				case 6: // view enquires 
-					
+				case 6: // reply enquires
+					campID= getCampIDInput();
+					ViewEnquiries(campID);
+					System.out.println("Please select an enquiries: ");
+					int enID = sc.nextInt();
+					sc.nextLine(); // to consume rest of that line including newline
+					System.out.println("Please enter your reply: ");
+					String reply = sc.nextLine();
+					ReplyEnquiries(campID,enID,reply);
 					break;
-				case 7: // reply enquires
+				case 7: //generate list
 					break;
-				case 8: //generate list
+				case 8: //generate report
 					break;
-				case 9: //generate report
-					break;
-				case 10:
+				case 9:
 					Auth.ChangePassword(camsApp.currentUser);
 					break;
-				case 11: //logout
+				case 10: //logout
 					System.out.println("Exiting StaffMainLoop...");
 					break;
 				}
 				
-			}while(choice !=11);
+			}while(choice !=10);
 			
 		}
 	
 	
 	public void Staffmenu1() {
 		
-		boolean loop= true;
-		boolean exit =true;
+		boolean exit =false;
 		String sel = null;
-		
-		do {
+
 			System.out.println("Please enter your choice: \n"
 					+ "\"view\" to view all camp\n"
 					+ "\"create\" to create new camp\n"
 					+ "\"edit\" to edit a camp\n"
 					+ "\"exit\" to exit this page\n");
-			do {
+			
 				Scanner sc= new Scanner(System.in);
 				try {
 					sel = sc.next();
 					sel = sel.toLowerCase();
-					loop= false;
 				}catch(InputMismatchException e) {
 					System.out.println("Please correct selection!");
 				}
-				sc.close();
-			}while(loop == true);
 			
 			switch(sel) {
 			case "view":
@@ -124,6 +131,7 @@ public class StaffController {
 				break;
 			case "edit":
 				System.out.println("Edit a Camp");
+				EditCamp(getCampIDInput());
 				break;
 			case "exit":
 				System.out.println("Exiting Staff camp menu 1...");
@@ -131,10 +139,21 @@ public class StaffController {
 				break;
 			default:
 				System.out.println("Please enter correct selection!");
+				exit= true;
 				break;
 			}
-		}while(exit = false);	
-		
+
+	}
+	
+	public int getCampIDInput() {
+		int campID=-1;
+		Scanner input = new Scanner(System.in);
+				//display all camp 
+				ViewAllCamp();
+				//get input 
+				System.out.println("please select a camp： ");
+				campID= input.nextInt();
+		return campID;
 	}
 	
 	public void CreateCampMgr() {
@@ -176,34 +195,18 @@ public class StaffController {
 			
 		}
 		
-		/*
-		do {
-			System.out.println("camp visibility: (T\\F)");
-			visibility = sc.next().toLowerCase();
-			
-			switch(visibility) {
-			case "t":
-				Visibility = true;
-				break;
-			case "f":
-				Visibility = false;
-				break;
-			default: 
-				visibility = null;
-				break;
-			}
-			
-		}while(visibility==null);
-		*/
 		String date = LocalDateTime.now().toString();
 		CreateCamp(campName, date, closeDate, userGrp, location, description, staffIC, totalSlots, CommittessSlots, Visibility);
-		sc.close();
+		System.out.println("camp created!");
+		//sc.nextLine();
 	}
+	
 	// View all camps
 	public void ViewAllCamp()
     {
 		staffViewManager.DisplayAllCamps();
     }
+	
 	// Create a camp
 	public Camp CreateCamp(String campName, String date, String closedate, String userGrp, String location, String description, String staffIC, int totalSlots, int CommitteeSlots, boolean Visibility)
     {
@@ -307,7 +310,7 @@ public class StaffController {
 	                System.out.println("Invalid choice. Please enter a number from 1 to 11.");
 	                break;
 	        }
-	        scanner.close();}
+	        }
     	else {
     		System.out.println("CampId does not exist");
     	}
