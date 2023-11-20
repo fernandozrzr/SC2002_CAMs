@@ -18,50 +18,55 @@ public class Enquiries {
         this.status = status;
     }
 
-	public int getEnquiryId() {
+    // Get and Set enquiry ID and enquiry
+	public int GetEnquiryId() {
 		return enquiryId;
 	}
-	public void setEnquiryId(int enquiryId) {
+	
+	public void SetEnquiryId(int enquiryId) {
 		this.enquiryId = enquiryId;
 	}
 
-	public String getEnquiry() {
+	public String GetEnquiry() {
 		return enquiry;
 	}
 
-	public void setEnquiry(String enquiry) {
+	public void SetEnquiry(String enquiry) {
 		this.enquiry = enquiry;
 	}
 
-	public String getReply() {
+	// Get and Set replier details
+	public String GetReply() {
 		return reply;
 	}
 
-	public void setReply(String reply) {
+	public void SetReply(String reply) {
 		this.reply = reply;
 	}
 
-	public String getReplyBy() {
+	public String GetReplyBy() {
 		return replyBy;
 	}
 
-	public void setReplyBy(String replyBy) {
+	public void SetReplyBy(String replyBy) {
 		this.replyBy = replyBy;
 	}
 
-	public String getAskBy() {
+	// Get and Set enquirer details
+	public String GetAskBy() {
 		return askBy;
 	}
 
-	public void setAskBy(String askBy) {
+	public void SetAskBy(String askBy) {
 		this.askBy = askBy;
 	}
 
-	public String getStatus() {
+	// Get and Set enquiry status
+	public String GetStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void SetStatus(String status) {
 		this.status = status;
 	}
 }
