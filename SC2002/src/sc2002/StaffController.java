@@ -199,17 +199,19 @@ public class StaffController {
 		CreateCamp(campName, date, closeDate, userGrp, location, description, staffIC, totalSlots, CommittessSlots, Visibility);
 		sc.close();
 	}
-	
+	// View all camps
 	public void ViewAllCamp()
     {
 		staffViewManager.DisplayAllCamps();
     }
+	// Create a camp
 	public Camp CreateCamp(String campName, String date, String closedate, String userGrp, String location, String description, String staffIC, int totalSlots, int CommitteeSlots, boolean Visibility)
     {
 		Camp newcamp=campManager.AddCamp(campName, date, closedate, userGrp, location, description, staffIC, totalSlots, CommitteeSlots, Visibility);
 		//returns camp to so that can be added to Staff Class
 		return newcamp;
     }
+	// Edit camp based on selection
 	public void EditCamp(int campID)
     {	
 		Camp editcamp = null;
@@ -311,6 +313,7 @@ public class StaffController {
     	}
         
     }
+	// Delete camp
 	public void DeleteCamp(int campID)
     {
 		ArrayList<Camp> camps = campManager.GetCamps();
@@ -328,24 +331,30 @@ public class StaffController {
     		System.out.println("CampID does not exist.");
     	}
     }
+	// Toggle camp visibility
 	public void ToggeVisibility(int campID, boolean state)
     {	
+		Camp editcamp=null;
+    
 		ArrayList<Camp> camps = campManager.GetCamps();
     	boolean campExists= false;
     	for (Camp camp : camps) {
     		if (camp.GetCampID() == campID) { // Assuming CampID is a field in the Camp class
     			campExists = true;
+    			editcamp = camp;
     			break;
     		}
     	}	
     	if(campExists) {
-    		campManager.ToggleVisibility(campID, state);
+			//if camp exists, toggle
+    		editcamp.SetVisibility(state);
     	}
     	else {
     		System.out.println("CampID does not exist.");
     	}
 		
     }
+	// View all suggestions of a camp based on CampID
 	public void ViewSuggestions(int CampID)
     {	
 		ArrayList<Camp> camps = campManager.GetCamps();
@@ -367,6 +376,7 @@ public class StaffController {
     	}
 		
     }
+	// Approve suggestion based on CamppID and SuggestionID
 	public void ApproveSuggestions(int CampID, int SuggestionID ,Boolean status)
     {
 		ArrayList<Camp> camps = campManager.GetCamps();
@@ -400,6 +410,7 @@ public class StaffController {
     		System.out.println("CampID or Suggestion does not exist.");
     	}
     }
+	// View all enquires of a camp based on CampID
 	public void ViewEnquiries(int CampID)
     {	ArrayList<Camp> camps = campManager.GetCamps();
     	boolean campExists= false;
@@ -420,6 +431,7 @@ public class StaffController {
     	}
 		
     }
+	// Reply to enquires based on CamppID and EnquiryID
 	public void ReplyEnquiries(int CampID, int EnquiryID ,String reply)
     {
 		ArrayList<Camp> camps = campManager.GetCamps();
@@ -453,6 +465,7 @@ public class StaffController {
     		System.out.println("CampID or Enquiry does not exist.");
     	}
     }
+	// Generate list of of participants: input participantType as -> Student or CCM or ALL
 	public void GenerateList(int CampID, String participantType) {
 	    ArrayList<Camp> camps = campManager.GetCamps(); // Assuming GetCamps() returns an ArrayList
 	    boolean error = true;
@@ -531,7 +544,8 @@ public class StaffController {
 	        // This could include logging an error, notifying the user, etc.
 	    }
 	}
-	
+	// Generate Report of CCM based on camp
+	// Print CCM name and their points
 	public void GenerateReport(int CampID) {
 		ArrayList<Camp> camps = campManager.GetCamps(); // Assuming GetCamps() returns an ArrayList
 
@@ -557,11 +571,13 @@ public class StaffController {
 
 	            // Iterate through each CCM in the list and write to CSV
 	            for (CCM ccm : ccmList) {
+	            	String userid = ccm.getUserID();
+	            	String faculty = ccm.getFaculty();
 	                String name = ccm.getName();
 	                int points = ccm.GetPoints();
 
 	                // Write data to CSV
-	                writer.write(name + "," + points);
+	                writer.write(userid + name + faculty + points);
 	                writer.newLine();
 	            }
 

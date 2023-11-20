@@ -38,7 +38,8 @@ public class StaffView implements  CampView{
 				+ "10. Change Password\n"
 				+ "11. Log Out\n");
 	}
-
+	
+	//Input Hash map of enquires to display all
 	public void DisplayAllEnquiries(HashMap<Student, ArrayList<Enquiries>> map) {
 		for (Map.Entry<Student, ArrayList<Enquiries>> entry : map.entrySet()) {
 	        Student name = entry.getKey();
@@ -50,12 +51,13 @@ public class StaffView implements  CampView{
 	        }
 	    }
 	}
-
+	//Input staff array of camps to display all
 	public void DisplayMyCamps(ArrayList<Camp> camp) {
 		for (Camp campname : camp) {
 			 System.out.println("CampID: "+ campname.GetCampID() + " Camp Name: " + campname.GetCampName());
 		}
 	}
+	//Input Hash map of suggestions to display all
 	public void DisplayAllSuggestions(HashMap<CCM, ArrayList<Suggestions>> map) {
 	    for (Map.Entry<CCM, ArrayList<Suggestions>> entry : map.entrySet()) {
 	        CCM name = entry.getKey();
