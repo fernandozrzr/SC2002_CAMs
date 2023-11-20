@@ -439,9 +439,9 @@ public class StaffController {
 
     		    // Iterate through the enquiries for the current enquiryID
     		    for (Enquiries enquiry : enquiries) {
-    		        if (enquiry.getEnquiryId()==(EnquiryID)) {
+    		        if (enquiry.GetEnquiryId()==(EnquiryID)) {
     		            // Access the reply variable
-    		        	enquiry.setReply(reply);
+    		        	enquiry.SetReply(reply);
     		            // Do something with the reply variable
     		            System.out.println("Reply Set");
     		            // You found the enquiry with the desired enquiryID, so break out of loops
