@@ -264,6 +264,7 @@ public class StudentController
                             	CCM currentUser = new CCM(s.getName(), s.getUserID(), s.getFaculty(), s.GetMyEnquiries(), s.GetRegisteredCamps(), s.GetccmID());
                             	camsApp.currentUser = currentUser;
                             	CampController.GetInstance().AddCommitteeMember(currentUser.ccmID, currentUser);
+                            	Auth.updateAcccounts(currentUser);
                                 System.out.println("You have successfully registered as a committee member");
                                 exit = true;
                                 camsApp.domain = 0;
@@ -281,7 +282,7 @@ public class StudentController
                 case "withdraw":
                 {
                     int campIndex = -1;
-                	System.out.print("Enter the ID of the camp to register: ");
+                	System.out.print("Enter the ID of the camp to withdraw: ");
 
                     try
                     {
