@@ -50,6 +50,7 @@ public class CampController
     {
         if(campID >= 0 && campID < camps.size())
         {
+            camps.get(campID).DeleteCamp();
             camps.set(campID, null);
             return true;
         }

@@ -17,8 +17,10 @@ public class Staff extends User {
 	public void viewCreatedCamps()
 	{
 		for (Camp camp : createdCamps) {
+			if(camp == null) continue;
 	       System.out.println("CampID: "+ camp.GetCampID()+" Camp Name: "+ camp.GetCampName());
-	}}
+		}
+	}
 	
 	public void AddMyCamps(Camp campname) {
 		createdCamps.add(campname);

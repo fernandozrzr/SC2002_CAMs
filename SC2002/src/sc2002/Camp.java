@@ -304,4 +304,19 @@ public class Camp
         return tdy.before(rD);
     }
 
+    public void DeleteCamp()
+    {
+        for(Student s : attendees)
+        {
+            s.RemoveRegisteredCamps(this);
+        }
+
+        for(CCM c : committeeMembers)
+        {
+            Student s = new Student(c.getName(), c.getUserID(), c.getFaculty(), c.GetMyEnquiries(), c.GetRegisteredCamps());
+
+            Auth.updateAcccounts(s);
+        }
+    }
+
 }

@@ -56,7 +56,14 @@ public class CCMController {
     public void ReplyEnquiry(int campID, int index, String reply, CCM replyBy) 
     {
         // Add a reply to a particular enquiry, and leave the replyBy person, and increment the point of the replyBy ccm
-        Camp camp = CampController.GetInstance().GetCamps().get(campID);    
+        Camp camp = CampController.GetInstance().GetCamps().get(campID);
+
+        if(camp == null)
+        {
+            System.out.println("This Camp " + campID + " does not exist.");
+            return;
+        }
+
         int count = 0;
         Enquiries e = null;
 
@@ -182,9 +189,9 @@ public class CCMController {
 
         for(Camp camp : CampController.GetInstance().GetCamps())
         {
-        	String fa;
-        	fa=camsApp.currentUser.getFaculty();
-            if(camp.IsVisible() && camp.GetUserGrp().equals(fa) )
+            if(camp == null) continue;
+            
+            if(camp.IsVisible() && camp.GetUserGrp().equals(camsApp.currentUser.getFaculty()) )
                 eligibleCamps.add(camp);
         }
     }
@@ -298,6 +305,10 @@ public class CCMController {
                     }
 
                     view.DisplayMyCamps(user.GetRegisteredCamps());
+                    System.out.println("Registered for Camp " + 
+                    CampController.GetInstance().GetCamps().get(((CCM)camsApp.currentUser).GetccmID()).GetCampName() 
+                    + " as a committee member.");
+
                     break;
                 }
                 

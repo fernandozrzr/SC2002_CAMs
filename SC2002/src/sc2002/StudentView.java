@@ -20,6 +20,8 @@ public class StudentView implements CampView
         
         for(int i = 0; i < allCamps.size(); ++i)
         {
+            if(allCamps.get(i) == null) continue;
+            
             if (allCamps.get(i).IsVisible() && camsApp.currentUser.getFaculty().equals(allCamps.get(i).GetUserGrp()))
             {
             	System.out.println("(" + (x + 1) + ") " + allCamps.get(i).GetCampName());

@@ -65,6 +65,8 @@ public class StudentController
 
         for(Camp camp : CampController.GetInstance().GetCamps())
         {
+            if(camp == null) continue;
+            
             if(camp.IsVisible() && camp.GetUserGrp().equals(camsApp.currentUser.getFaculty()))
                 eligibleCamps.add(camp);
         }

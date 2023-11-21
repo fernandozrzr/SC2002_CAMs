@@ -14,6 +14,14 @@ public class Student extends User {
 		myEnquiries = new ArrayList<Enquiries>();
 		registeredCamps = new ArrayList<Camp>();
 	}
+
+	public Student(String name, String userID, String faculty, ArrayList<Enquiries> myEnquiries, ArrayList<Camp> registeredCamps)
+	{
+		super(name, userID, faculty);
+		ccmID = -1;
+		this.myEnquiries = myEnquiries;
+		this.registeredCamps = registeredCamps;
+	}
 	
 	// For camps
 	public ArrayList<Camp> GetRegisteredCamps() 

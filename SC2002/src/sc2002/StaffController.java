@@ -326,6 +326,7 @@ public class StaffController {
 		ArrayList<Camp> camps = campManager.GetCamps();
     	boolean campExists= false;
     	for (Camp camp : camps) {
+			if(camp == null) continue;
     		if (camp.GetCampID() == campID) { // Assuming CampID is a field in the Camp class
     			campExists = true;
     			break;
@@ -346,6 +347,7 @@ public class StaffController {
 		ArrayList<Camp> camps = campManager.GetCamps();
     	boolean campExists= false;
     	for (Camp camp : camps) {
+			if(camp == null) continue;
     		if (camp.GetCampID() == campID) { // Assuming CampID is a field in the Camp class
     			campExists = true;
     			editcamp = camp;
@@ -368,6 +370,7 @@ public class StaffController {
     	boolean campExists= false;
     	Camp selectedCamp = null;
     	for (Camp camp : camps) {
+			if(camp == null) continue;
     		if (camp.GetCampID() == CampID) { // Assuming CampID is a field in the Camp class
     			selectedCamp = camp;
     			campExists = true;
@@ -390,6 +393,7 @@ public class StaffController {
     	boolean campExists= false;
     	Camp selectedCamp = null;
     	for (Camp camp : camps) {
+			if(camp == null) continue;
     		if (camp.GetCampID() == CampID) { // Assuming CampID is a field in the Camp class
     			selectedCamp = camp;
     			campExists = true;
@@ -423,6 +427,7 @@ public class StaffController {
     	boolean campExists= false;
     	Camp selectedCamp = null;
     	for (Camp camp : camps) {
+			if(camp == null) continue;
     		if (camp.GetCampID() == CampID) { // Assuming CampID is a field in the Camp class
     			selectedCamp = camp;
     			campExists = true;
@@ -445,6 +450,7 @@ public class StaffController {
     	boolean campExists= false;
     	Camp selectedCamp = null;
     	for (Camp camp : camps) {
+			if(camp == null) continue;
     		if (camp.GetCampID() == CampID) { // Assuming CampID is a field in the Camp class
     			selectedCamp = camp;
     			campExists = true;
@@ -481,6 +487,7 @@ public class StaffController {
 
 	    // Find the camp with the provided CampID
 	    for (Camp camp : camps) {
+			if(camp == null) continue;
 	        if (camp.GetCampID() == CampID) {
 	            selectedCamp = camp;
 	            campExists = true;
@@ -561,6 +568,7 @@ public class StaffController {
 
 	    // Find the camp with the provided CampID
 	    for (Camp camp : camps) {
+			if(camp == null) continue;
 	        if (camp.GetCampID() == CampID) { // Assuming CampID is a field in the Camp class
 	            selectedCamp = camp;
 	            campExists = true;
