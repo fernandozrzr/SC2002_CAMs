@@ -45,8 +45,8 @@ public class StaffView implements  CampView{
 	        ArrayList<Enquiries> enquiriesList = entry.getValue();
 	        
 	        System.out.println("CCM: " + name);
-	        for (Enquiries suggestion : enquiriesList) {
-	            System.out.println("  " + suggestion);
+	        for (Enquiries enq : enquiriesList) {
+	            System.out.println("EnquiryId: " + enq.GetEnquiryId()+"Enquiry: " + enq.GetEnquiry()+ "Ask By: " + enq.GetAskBy()+ "Reply: " + enq.GetReplyBy()+ "Ask By: " + enq.GetStatus()+ "Status: " + enq.GetStatus());
 	        }
 	    }
 	}
@@ -64,7 +64,7 @@ public class StaffView implements  CampView{
 	        
 	        System.out.println("CCM: " + name);
 	        for (Suggestions suggestion : suggestionsList) {
-	            System.out.println("  " + suggestion);
+	            System.out.println("SuggestionID: " + suggestion.GetID() + "Suggestion: " + suggestion.GetSuggestion() + " Status: "+ suggestion.IsStatus());
 	        }
 	    }
 	}
