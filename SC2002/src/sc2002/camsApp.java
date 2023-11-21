@@ -18,12 +18,14 @@ public class camsApp {
 		boolean a = true;
 
 		// main loop start
-		do {
+		do 
+		{
 			//initialize currentUser
 			currentUser = null;
 			
 			//user select domain and input validation
-			do {
+			do 
+			{
 				System.out.println("_______  _______  __   __  _______ \r\n" + "|       ||   _   ||  |_|  ||       |\r\n"
 						+ "|       ||  |_|  ||       ||  _____|\r\n" + "|       ||       ||       || |_____ \r\n"
 						+ "|      _||       ||       ||_____  |\r\n" + "|     |_ |   _   || ||_|| | _____| |\r\n"
@@ -34,19 +36,25 @@ public class camsApp {
 									+ "1. Student \n" 
 									+ "2. Staff\n"
 									+ "3. End program\n");
-				try {
+				try 
+				{
 					domain = sc.nextInt();
-				} catch (InputMismatchException e) {
+				} 
+				catch (InputMismatchException e) 
+				{
 					sc.next();
 					System.out.println("Invalid input");
 				}
 			} while (domain < 1 || domain > 3);
 
-			if(domain==3) {
+			if(domain==3) 
+			{
 				//stop the loop
 				System.out.print("Ending program"); 
 				a=false;
-			}else {
+			}
+			else 
+			{
 				System.out.println("Enter UserID: ");
 				String userID = sc.next();
 				System.out.println("Enter Password: ");
@@ -57,30 +65,41 @@ public class camsApp {
 				
 				// user not found, loop again
 				if (currentUser == null) {
-					//System.out.print(" user == null ");
+					System.out.print("User Not Found");
 					a = true;
 				} 
-				
 				// user found, stop the loop
-				else {
-					
-					//check current user 
-					//System.out.printf("current user: %s %s %s %s\n",currentUser.getName(),currentUser.getFaculty(), currentUser.getUserID(),currentUser.getClass());
-					
-					//switch to respective main loop
-					switch(domain) {
-					case 1: //student 
-						StudentController.GetInstance().StudentMenu();
-		
-						break;
-					case 2: //staff
-						StaffController.GetInstance().StaffMainLoop();
-						break;
-					}
+				else 
+				{
+					a = false;
 				}
 			}
 			currentUser =null;
-		} while (a == true );
+		} while (a);
 
+
+		//check current user 
+		//System.out.printf("current user: %s %s %s %s\n",currentUser.getName(),currentUser.getFaculty(), currentUser.getUserID(),currentUser.getClass());
+		
+		//switch to respective main loop
+		while(true)
+		{
+			switch(domain) 
+			{
+				case 0: // CCM
+					CCMController.GetInstance().CcmMenu();
+					break;
+
+				case 1: //student 
+					StudentController.GetInstance().StudentMenu();
+					break;
+
+				case 2: //staff
+					StaffController.GetInstance().StaffMainLoop();
+					break;
+
+			}
+		}
+		
 	}
 }

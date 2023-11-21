@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CCMView{
+public class CCMView extends StudentView{
     public CCMView() {
         super();
     }
 
-    public void DisplayAllSuggestions(int campID, CCM ccm){
+    public void DisplayAllSuggestions(CCM ccm){
         //implement code to print out all the suggestions the Camp Comittee Member has written has written
         System.out.println("Suggestions by Camp Committee Member " + ccm.GetPoints() + ":");
         for (Suggestions suggestion : ccm.getMySuggestions()) {
@@ -28,14 +28,15 @@ public class CCMView{
                 System.out.println("No enquiries found for this camp.");
             } else {
                 // display all enquiries under a particular camp
+                int count = 1;
                 for (Map.Entry<Student, ArrayList<Enquiries>> entry : enquiriesMap.entrySet()) {
                     ArrayList<Enquiries> studentEnquiries = entry.getValue();
                     System.out.println("All Enquiries for Camp " + camp.GetCampName() + ":");
                     for (Enquiries enquiry : studentEnquiries) {
-                        System.out.println("Enquiry: " + enquiry.GetEnquiry());
-                        System.out.println("Asked by: " + enquiry.GetAskBy());
-                        System.out.println("Reply: " + enquiry.GetReply());
-                        System.out.println();
+                        System.out.println("\t(" + (count++) +  ") Enquiry: " + enquiry.GetEnquiry() + ", Status: " + enquiry.GetStatus());
+                        if(enquiry.GetStatus() == STATUS.CLOSED)
+                            System.out.println("\t\tReply: " + enquiry.GetReply());
+
                     }
                 }
             }
@@ -43,4 +44,28 @@ public class CCMView{
             System.out.println("You do not have permission to view all enquiries.");
         }
     }
+    
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////         Main Loop Stuff         /////////////////////////////////////////////////////////////////////
+    @Override
+    public void DisplayMainMenu()
+    {
+        System.out.println("/////////////////////////////////////////////////////////////////////////");
+        System.out.println("////////////////////////        CCM Menu        /////////////////////////");
+        System.out.println("/////////////////////////////////////////////////////////////////////////");
+
+        System.out.println("Profile");
+        System.out.println("\t(1) View Profile");
+        System.out.println("Camps");
+        System.out.println("\t(2) View / Register / Withdraw");
+        System.out.println("Enquiries");
+        System.out.println("\t(3) View / Edit / Delete / Submit / Reply");
+        System.out.println("Suggestions");
+        System.out.println("\t(4) View / Edit / Delete / Submit");
+
+        System.out.println("/////////////////////////////////////////////////////////////////////////");
+        System.out.print("Enter your Choice: ");
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

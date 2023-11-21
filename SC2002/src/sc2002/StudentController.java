@@ -1,6 +1,5 @@
 package sc2002;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -9,7 +8,6 @@ import java.util.Scanner;
 public class StudentController 
 {
     private static StudentController instance = null;
-    private int enqID = 0;
     private StudentView view = null;
     private ArrayList<Camp> eligibleCamps = null;
 
@@ -30,7 +28,7 @@ public class StudentController
     // Add an enquiry
     public void AddEnquiry(int campID, String enquiry, String reply, String replyBy, Student askBy) 
     {
-    	Enquiries newEnquiry = new Enquiries(enqID++, campID, enquiry, reply, replyBy, askBy);
+    	Enquiries newEnquiry = new Enquiries(campID, enquiry, reply, replyBy, askBy);
     	askBy.AddMyEnquiry(newEnquiry);
     	CampController.GetInstance().AddEnquiry(campID, askBy, newEnquiry);
     }
@@ -57,8 +55,7 @@ public class StudentController
 		else if (askBy.FindEnquiry(enquiryID).GetStatus() == STATUS.CLOSED)
 			System.out.println("Enquiry cannot be edited as it is already processed.");
 		else {
-			int index = askBy.myEnquiries.indexOf(askBy.FindEnquiry(enquiryID));
-			askBy.EditMyEnquiry(index, newEnquiry);
+			askBy.EditMyEnquiry(enquiryID, newEnquiry);
 		}
     }
 
@@ -80,6 +77,7 @@ public class StudentController
         InitEligibleCamps();
         int choice = -1;
         Scanner input = new Scanner(System.in);
+        boolean becameCCM = false;
 
         while(choice != 0)
         {
@@ -99,7 +97,7 @@ public class StudentController
                     ProfileMenu();
                     break;
                 case 2:
-                    CampMenu();
+                    becameCCM = CampMenu();
                     break;
                 case 3:
                     EnquiriesMenu();
@@ -108,11 +106,13 @@ public class StudentController
                 default:
                     break;
             }
+
+            if(becameCCM) return;
         }
         
     }
 
-    private void CampMenu()
+    private boolean CampMenu()
     {
         String[] choices = {"view all", "view registered",  "view details", "register", "withdraw", "exit"};
         String choice = "";
@@ -148,7 +148,7 @@ public class StudentController
                     break;
                 }
                 
-            }while(!IsValidChoice(choice, choices));
+            }while(!Utility.IsValidChoice(choice, choices));
 
             //Execute function based on choice
             switch (choice) 
@@ -247,6 +247,7 @@ public class StudentController
                             {
                             	((Student) camsApp.currentUser).AddRegisteredCamps(eligibleCamps.get(campIndex));
                                 CampController.GetInstance().AddAttendee(eligibleCamps.get(campIndex).GetCampID(), (Student)camsApp.currentUser);
+                                    System.out.println("You have successfully registered as an attendee");
                             }
                             else
                                 System.out.println("Invalid request, User is not a Student");
@@ -260,6 +261,10 @@ public class StudentController
                             	CCM currentUser = new CCM(s.getName(), s.getUserID(), s.getFaculty(), s.GetMyEnquiries(), s.GetRegisteredCamps(), s.GetccmID());
                             	camsApp.currentUser = currentUser;
                             	CampController.GetInstance().AddCommitteeMember(currentUser.ccmID, currentUser);
+                                System.out.println("You have successfully registered as a committee member");
+                                exit = true;
+                                camsApp.domain = 0;
+                                return true;
                             }
                             else
                                 System.out.println("Invalid request, User is not a Student");
@@ -297,6 +302,7 @@ public class StudentController
                         Student s = (Student)camsApp.currentUser;
                         CampController.GetInstance().RemoveAttendee(eligibleCamps.get(campIndex).GetCampID(), s);
                         s.RemoveRegisteredCamps(eligibleCamps.get(campIndex));
+                        System.out.println("You have successfully withdrawn from the camp and will not be allowed to join back");
                     }
                     else if(camsApp.currentUser instanceof CCM)
                     {
@@ -316,6 +322,8 @@ public class StudentController
                     break;
             }
         }
+
+        return false;
     }
 
     private void EnquiriesMenu()
@@ -353,7 +361,7 @@ public class StudentController
                     break;
                 }
                 
-            }while(!IsValidChoice(choice, choices));
+            }while(!Utility.IsValidChoice(choice, choices));
 
             switch (choice) {
                 case "view":
@@ -386,8 +394,22 @@ public class StudentController
                         break;
                     }
 
+                    String enquiry = "";
+                    try
+                    {
+                        enquiry = sc.nextLine();
+                    }
+                    catch (InputMismatchException e) 
+                    {
+                        System.out.println("Invalid Input!");
+                        break;
+                    }
+
                     if(camsApp.currentUser instanceof Student)
-                        EditEnquiry((Student)camsApp.currentUser, enquiryIndex, choice);
+                    {
+                        EditEnquiry((Student)camsApp.currentUser, enquiryIndex, enquiry);
+                        System.out.println("Enquiry edited successfully");
+                    }
                     else
                         System.out.println("Invalid request, User is not a Student");
                     break;
@@ -415,7 +437,10 @@ public class StudentController
                     }
 
                     if(camsApp.currentUser instanceof Student)
+                    {
                         DeleteEnquiry((Student)camsApp.currentUser, enquiryIndex);
+                        System.out.println("Enquiry deleted successfully");
+                    }
                     else
                         System.out.println("Invalid request, User is not a Student");
                     break;
@@ -455,7 +480,10 @@ public class StudentController
                     }
 
                     if(camsApp.currentUser instanceof Student)
+                    {
                         AddEnquiry(eligibleCamps.get(campIndex).GetCampID(), enquiry, null, null, (Student)camsApp.currentUser);
+                        System.out.println("Enquiry successfully submitted");
+                    }
                     else
                         System.out.println("Invalid request, User is not a Student");
                     break;
@@ -481,14 +509,6 @@ public class StudentController
         System.out.println("You are not registered as a Committee Member in any camp");
     }
 
-    protected boolean IsValidChoice(String userChoice, String[] choices)
-    {
-        for(String choice : choices)
-        {
-            if(userChoice.equals(choice)) return true;
-        }
-
-        return false;
-    }
+    
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

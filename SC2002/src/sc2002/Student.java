@@ -10,6 +10,7 @@ public class Student extends User {
 	public Student(String name, String userID, String faculty)
 	{
 		super(name, userID, faculty);
+		ccmID = -1;
 	}
 	
 	// For camps
@@ -52,7 +53,7 @@ public class Student extends User {
 	public Enquiries FindEnquiry(int enquiryID) 
 	{
 		for (int i = 0; i < myEnquiries.size(); ++i) {
-			if (myEnquiries.get(i).GetEnquiryId() == enquiryID) 
+			if (i == enquiryID) 
 				return myEnquiries.get(i);
 		}
 		

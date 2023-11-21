@@ -38,20 +38,11 @@ public class CCM extends Student{
         mySuggestions.remove(suggestion);
     }
 
-    public void EditMySuggestion(Suggestions oldSuggestion, Suggestions newSuggestion) {
-        int index = mySuggestions.indexOf(oldSuggestion);
-        if (index != -1) {
-            mySuggestions.set(index, newSuggestion);
-        } else {
-            System.out.println("Suggestion not found for editing.");
-        }
-    }
-
     public Suggestions FindSuggestion(int suggestionID)
     {
         for(int i = 0; i < mySuggestions.size(); ++i)
         {
-            if(mySuggestions.get(i).GetID() == suggestionID)
+            if(i == suggestionID)
                 return mySuggestions.get(i);
         }
 

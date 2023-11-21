@@ -8,6 +8,8 @@ enum STATUS
 }
 
 public class Enquiries {
+	private static int enqID = 0;
+
 	private int enquiryId;
 	private int campID;
     private String enquiry;
@@ -16,8 +18,8 @@ public class Enquiries {
     private Student askBy;
     private STATUS status; //0 for Not replied, 1 for replied
 
-    public Enquiries(int enquiryId, int campID, String enquiry, String reply, String replyBy, Student currentUser) {
-        this.enquiryId = enquiryId;
+    public Enquiries(int campID, String enquiry, String reply, String replyBy, Student currentUser) {
+        this.enquiryId = enqID++;
 		this.enquiry = enquiry;
         this.reply = reply;
         this.replyBy = replyBy;
