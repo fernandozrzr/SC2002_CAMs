@@ -14,7 +14,6 @@ public class camsApp {
 	//public static Hashtable<String, String> passwordDict = new Hashtable<>();
 
 	public static void main(String args[]) throws Exception {
-		
 		Scanner sc = new Scanner(System.in);
 		boolean a = true;
 

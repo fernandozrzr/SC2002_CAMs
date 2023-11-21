@@ -1,5 +1,6 @@
 package sc2002;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -192,7 +193,7 @@ public class StudentController
                         break;
                     }
 
-                    view.DisplayCampDetails(campID);
+                    view.DisplayCampDetails(campID, (Student)camsApp.currentUser);
 
                     break;
                 }
@@ -217,6 +218,12 @@ public class StudentController
                     if(campIndex < 0 || campIndex > eligibleCamps.size())
                     {
                         System.out.println("You have entered an invalid choice. \n");
+                        break;
+                    }
+
+                    if(!eligibleCamps.get(campIndex).CanRegister())
+                    {
+                        System.out.println("The registeration date has passed.");
                         break;
                     }
 

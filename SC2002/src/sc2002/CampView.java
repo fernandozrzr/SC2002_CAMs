@@ -11,7 +11,7 @@ public interface CampView
             System.out.println("(" + (i + 1) + ") " + camps.get(i).GetCampName());
     }
 
-    public default void DisplayCampDetails(int campID)
+    public default void DisplayCampDetails(int campID, Student student) 
     {
         ArrayList<Camp> campList = CampController.GetInstance().GetCamps();
 
@@ -25,6 +25,12 @@ public interface CampView
         if(camp == null)
         {
             System.out.println("Not a valid CampID");
+            return;
+        }
+
+        if(!camp.GetAttendees().contains(student))
+        {
+            System.out.println("You are not enrolled in this camp");
             return;
         }
 

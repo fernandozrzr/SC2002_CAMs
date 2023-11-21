@@ -1,6 +1,9 @@
 package sc2002;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class Camp 
@@ -9,7 +12,7 @@ public class Camp
 
     private String campName;
     private String date;
-    private String registerCloseDate;
+    private String registerCloseDate; // In Format of yyyy/mm/dd
     private String userGrp;
     private String location;
     private String description;
@@ -283,6 +286,22 @@ public class Camp
     public HashMap<CCM, ArrayList<Suggestions>> getSuggestion()
     {
     	return suggestions;
+    }
+
+    public boolean CanRegister()
+    {
+        Date tdy = new Date();
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Date rD = null;
+        try {
+            rD = sdf.parse(registerCloseDate);
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return tdy.before(rD);
     }
 
 }
