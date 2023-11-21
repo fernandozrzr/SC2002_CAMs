@@ -236,4 +236,7 @@ public class Auth {
 			return strength;
 	}
 
+	public static void updateAcccounts(User newUser) {
+		accounts.put(newUser.getUserID(), newUser);
+	}
 }
