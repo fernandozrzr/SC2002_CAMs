@@ -65,13 +65,28 @@ public class camsApp {
 				
 				// user not found, loop again
 				if (currentUser == null) {
-					System.out.print("User Not Found");
+					//System.out.print("User Not Found");
 					a = true;
 				} 
 				// user found, stop the loop
 				else 
 				{
-					a = false;
+					//a = false;
+					switch(domain) 
+					{
+						case 0: // CCM
+							CCMController.GetInstance().CcmMenu();
+							break;
+
+						case 1: //student 
+							StudentController.GetInstance().StudentMenu();
+							break;
+
+						case 2: //staff
+							StaffController.GetInstance().StaffMainLoop();
+							break;
+
+					}
 				}
 			}
 		} while (a);
@@ -81,24 +96,10 @@ public class camsApp {
 		//System.out.printf("current user: %s %s %s %s\n",currentUser.getName(),currentUser.getFaculty(), currentUser.getUserID(),currentUser.getClass());
 		
 		//switch to respective main loop
-		while(true)
-		{
-			switch(domain) 
-			{
-				case 0: // CCM
-					CCMController.GetInstance().CcmMenu();
-					break;
-
-				case 1: //student 
-					StudentController.GetInstance().StudentMenu();
-					break;
-
-				case 2: //staff
-					StaffController.GetInstance().StaffMainLoop();
-					break;
-
-			}
-		}
+		/*while(true)
+		{*/
+			
+		
 		
 	}
 }

@@ -68,6 +68,7 @@ public class StudentView implements CampView
         System.out.println("/////////////////////////////////////////////////////////////////////////");
 
         System.out.println("Profile");
+        System.out.println("\t(0) Log Out");
         System.out.println("\t(1) View Profile");
         System.out.println("Camps");
         System.out.println("\t(2) View / Register / Withdraw");
