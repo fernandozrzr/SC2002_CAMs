@@ -215,7 +215,7 @@ public class StaffController {
 	// Create a camp
 	public Camp CreateCamp(String campName, String date, String closedate, String userGrp, String location, String description, String staffIC, int totalSlots, int CommitteeSlots, boolean Visibility)
     {
-		Camp newcamp=campManager.AddCamp(campName, date, closedate, userGrp, location, description, staffIC, totalSlots, CommitteeSlots, Visibility);
+		Camp newcamp=campManager.AddCamp(campName, date, closedate, userGrp.toUpperCase(), location, description, staffIC, totalSlots, CommitteeSlots, Visibility);
 		//returns camp to so that can be added to Staff Class
 		return newcamp;
     }
