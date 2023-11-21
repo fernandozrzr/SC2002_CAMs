@@ -1,20 +1,52 @@
 package sc2002;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Scanner;
 
-import java.util.Enumeration;
-import java.util.HashMap;
 
 public class Auth {
 
 	// initialize the dictionary passwordDict
 	static Hashtable<String, String> studentPasswordDict = new Hashtable<>();
 	static Hashtable<String, String> staffPasswordDict = new Hashtable<>();
+
+	static HashMap<String, User> accounts = new HashMap<String, User>();
+
+	public static void Init()
+	{
+		if(studentPasswordDict.isEmpty()==true) {
+			try {
+				studentPasswordDict = getPasswordDict(1);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		if(staffPasswordDict.isEmpty()==true) {
+			try {
+				staffPasswordDict = getPasswordDict(2);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		for (Map.Entry<String, String> entry : studentPasswordDict.entrySet()) 
+		{
+            String userName = entry.getKey();
+			accounts.put(userName, null);
+        }
+
+		for (Map.Entry<String, String> entry : staffPasswordDict.entrySet()) 
+		{
+            String userName = entry.getKey();
+			accounts.put(userName, null);
+        }
+	}
 
 	public static void login( String userID, String password, int domain) {
 		
@@ -23,24 +55,26 @@ public class Auth {
 		//check if respective passwordDict is load before 
 		switch(domain) {
 		case 1: //student
-			if(studentPasswordDict.isEmpty()==true) {
-				try {
-					studentPasswordDict = getPasswordDict(domain);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
 			// valid user
 			if ( studentPasswordDict.containsKey(userID)) {
 				if (studentPasswordDict.get(userID).equals(password)) {
 					System.out.println("Login succesful!");
-					try {
-						camsApp.currentUser = FileManager.createUserObject(userID, FileManager.getFilePath(domain),domain);
-					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+
+					if(accounts.get(userID) == null)
+					{
+						try 
+						{
+							camsApp.currentUser = FileManager.createUserObject(userID, FileManager.getFilePath(domain),domain);
+							accounts.replace(userID, camsApp.currentUser);
+						} 
+						catch (FileNotFoundException e) 
+						{
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
+					else
+						camsApp.currentUser = accounts.get(userID);
 					
 					// if user still using default password
 					if(studentPasswordDict.get(userID).equals("Password")) {
@@ -62,25 +96,29 @@ public class Auth {
 			break;
 			
 		case 2://staff
-			if(staffPasswordDict.isEmpty()==true) {
-				try {
-					staffPasswordDict = getPasswordDict(domain);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+			
 			//passwordDict =  staffPasswordDict;
 			// valid user
 			if ( staffPasswordDict.containsKey(userID)) {
 				if (staffPasswordDict.get(userID).equals(password)) {
 					System.out.print("Login succesful!");
-					try {
-						camsApp.currentUser = FileManager.createUserObject(userID, FileManager.getFilePath(domain),domain);
-					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+
+					if(accounts.get(userID) == null)
+					{
+						try 
+						{
+							camsApp.currentUser = FileManager.createUserObject(userID, FileManager.getFilePath(domain),domain);
+							accounts.replace(userID, camsApp.currentUser);
+						} 
+						catch (FileNotFoundException e) 
+						{
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
+					else
+						camsApp.currentUser = accounts.get(userID);
+					
 					// if user still using default password
 					if(staffPasswordDict.get(userID).equals("Password")) {
 						System.out.println("\nPlease change your password!!!");

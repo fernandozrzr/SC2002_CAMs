@@ -11,6 +11,8 @@ public class Student extends User {
 	{
 		super(name, userID, faculty);
 		ccmID = -1;
+		myEnquiries = new ArrayList<Enquiries>();
+		registeredCamps = new ArrayList<Camp>();
 	}
 	
 	// For camps

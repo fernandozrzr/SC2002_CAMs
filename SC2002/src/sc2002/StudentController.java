@@ -65,7 +65,7 @@ public class StudentController
 
         for(Camp camp : CampController.GetInstance().GetCamps())
         {
-            if(camp.IsVisible() && camp.GetUserGrp() == camsApp.currentUser.getFaculty())
+            if(camp.IsVisible() && camp.GetUserGrp().equals(camsApp.currentUser.getFaculty()))
                 eligibleCamps.add(camp);
         }
     }
@@ -185,7 +185,7 @@ public class StudentController
                     //Error Checking
                     try
                     {
-                        campID = sc.nextInt();
+                        campID = sc.nextInt() - 1;
                     }
                     catch (InputMismatchException e) 
                     {
@@ -206,7 +206,7 @@ public class StudentController
 
                     try
                     {
-                        campIndex = sc.nextInt();
+                        campIndex = sc.nextInt() - 1;
                     }
                     catch (InputMismatchException e) 
                     {
@@ -282,7 +282,7 @@ public class StudentController
 
                     try
                     {
-                        campIndex = sc.nextInt();
+                        campIndex = sc.nextInt() - 1;
                     }
                     catch (InputMismatchException e) 
                     {

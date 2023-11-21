@@ -20,7 +20,7 @@ public class StudentView implements CampView
         
         for(int i = 0; i < allCamps.size(); ++i)
         {
-            if (allCamps.get(i).IsVisible() && allCamps.get(i).GetUserGrp() == camsApp.currentUser.getFaculty())
+            if (allCamps.get(i).IsVisible() && camsApp.currentUser.getFaculty().equals(allCamps.get(i).GetUserGrp()))
             {
             	System.out.println("(" + (x + 1) + ") " + allCamps.get(i).GetCampName());
                 int slotsLeft = allCamps.get(i).GetTotalSlots() - allCamps.get(i).GetAttendees().size();
@@ -67,8 +67,8 @@ public class StudentView implements CampView
         System.out.println("//////////////////////        Student Menu        ///////////////////////");
         System.out.println("/////////////////////////////////////////////////////////////////////////");
 
+        System.out.println("(0) Log Out");
         System.out.println("Profile");
-        System.out.println("\t(0) Log Out");
         System.out.println("\t(1) View Profile");
         System.out.println("Camps");
         System.out.println("\t(2) View / Register / Withdraw");

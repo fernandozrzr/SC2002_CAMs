@@ -304,7 +304,7 @@ public class CCMController {
                     //Error Checking
                     try
                     {
-                        campID = sc.nextInt();
+                        campID = sc.nextInt() - 1;
                     }
                     catch (InputMismatchException e) 
                     {
@@ -325,7 +325,7 @@ public class CCMController {
 
                     try
                     {
-                        campIndex = sc.nextInt();
+                        campIndex = sc.nextInt() - 1;
                     }
                     catch (InputMismatchException e) 
                     {
@@ -405,7 +405,7 @@ public class CCMController {
 
                     try
                     {
-                        campIndex = sc.nextInt();
+                        campIndex = sc.nextInt() - 1;
                     }
                     catch (InputMismatchException e) 
                     {

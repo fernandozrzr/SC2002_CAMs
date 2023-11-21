@@ -175,23 +175,19 @@ public class StaffController {
 		//input validation????
 		
 		System.out.println("camp name: ");
-		String campName = sc.next();
+		String campName = sc.nextLine();
 		
 		//change to date datatype?
 		System.out.println("camp close date: ");
-		String closeDate = sc.next();
+		String closeDate = sc.nextLine();
 		
 		//check if this group exitst ? set to enum ?
 		System.out.println("camp user group: ");
-		String userGrp = sc.next();
+		String userGrp = sc.nextLine();
 		System.out.println("camp location: ");
-		String location = sc.next();
+		String location = sc.nextLine();
 		System.out.println("camp description: ");
-		String description = sc.next();
-		
-		//check if the staff exists???
-		System.out.println("camp staff in charge: ");
-		String staffIC = sc.next();
+		String description = sc.nextLine();
 		
 		System.out.println("no. of camp member slots: ");
 		int totalSlots = sc.nextInt();
@@ -205,7 +201,7 @@ public class StaffController {
 		}
 		
 		String date = LocalDateTime.now().toString();
-		CreateCamp(campName, date, closeDate, userGrp, location, description, staffIC, totalSlots, CommittessSlots, Visibility);
+		CreateCamp(campName, date, closeDate, userGrp, location, description, camsApp.currentUser.name, totalSlots, CommittessSlots, Visibility);
 		System.out.println("camp created!");
 		//sc.nextLine();
 	}

@@ -14,8 +14,10 @@ public class camsApp {
 	//public static Hashtable<String, String> passwordDict = new Hashtable<>();
 
 	public static void main(String args[]) throws Exception {
+
 		Scanner sc = new Scanner(System.in);
 		boolean a = true;
+		Auth.Init();
 
 		// main loop start
 		do 
@@ -72,21 +74,12 @@ public class camsApp {
 				else 
 				{
 					//a = false;
-					switch(domain) 
-					{
-						case 0: // CCM
-							CCMController.GetInstance().CcmMenu();
-							break;
-
-						case 1: //student 
-							StudentController.GetInstance().StudentMenu();
-							break;
-
-						case 2: //staff
-							StaffController.GetInstance().StaffMainLoop();
-							break;
-
-					}
+					if(currentUser instanceof CCM)
+						CCMController.GetInstance().CcmMenu();
+					else if(currentUser instanceof Student)
+						StudentController.GetInstance().StudentMenu();
+					else if(currentUser instanceof Staff)
+						StaffController.GetInstance().StaffMainLoop();
 				}
 			}
 		} while (a);
