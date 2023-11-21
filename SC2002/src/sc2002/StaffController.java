@@ -309,7 +309,6 @@ public class StaffController {
 	                break;
 	            case 11:
 	                System.out.println("Exiting menu.");
-	                scanner.close();
 	                return;
 	            default:
 	                System.out.println("Invalid choice. Please enter a number from 1 to 11.");
