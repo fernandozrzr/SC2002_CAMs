@@ -11,27 +11,27 @@ public class StudentView implements CampView
     }
 
     ///////////////////////////////////////////////////         Implmenting interface functions         ///////////////////////////////////////////////////
-//    @Override
-//    public void DisplayAllCamps()
-//    {
-//        ArrayList<Camp> allCamps = CampController.GetInstance().GetCamps();
-//        
-//        int x = 0;
-//        
-//        for(int i = 0; i < allCamps.size(); ++i)
-//        {
-//            if (allCamps.get(i).IsVisible() && camsApp.currentUser.getFaculty().equals(allCamps.get(i).GetUserGrp()))
-//            {
-//            	System.out.println("(" + (x + 1) + ") " + allCamps.get(i).GetCampName());
-//                int slotsLeft = allCamps.get(i).GetTotalSlots() - allCamps.get(i).GetAttendees().size();
-//                System.out.println("\tTotal Slots Available: " + slotsLeft + "/" + allCamps.get(i).GetTotalSlots());
-//                slotsLeft = allCamps.get(i).GetCommitteeSlots() - allCamps.get(i).GetCommitteeMembers().size();
-//                System.out.println("\tCommittee Member Slots Available: " + slotsLeft + "/" + allCamps.get(i).GetCommitteeSlots());
-//            	++x;
-//            }
-//        }
-//        
-//    }
+    @Override
+    public void DisplayAllCamps()
+    {
+        ArrayList<Camp> allCamps = CampController.GetInstance().GetCamps();
+        
+        int x = 0;
+        
+        for(int i = 0; i < allCamps.size(); ++i)
+        {
+            if (allCamps.get(i).IsVisible() && camsApp.currentUser.getFaculty().equals(allCamps.get(i).GetUserGrp()))
+            {
+            	System.out.println("(" + (x + 1) + ") " + allCamps.get(i).GetCampName());
+                int slotsLeft = allCamps.get(i).GetTotalSlots() - allCamps.get(i).GetAttendees().size();
+                System.out.println("\tTotal Slots Available: " + slotsLeft + "/" + allCamps.get(i).GetTotalSlots());
+                slotsLeft = allCamps.get(i).GetCommitteeSlots() - allCamps.get(i).GetCommitteeMembers().size();
+                System.out.println("\tCommittee Member Slots Available: " + slotsLeft + "/" + allCamps.get(i).GetCommitteeSlots());
+            	++x;
+            }
+        }
+        
+    }
 
     @Override
     public void DisplayMyCamps(ArrayList<Camp> camp) 
