@@ -8,7 +8,7 @@ import java.util.*;
 
 public class camsApp {
 
-	public static User[] userList;
+	//public static User[] userList;
 	public static User currentUser;
 	public static int domain;
 	//public static Hashtable<String, String> passwordDict = new Hashtable<>();
@@ -73,13 +73,16 @@ public class camsApp {
 				// user found, stop the loop
 				else 
 				{
-					//a = false;
-					if(currentUser instanceof CCM)
-						CCMController.GetInstance().CcmMenu();
-					else if(currentUser instanceof Student)
-						StudentController.GetInstance().StudentMenu();
-					else if(currentUser instanceof Staff)
-						StaffController.GetInstance().StaffMainLoop();
+					do {
+						//a = false;
+						if(currentUser instanceof CCM)
+							CCMController.GetInstance().CcmMenu();
+						else if(currentUser instanceof Student)
+							StudentController.GetInstance().StudentMenu();
+						else if(currentUser instanceof Staff)
+							StaffController.GetInstance().StaffMainLoop();
+					}while(currentUser !=null);
+					
 				}
 			}
 		} while (a);

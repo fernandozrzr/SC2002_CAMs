@@ -93,6 +93,9 @@ public class StudentController
             }
 
             switch (choice) {
+            	case 0: 
+            		camsApp.currentUser=null;
+            		break;
                 case 1:
                     ProfileMenu();
                     break;

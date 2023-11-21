@@ -10,10 +10,10 @@ import java.util.Scanner;
 public class Auth {
 
 	// initialize the dictionary passwordDict
-	static Hashtable<String, String> studentPasswordDict = new Hashtable<>();
-	static Hashtable<String, String> staffPasswordDict = new Hashtable<>();
+	private static Hashtable<String, String> studentPasswordDict = new Hashtable<>();
+	private static Hashtable<String, String> staffPasswordDict = new Hashtable<>();
 
-	static HashMap<String, User> accounts = new HashMap<String, User>();
+	private static HashMap<String, User> accounts = new HashMap<String, User>();
 
 	public static void Init()
 	{
@@ -46,6 +46,15 @@ public class Auth {
             String userName = entry.getKey();
 			accounts.put(userName, null);
         }
+		
+		StaffController staff = new StaffController();
+		staff.CreateCamp("HACHI", "21/11/2023", "25/12/2025", "SCSE", "NS", "WELCOME", "ARVI", 10, 3, true);
+		staff.CreateCamp("NANA", "21/11/2023", "25/12/2025", "SCSE", "NS", "WELCOME", "ARVI", 8, 3, true);
+		staff.CreateCamp("CHIIKAWA", "21/11/2023", "25/12/2025", "ADM", "NS", "WELCOME", "ARVI", 6, 2, true);
+		staff.CreateCamp("USAGYUU", "21/11/2023", "28/12/2025", "SSS", "NS", "WELCOME", "ARVI", 9, 3, true);
+		staff.CreateCamp("HANGYUDON", "21/11/2023", "25/12/2025", "EEE", "NS", "WELCOME", "ARVI", 10, 2, true);
+		staff.CreateCamp("NANA", "21/11/2023", "25/12/2025", "NBS", "NS", "WELCOME", "ARVI", 8, 3, true);
+
 	}
 
 	public static void login( String userID, String password, int domain) {
@@ -65,7 +74,7 @@ public class Auth {
 						try 
 						{
 							camsApp.currentUser = FileManager.createUserObject(userID, FileManager.getFilePath(domain),domain);
-							accounts.replace(userID, camsApp.currentUser);
+							accounts.put(userID, camsApp.currentUser);
 						} 
 						catch (FileNotFoundException e) 
 						{
@@ -108,7 +117,7 @@ public class Auth {
 						try 
 						{
 							camsApp.currentUser = FileManager.createUserObject(userID, FileManager.getFilePath(domain),domain);
-							accounts.replace(userID, camsApp.currentUser);
+							accounts.put(userID, camsApp.currentUser);
 						} 
 						catch (FileNotFoundException e) 
 						{
