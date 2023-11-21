@@ -104,6 +104,7 @@ public class StaffController {
 					break;
 				case 10: //logout
 					System.out.println("Exiting StaffMainLoop...");
+					camsApp.currentUser=null;
 					break;
 				}
 				
@@ -178,11 +179,10 @@ public class StaffController {
 		String campName = sc.nextLine();
 		
 		//change to date datatype?
-		System.out.println("camp close date: ");
+		System.out.println("camp close date:(dd/mm/yyyy)");
 		String closeDate = sc.nextLine();
 		
-		//check if this group exitst ? set to enum ?
-		System.out.println("camp user group: ");
+		System.out.println("camp user group: (SCSE/ADM/NBS/SSS/EEE)");
 		String userGrp = sc.nextLine();
 		System.out.println("camp location: ");
 		String location = sc.nextLine();
