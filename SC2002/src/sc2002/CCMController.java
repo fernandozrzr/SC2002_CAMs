@@ -182,7 +182,9 @@ public class CCMController {
 
         for(Camp camp : CampController.GetInstance().GetCamps())
         {
-            if(camp.IsVisible() && camp.GetUserGrp() == camsApp.currentUser.getFaculty())
+        	String fa;
+        	fa=camsApp.currentUser.getFaculty();
+            if(camp.IsVisible() && camp.GetUserGrp().equals(fa) )
                 eligibleCamps.add(camp);
         }
     }
