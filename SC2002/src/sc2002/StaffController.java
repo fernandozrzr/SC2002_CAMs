@@ -493,7 +493,7 @@ public class StaffController {
 	        // Get participants based on the specified participantType
 	        if (participantType.equalsIgnoreCase("Student")||participantType.equalsIgnoreCase("All")) {
 	        	ArrayList<Student> filterlist = selectedCamp.GetAttendees();
-	        	try (BufferedWriter writer = new BufferedWriter(new FileWriter("Student_List.csv"))) {
+	        	try (BufferedWriter writer = new BufferedWriter(new FileWriter(selectedCamp.GetCampName()+"_Student_List.csv"))) {
 		            // Write header for CSV file
 		            writer.write("CampID, CampName, ParticipantName, Role");
 		            writer.newLine();
@@ -517,7 +517,7 @@ public class StaffController {
 	        }  
 	        if (participantType.equalsIgnoreCase("CCM")||participantType.equalsIgnoreCase("All")) {
 	        	ArrayList<CCM> flterlist = selectedCamp.GetCommitteeList();
-	        	try (BufferedWriter writer = new BufferedWriter(new FileWriter("CCM_List.csv"))) {
+	        	try (BufferedWriter writer = new BufferedWriter(new FileWriter(selectedCamp.GetCampName()+"_CCM_List.csv"))) {
 	            // Write header for CSV file
 	        		writer.write("CampID, CampName, ParticipantName, Role");
 	        		writer.newLine();
