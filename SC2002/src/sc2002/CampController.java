@@ -48,7 +48,7 @@ public class CampController
 
     public boolean DeleteCamp(int campID)
     {
-        if(campID > 0 && campID < camps.size())
+        if(campID >= 0 && campID < camps.size())
         {
             camps.set(campID, null);
             return true;

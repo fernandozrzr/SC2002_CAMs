@@ -74,7 +74,6 @@ public class camsApp {
 					a = false;
 				}
 			}
-			currentUser =null;
 		} while (a);
 
 

@@ -162,7 +162,7 @@ public class StaffController {
 				//get input 
 				System.out.println("please select a camp： ");
 				campID= input.nextInt();
-		return campID;
+		return campID - 1;
 	}
 	
 	public void CreateCampMgr() {
