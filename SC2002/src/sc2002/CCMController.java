@@ -281,6 +281,9 @@ public class CCMController {
                 
             }while(!Utility.IsValidChoice(choice, choices));
 
+            System.out.println("/////////////////////////////////////////////////////////////////////////");
+            System.out.println();
+            
             //Execute function based on choice
             switch (choice) 
             {
@@ -507,6 +510,9 @@ public class CCMController {
                 
             }while(!Utility.IsValidChoice(choice, choices));
 
+            System.out.println("/////////////////////////////////////////////////////////////////////////");
+            System.out.println();
+
             switch (choice) {
                 case "view":
                 {
@@ -698,10 +704,13 @@ public class CCMController {
 
     private void ProfileMenu()
     {
+        System.out.println("/////////////////////////////////////////////////////////////////////////");
+        System.out.println();
         System.out.println("Name: " + camsApp.currentUser.getName());
         System.out.println("ID: " + camsApp.currentUser.getUserID());
         System.out.println("Faculty: " + camsApp.currentUser.getFaculty());
         System.out.println("You are a committee member of " + CampController.GetInstance().GetCamps().get(((CCM)camsApp.currentUser).ccmID).GetCampName() + " Camp");
+        System.out.println();
     }
 
     private void SuggestionMenu()
@@ -740,6 +749,9 @@ public class CCMController {
                 }
                 
             }while(!Utility.IsValidChoice(choice, choices));
+
+            System.out.println("/////////////////////////////////////////////////////////////////////////");
+            System.out.println();
 
             switch (choice) {
                 case "view":

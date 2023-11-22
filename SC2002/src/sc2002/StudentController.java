@@ -155,11 +155,14 @@ public class StudentController
                 
             }while(!Utility.IsValidChoice(choice, choices));
 
+            System.out.println("/////////////////////////////////////////////////////////////////////////");
+            System.out.println();
             //Execute function based on choice
             switch (choice) 
             {
                 case "view all":
                 {
+                    
                     view.DisplayAllCamps();
                     break;
                 }
@@ -369,6 +372,9 @@ public class StudentController
                 
             }while(!Utility.IsValidChoice(choice, choices));
 
+            System.out.println("/////////////////////////////////////////////////////////////////////////");
+            System.out.println();
+
             switch (choice) {
                 case "view":
                 {
@@ -509,10 +515,13 @@ public class StudentController
 
     private void ProfileMenu()
     {
+        System.out.println("/////////////////////////////////////////////////////////////////////////");
+        System.out.println();
         System.out.println("Name: " + camsApp.currentUser.getName());
         System.out.println("ID: " + camsApp.currentUser.getUserID());
         System.out.println("Faculty: " + camsApp.currentUser.getFaculty());
         System.out.println("You are not registered as a Committee Member in any camp");
+        System.out.println();
     }
 
     
