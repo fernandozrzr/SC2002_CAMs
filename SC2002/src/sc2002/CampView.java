@@ -11,7 +11,7 @@ public interface CampView
     public default void DisplayAllCamps(){	
     	Boolean filter = false; // Default value
     	Boolean success = false;
-    	System.out.println("Filter?");
+    	System.out.println("Do you want to filter?");
     	System.out.println("Enter true or false:");
     	
     	Scanner sc = new Scanner(System.in);

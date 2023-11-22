@@ -57,31 +57,36 @@ public class StaffController {
 					break;
 				case 4: //approve suggestion 
 					int campID =getCampIDInput();
-					ViewSuggestions(campID);
-					System.out.println("Please select a suggestion: ");
-					int sugID = Integer.parseInt(sc.nextLine());
-					System.out.println("(A)Approve / (D)Decline ?");
-					String AD = sc.nextLine().toLowerCase();
-					switch(AD) {
-					case "a":
-						ApproveSuggestions(campID,sugID,true);
-						break;
-					case "d":
-						ApproveSuggestions(campID,sugID,false);
-						break;
+					Boolean exist = ViewSuggestions(campID);
+					if(exist) {
+						System.out.println("Please select a suggestion: ");
+						int sugID = Integer.parseInt(sc.nextLine());
+						System.out.println("(A)Approve / (D)Decline ?");
+						String AD = sc.nextLine().toLowerCase();
+						switch(AD) {
+						case "a":
+							ApproveSuggestions(campID,sugID,true);
+							break;
+						case "d":
+							ApproveSuggestions(campID,sugID,false);
+							break;
+						}
 					}
+					
 					break;
 				case 5: // view enquires 
 					ViewEnquiries(getCampIDInput());
 					break;
 				case 6: // reply enquires
 					campID= getCampIDInput();
-					ViewEnquiries(campID);
-					System.out.println("Please select an enquiries: ");
-					int enID = Integer.parseInt(sc.nextLine());
-					System.out.println("Please enter your reply: ");
-					String reply = sc.nextLine();
-					ReplyEnquiries(campID,enID,reply);
+					Boolean exist1 = ViewEnquiries(campID);
+					if(exist1) {
+						System.out.println("Please select an enquiries: ");
+						int enID = Integer.parseInt(sc.nextLine());
+						System.out.println("Please enter your reply: ");
+						String reply = sc.nextLine();
+						ReplyEnquiries(campID,enID,reply);
+					}
 					break;
 				case 7: //generate list
 					campID = getCampIDInput();
@@ -377,7 +382,7 @@ public class StaffController {
 		
     }
 	// View all suggestions of a camp based on CampID
-	public void ViewSuggestions(int CampID)
+	public Boolean ViewSuggestions(int CampID)
     {	
 		ArrayList<Camp> camps = campManager.GetCamps();
     	boolean campExists= false;
@@ -392,10 +397,19 @@ public class StaffController {
     	}	
     	if(campExists) {
     		HashMap<CCM, ArrayList<Suggestions>> map = selectedCamp.getSuggestion();
-    		staffViewManager.DisplayAllSuggestions(map);
+    		if (map.isEmpty()) {
+    			System.out.println("CampID does not have any suggestions.");
+    			return false;
+    		}
+    		else {
+    			
+    			staffViewManager.DisplayAllSuggestions(map);
+    			return true;
+    		}
     	}
     	else {
     		System.out.println("CampID does not exist.");
+    		return false;
     	}
 		
     }
@@ -435,7 +449,7 @@ public class StaffController {
     	}
     }
 	// View all enquires of a camp based on CampID
-	public void ViewEnquiries(int CampID)
+	public Boolean ViewEnquiries(int CampID)
     {	ArrayList<Camp> camps = campManager.GetCamps();
     	boolean campExists= false;
     	Camp selectedCamp = null;
@@ -449,10 +463,18 @@ public class StaffController {
     	}	
     	if(campExists) {
     		HashMap<Student, ArrayList<Enquiries>> map = selectedCamp.getEnquiries();
-    		staffViewManager.DisplayAllEnquiries(map);
+    		if(map.isEmpty()) {
+    			System.out.println("CampID does not have any enquiries.");
+    			return false;
+    		}else {
+    			staffViewManager.DisplayAllEnquiries(map);
+    			return true;
+    		}
+    		
     	}
     	else {
     		System.out.println("CampID does not exist.");
+    		return false;
     	}
 		
     }
