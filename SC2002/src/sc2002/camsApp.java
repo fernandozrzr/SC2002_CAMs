@@ -40,11 +40,11 @@ public class camsApp {
 									+ "3. End program\n");
 				try 
 				{
-					domain = sc.nextInt();
+					domain = Integer.parseInt(sc.nextLine());
 				} 
 				catch (InputMismatchException e) 
 				{
-					sc.next();
+					sc.nextLine();
 					System.out.println("Invalid input");
 				}
 			} while (domain < 1 || domain > 3);
@@ -58,9 +58,9 @@ public class camsApp {
 			else 
 			{
 				System.out.println("Enter UserID: ");
-				String userID = sc.next();
+				String userID = sc.nextLine();
 				System.out.println("Enter Password: ");
-				String password = sc.next();
+				String password = sc.nextLine();
 
 				//set currentUser after verification
 				Auth.login(userID, password, domain);

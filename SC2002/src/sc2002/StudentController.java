@@ -190,7 +190,7 @@ public class StudentController
                     //Error Checking
                     try
                     {
-                        campID = sc.nextInt() - 1;
+                        campID = Integer.parseInt(sc.nextLine()) - 1;
                     }
                     catch (InputMismatchException e) 
                     {
@@ -211,7 +211,7 @@ public class StudentController
 
                     try
                     {
-                        campIndex = sc.nextInt() - 1;
+                        campIndex = Integer.parseInt(sc.nextLine()) - 1;
                     }
                     catch (InputMismatchException e) 
                     {
@@ -237,7 +237,7 @@ public class StudentController
 
                     try
                     {
-                        type = sc.nextInt();
+                        type = Integer.parseInt(sc.nextLine());
                     }
                     catch (InputMismatchException e) 
                     {
@@ -288,7 +288,7 @@ public class StudentController
 
                     try
                     {
-                        campIndex = sc.nextInt() - 1;
+                        campIndex = Integer.parseInt(sc.nextLine()) - 1;
                     }
                     catch (InputMismatchException e) 
                     {
@@ -386,7 +386,7 @@ public class StudentController
 
                     try
                     {
-                        enquiryIndex = sc.nextInt() - 1;
+                        enquiryIndex = Integer.parseInt(sc.nextLine()) - 1;
                     }
                     catch (InputMismatchException e) 
                     {
@@ -428,7 +428,7 @@ public class StudentController
 
                     try
                     {
-                        enquiryIndex = sc.nextInt() - 1;
+                        enquiryIndex = Integer.parseInt(sc.nextLine()) - 1;
                     }
                     catch (InputMismatchException e) 
                     {
@@ -460,7 +460,7 @@ public class StudentController
 
                     try
                     {
-                        campIndex = sc.nextInt() - 1;
+                        campIndex = Integer.parseInt(sc.nextLine()) - 1;
                     }
                     catch (InputMismatchException e) 
                     {

@@ -164,7 +164,7 @@ public class Auth {
 		
 		//get user new password
 		System.out.println("Enter new Password:\n");
-		String newpass =sc.next();
+		String newpass =sc.nextLine();
 		
 		//check password security
 		String strength = passwordStrength(newpass);

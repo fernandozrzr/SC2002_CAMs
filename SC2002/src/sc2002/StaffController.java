@@ -43,10 +43,9 @@ public class StaffController {
 					try {
 						//print the menu
 						staffViewManager.menu();
-						choice = sc.nextInt();
+						choice = Integer.parseInt(sc.nextLine());
 					}catch (InputMismatchException e) {
 						System.out.println("Invalid input");
-						sc.nextLine();
 					}
 				}while(choice<1 || choice >11);
 				
@@ -64,9 +63,9 @@ public class StaffController {
 					int campID =getCampIDInput();
 					ViewSuggestions(campID);
 					System.out.println("Please select a suggestion: ");
-					int sugID = sc.nextInt();
+					int sugID = Integer.parseInt(sc.nextLine());
 					System.out.println("(A)Approve / (D)Decline ?");
-					String AD = sc.next().toLowerCase();
+					String AD = sc.nextLine().toLowerCase();
 					switch(AD) {
 					case "a":
 						ApproveSuggestions(campID,sugID,true);
@@ -83,8 +82,7 @@ public class StaffController {
 					campID= getCampIDInput();
 					ViewEnquiries(campID);
 					System.out.println("Please select an enquiries: ");
-					int enID = sc.nextInt();
-					sc.nextLine(); // to consume rest of that line including newline
+					int enID = Integer.parseInt(sc.nextLine());
 					System.out.println("Please enter your reply: ");
 					String reply = sc.nextLine();
 					ReplyEnquiries(campID,enID,reply);
@@ -93,7 +91,7 @@ public class StaffController {
 					campID = getCampIDInput();
 					System.out.println("Please enter a user group: \n"
 							+ "Student\\CCM\\All");
-					String userGrp = sc.next();
+					String userGrp = sc.nextLine();
 					GenerateList(campID,userGrp);
 					break;
 				case 8: //generate report
@@ -124,7 +122,7 @@ public class StaffController {
 					+ "\"exit\" to exit this page\n");
 				Scanner sc= new Scanner(System.in);
 				try {
-					sel = sc.next();
+					sel = sc.nextLine();
 					sel = sel.toLowerCase();
 				}catch(InputMismatchException e) {
 					System.out.println("Please correct selection!");
@@ -193,12 +191,12 @@ public class StaffController {
 		String description = sc.nextLine();
 		
 		System.out.println("No. of camp member slots: ");
-		int totalSlots = sc.nextInt();
+		int totalSlots = Integer.parseInt(sc.nextLine());
 		System.out.println("No. of camp committee member slots: (Max 10)");
-		int CommittessSlots = sc.nextInt();
+		int CommittessSlots = Integer.parseInt(sc.nextLine());
 		try {
 			System.out.println("Camp Visibility: (true\\false)");
-			Visibility = sc.nextBoolean();
+			Visibility = Boolean.parseBoolean(sc.nextLine());
 		}catch(InputMismatchException e) {
 			
 		}
