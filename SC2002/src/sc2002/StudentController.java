@@ -223,7 +223,7 @@ public class StudentController
                     }
 
                     //Invalid Choice so exit out of case
-                    if(campIndex < 0 || campIndex > eligibleCamps.size())
+                    if(campIndex < 0 || campIndex >= eligibleCamps.size())
                     {
                         System.out.println("You have entered an invalid choice. \n");
                         break;
