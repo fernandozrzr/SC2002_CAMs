@@ -44,6 +44,56 @@ public class CCMView extends StudentView{
             System.out.println("You do not have permission to view all enquiries.");
         }
     }
+
+    @Override
+    public void DisplayCampDetails(int campID, Student student) 
+    {
+        ArrayList<Camp> campList = CampController.GetInstance().GetCamps();
+
+        if(campID < 0 || campID > campList.size())
+        {
+            System.out.println("Not a valid CampID");
+            return;
+        }
+
+        Camp camp = campList.get(campID);
+        if(camp == null)
+        {
+            System.out.println("Not a valid CampID");
+            return;
+        }
+
+        System.out.println("Camp Name: " + camp.GetCampName());
+        System.out.println("Date: " + camp.GetDate());
+        System.out.println("Registration Dateline: " + camp.GetRegisterCloseDate());
+        System.out.println("Camp Group: " + camp.GetUserGrp());
+        System.out.println("Location: " + camp.GetLocation());
+        System.out.println("Description: " + camp.GetDescription());
+        System.out.println("Staff In Charge: " + camp.GetStaffInCharge());
+
+        int slotsLeft = camp.GetTotalSlots() - camp.GetAttendees().size();
+        System.out.println("Total Slots Available: " + slotsLeft + "/" + camp.GetTotalSlots());
+
+        if(!camp.GetAttendees().isEmpty())
+        {
+            System.out.println("Attendees are:");
+            int count = 1;
+            for(Student s : camp.GetAttendees())
+                System.out.println("\t(" + (count++) + ") " + s.getName());
+        }
+
+        slotsLeft = camp.GetCommitteeSlots() - camp.GetCommitteeMembers().size();
+        System.out.println("Committee Member Slots Available: " + slotsLeft + "/" + camp.GetCommitteeSlots());
+        if(!camp.GetCommitteeMembers().isEmpty())
+        {
+            System.out.println("Attendees are:");
+            int count = 1;
+            for(CCM c : camp.GetCommitteeMembers())
+                System.out.println("\t(" + (count++) + ") " + c.getName());
+        }
+
+        System.out.println();
+    }
     
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////         Main Loop Stuff         /////////////////////////////////////////////////////////////////////
