@@ -109,13 +109,19 @@ public class StaffController {
 	
 	public void Staffmenu1() {
 		
-		String sel = null;
-			System.out.println("Please enter your choice: \n"
-					+ "\"view\" to view all camp\n"
-					+ "\"view my camp\" to view my camp\n"
-					+ "\"create\" to create new camp\n"
-					+ "\"edit\" to edit a camp\n"
-					+ "\"exit\" to exit this page\n");
+			String sel = null;
+			System.out.println("/////////////////////////////////////////////////////////////////////////");
+	        System.out.println("//////////////////////        Create/Edit/View Camp       ///////////////////////");
+	        System.out.println("/////////////////////////////////////////////////////////////////////////");
+
+	        
+	        System.out.println("Please enter your choice: ");
+	        System.out.println("\t(1) \\\"view\\\" to View All Camp");
+	        System.out.println("\t(1) \\\"view my camp\\\" to View My Camp");
+	        System.out.println("\t(1) \\\"create\\\" to Create Camp");
+	        System.out.println("\t(1) \\\"edit\\\" to Edit Camp");
+	        System.out.println("\t(1) \\\"exit\\\" to Exit");
+	        
 				Scanner sc= new Scanner(System.in);
 				try {
 					sel = sc.nextLine();
