@@ -12,7 +12,7 @@ public class Camp
 
     private String campName;
     private String date;
-    private String registerCloseDate; // In Format of yyyy/mm/dd
+    private String registerCloseDate; // In Format of dd/MM/yyyy
     private String userGrp;
     private String location;
     private String description;

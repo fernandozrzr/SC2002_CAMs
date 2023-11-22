@@ -53,6 +53,9 @@ public class StudentView implements CampView
         ArrayList<Camp> campList = CampController.GetInstance().GetCamps();
         int count = 1;
 
+        if(enquiries.size() == 0)
+            System.out.println("You have not made any enquiries");
+
         for(Enquiries enquiry : enquiries)
         {
             System.out.println("(" + (count++) + ") " + enquiry.GetEnquiry() + " [" + enquiry.GetStatus() + ", " + campList.get(enquiry.GetCampID()).GetCampName() + "]");

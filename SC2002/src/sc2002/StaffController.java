@@ -175,32 +175,34 @@ public class StaffController {
 		
 		//input validation????
 		
-		System.out.println("camp name: ");
+		System.out.println("Camp Name: ");
 		String campName = sc.nextLine();
 		
 		//change to date datatype?
-		System.out.println("camp close date:(dd/mm/yyyy)");
+		System.out.println("Camp Date:(dd/mm/yyyy)");
+		String date = sc.nextLine();
+
+		System.out.println("Camp Close Date:(dd/mm/yyyy)");
 		String closeDate = sc.nextLine();
 		
-		System.out.println("camp user group: (SCSE/ADM/NBS/SSS/EEE)");
+		System.out.println("Camp User Group: (SCSE/ADM/NBS/SSS/EEE)");
 		String userGrp = sc.nextLine();
-		System.out.println("camp location: ");
+		System.out.println("Camp Location: ");
 		String location = sc.nextLine();
-		System.out.println("camp description: ");
+		System.out.println("Camp Description: ");
 		String description = sc.nextLine();
 		
-		System.out.println("no. of camp member slots: ");
+		System.out.println("No. of camp member slots: ");
 		int totalSlots = sc.nextInt();
-		System.out.println("no. of camp committee member slots: ");
+		System.out.println("No. of camp committee member slots: (Max 10)");
 		int CommittessSlots = sc.nextInt();
 		try {
-			System.out.println("camp visibility: (true\\false)");
+			System.out.println("Camp Visibility: (true\\false)");
 			Visibility = sc.nextBoolean();
 		}catch(InputMismatchException e) {
 			
 		}
 		
-		String date = LocalDateTime.now().toString();
 		CreateCamp(campName, date, closeDate, userGrp, location, description, camsApp.currentUser.name, totalSlots, CommittessSlots, Visibility);
 		System.out.println("camp created!");
 		//sc.nextLine();

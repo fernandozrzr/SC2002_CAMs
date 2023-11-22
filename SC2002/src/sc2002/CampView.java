@@ -31,12 +31,6 @@ public interface CampView
             return;
         }
 
-        if(!camp.GetAttendees().contains(student))
-        {
-            System.out.println("You are not enrolled in this camp");
-            return;
-        }
-
         System.out.println("Camp Name: " + camp.GetCampName());
         System.out.println("Date: " + camp.GetDate());
         System.out.println("Registration Dateline: " + camp.GetRegisterCloseDate());
