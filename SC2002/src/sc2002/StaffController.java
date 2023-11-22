@@ -245,43 +245,36 @@ public class StaffController {
 	        switch (choice) {
 	            case 1:
 	                System.out.print("Enter Camp Name: ");
-	                scanner.nextLine(); // Consume the newline character
 	                String campName = scanner.nextLine();
 	                editcamp.SetCampName(campName);
 	                break;
 	            case 2:
 	                System.out.print("Enter Date: ");
-	                scanner.nextLine(); // Consume the newline character
 	                String date = scanner.nextLine();
 	                editcamp.SetDate(date);
 	                break;
 	            case 3:
 	                System.out.print("Enter Register Close Date: ");
-	                scanner.nextLine(); // Consume the newline character
 	                String registerCloseDate = scanner.nextLine();
 	                editcamp.SetRegisterCloseDate(registerCloseDate);
 	                break;
 	            case 4:
 	                System.out.print("Enter User Group: ");
-	                scanner.nextLine(); // Consume the newline character
 	                String userGroup = scanner.nextLine();
 	                editcamp.SetUserGrp(userGroup);
 	                break;
 	            case 5:
 	                System.out.print("Enter Location: ");
-	                scanner.nextLine(); // Consume the newline character
 	                String location = scanner.nextLine();
 	                editcamp.SetLocation(location);
 	                break;
 	            case 6:
 	                System.out.print("Enter Description: ");
-	                scanner.nextLine(); // Consume the newline character
 	                String description = scanner.nextLine();
 	                editcamp.SetDescription(description);
 	                break;
 	            case 7:
 	                System.out.print("Enter Staff in Charge: ");
-	                scanner.nextLine(); // Consume the newline character
 	                String staffInCharge = scanner.nextLine();
 	                editcamp.SetStaffInCharge(staffInCharge);
 	                break;
