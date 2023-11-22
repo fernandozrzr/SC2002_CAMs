@@ -116,11 +116,11 @@ public class StaffController {
 
 	        
 	        System.out.println("Please enter your choice: ");
-	        System.out.println("\t(1) \\\"view\\\" to View All Camp");
-	        System.out.println("\t(1) \\\"view my camp\\\" to View My Camp");
-	        System.out.println("\t(1) \\\"create\\\" to Create Camp");
-	        System.out.println("\t(1) \\\"edit\\\" to Edit Camp");
-	        System.out.println("\t(1) \\\"exit\\\" to Exit");
+	        System.out.println("\t \\\"view\\\" to View All Camp");
+	        System.out.println("\t \\\"view my camp\\\" to View My Camp");
+	        System.out.println("\t \\\"create\\\" to Create Camp");
+	        System.out.println("\t \\\"edit\\\" to Edit Camp");
+	        System.out.println("\t \\\"exit\\\" to Exit");
 	        
 				Scanner sc= new Scanner(System.in);
 				try {
@@ -271,6 +271,8 @@ public class StaffController {
 	                System.out.print("Enter Camp Name: ");
 	                String campName = scanner.nextLine();
 	                editcamp.SetCampName(campName);
+	                campManager.sortCampsByName(camps);
+	                campManager.reassignCampIDs(camps);
 	                break;
 	            case 2:
 	                System.out.print("Enter Date: ");

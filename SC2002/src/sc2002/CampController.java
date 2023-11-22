@@ -1,6 +1,8 @@
 package sc2002;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class CampController 
 {
@@ -65,6 +67,8 @@ public class CampController
             while (fillIndex < camps.size()) {
                 camps.set(fillIndex++, null);
             }
+            sortCampsByName(camps);
+            reassignCampIDs(camps);
         } else {
             throw new IndexOutOfBoundsException("Index " + campID + " is out of bounds.");
         }
@@ -85,6 +89,8 @@ public class CampController
             camps.add(camp);
         else
             camps.set(campID, camp);
+        sortCampsByName(camps);
+        reassignCampIDs(camps);
         return camp; //Added for for StaffController
     }
 
@@ -117,4 +123,33 @@ public class CampController
         e.SetReplyBy(replyBy);
         e.SetStatus(STATUS.CLOSED);
     }
+    // Sort camp by alphabetical order
+    public void sortCampsByName(ArrayList<Camp> camps) {
+        Collections.sort(camps, new Comparator<Camp>() {
+            @Override
+            public int compare(Camp camp1, Camp camp2) {
+                if (camp1 == null && camp2 == null) {
+                    return 0;
+                } else if (camp1 == null) {
+                    return 1; // null is considered greater (placed at the end)
+                } else if (camp2 == null) {
+                    return -1; // null is considered greater (placed at the end)
+                } else {
+                    // Compare camp names in alphabetical order
+                    return camp1.GetCampName().compareTo(camp2.GetCampName());
+                }
+            }
+        });
+    }
+    //Reassign CampID based on current order of array
+    public void reassignCampIDs(ArrayList<Camp> camps) {
+        int id = 0;
+        for (Camp camp : camps) {
+            if (camp != null) {
+                camp.SetCampID(id++);
+            }
+        }
+    }
+        
 }
+    
