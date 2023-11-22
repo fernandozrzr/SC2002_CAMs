@@ -31,7 +31,6 @@ public class StaffController {
 	public void StaffMainLoop() {
 			
 		Scanner sc = new Scanner(System.in);
-		
 		int choice;
 			//staff main loop 
 			do {
@@ -113,6 +112,7 @@ public class StaffController {
 		String sel = null;
 			System.out.println("Please enter your choice: \n"
 					+ "\"view\" to view all camp\n"
+					+ "\"view my camp\" to view my camp\n"
 					+ "\"create\" to create new camp\n"
 					+ "\"edit\" to edit a camp\n"
 					+ "\"exit\" to exit this page\n");
@@ -123,6 +123,7 @@ public class StaffController {
 				}catch(InputMismatchException e) {
 					System.out.println("Please correct selection!");
 				}
+			
 			
 			switch(sel) {
 			case "view":
@@ -137,6 +138,8 @@ public class StaffController {
 				System.out.println("Edit a Camp");
 				EditCamp(getCampIDInput());
 				break;
+			case "view my camp":
+				ViewMyCamps();
 			case "exit":
 				System.out.println("Exiting Staff camp menu 1...");
 				break;
@@ -204,6 +207,21 @@ public class StaffController {
 	public void ViewAllCamp()
     {
 		staffViewManager.DisplayAllCamps();
+    }
+	public void ViewMyCamps()
+    {	
+		
+		String myname = camsApp.currentUser.getName();
+		ArrayList<Camp> camps = campManager.GetCamps();
+
+		ArrayList<Camp> filteredCamps = new ArrayList<>();
+
+		for (Camp camp : camps) {
+		    if (camp != null && camp.GetStaffInCharge().equals(myname)) {
+		        filteredCamps.add(camp);
+		    }
+		}
+		staffViewManager.DisplayMyCamps(filteredCamps);;
     }
 	
 	// Create a camp

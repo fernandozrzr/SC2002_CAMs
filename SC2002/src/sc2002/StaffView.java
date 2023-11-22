@@ -21,7 +21,6 @@ public class StaffView implements  CampView{
 	
 	public void menu() {
 		System.out.println("\nWelcome staff "+ camsApp.currentUser.getName());
-
 		
 		System.out.println("/////////////////////////////////////////////////////////////////////////");
         System.out.println("//////////////////////        Staff Menu        ///////////////////////");
@@ -64,7 +63,7 @@ public class StaffView implements  CampView{
 	//Input staff array of camps to display all
 	public void DisplayMyCamps(ArrayList<Camp> camp) {
 		for (Camp campname : camp) {
-			 System.out.println("CampID: "+ campname.GetCampID() + " Camp Name: " + campname.GetCampName());
+			 System.out.println("CampID: "+ campname.GetCampID() + ", Camp Name: " + campname.GetCampName());
 		}
 	}
 	//Input Hash map of suggestions to display all
