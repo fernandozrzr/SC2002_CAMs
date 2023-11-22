@@ -283,7 +283,7 @@ public class CCMController {
 
             System.out.println("/////////////////////////////////////////////////////////////////////////");
             System.out.println();
-            
+
             //Execute function based on choice
             switch (choice) 
             {
@@ -385,7 +385,6 @@ public class CCMController {
                             {
                             	((Student) camsApp.currentUser).AddRegisteredCamps(eligibleCamps.get(campIndex));
                                 CampController.GetInstance().AddAttendee(eligibleCamps.get(campIndex).GetCampID(), (Student)camsApp.currentUser);
-                                    System.out.println("You have successfully registered as an attendee");
                             }
                             else
                                 System.out.println("Invalid request, User is not a Student");
@@ -404,7 +403,6 @@ public class CCMController {
                             	CCM currentUser = new CCM(s.getName(), s.getUserID(), s.getFaculty(), s.GetMyEnquiries(), s.GetRegisteredCamps(), s.GetccmID());
                             	camsApp.currentUser = currentUser;
                             	CampController.GetInstance().AddCommitteeMember(currentUser.ccmID, currentUser);
-                                System.out.println("You have successfully registered as a committee member");
                                 exit = true;
                                 camsApp.domain = 0;
                             }

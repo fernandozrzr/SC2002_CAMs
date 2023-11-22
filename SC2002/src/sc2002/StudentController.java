@@ -255,7 +255,6 @@ public class StudentController
                             {
                             	((Student) camsApp.currentUser).AddRegisteredCamps(eligibleCamps.get(campIndex));
                                 CampController.GetInstance().AddAttendee(eligibleCamps.get(campIndex).GetCampID(), (Student)camsApp.currentUser);
-                                    System.out.println("You have successfully registered as an attendee");
                             }
                             else
                                 System.out.println("Invalid request, User is not a Student");
@@ -270,7 +269,6 @@ public class StudentController
                             	camsApp.currentUser = currentUser;
                             	CampController.GetInstance().AddCommitteeMember(currentUser.ccmID, currentUser);
                             	Auth.updateAcccounts(currentUser);
-                                System.out.println("You have successfully registered as a committee member");
                                 exit = true;
                                 camsApp.domain = 0;
                                 return true;
