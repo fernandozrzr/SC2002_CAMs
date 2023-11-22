@@ -55,6 +55,11 @@ public class Camp
     {
         return campID;
     }
+    
+    public void SetCampID(int campID)
+    {
+        this.campID = campID ;
+    }
 
     public String GetCampName() 
     {

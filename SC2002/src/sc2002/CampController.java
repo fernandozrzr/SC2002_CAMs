@@ -46,16 +46,28 @@ public class CampController
         camps.get(campID).SetVisibility(state);
     }
 
-    public boolean DeleteCamp(int campID)
-    {
-        if(campID >= 0 && campID < camps.size())
-        {
+    public void DeleteCamp(int campID) {
+        if (campID >= 0 && campID < camps.size()) {
             camps.get(campID).DeleteCamp();
             camps.set(campID, null);
-            return true;
+
+            // Rearrange the remaining camps to push them to the front
+            int fillIndex = 0;
+            for (int i = 0; i < camps.size(); i++) {
+                if (camps.get(i) != null) {
+                    camps.set(fillIndex, camps.get(i));
+                    camps.get(i).SetCampID(fillIndex);
+                    fillIndex++;
+                }
+            }
+
+            // Fill the rest of the array with nulls
+            while (fillIndex < camps.size()) {
+                camps.set(fillIndex++, null);
+            }
+        } else {
+            throw new IndexOutOfBoundsException("Index " + campID + " is out of bounds.");
         }
-        else
-            throw new IndexOutOfBoundsException("Index" + campID + "is out of bounds.");
     }
 
     public Camp AddCamp(String campName, String date, String registerCloseDate, String userGrp, String location, 
