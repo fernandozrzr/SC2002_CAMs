@@ -20,22 +20,33 @@ public class StaffView implements  CampView{
 	}
 	
 	public void menu() {
-		System.out.println("Welcome staff "+ camsApp.currentUser.getName());
-		System.out.println("Please enter your choice: \n"
-				+ "camp\n"
-				+ "1. create/edit/view all camp \n"
-				+ "2. Delete camp\n\n"
-				+ "suggestion\n"
-				+ "3. View suggestion\n"
-				+ "4. Approve sggestion\n\n"
-				+ "enquiries\n"
-				+ "5. View Enquiries\n"
-				+ "6. Reply Enquiries\n\n"
-				+ "other\n"
-				+ "7. Generate list\n"
-				+ "8. Generate report\n"
-				+ "9. Change Password\n"
-				+ "10. Log Out\n");
+		System.out.println("\nWelcome staff "+ camsApp.currentUser.getName());
+
+		
+		System.out.println("/////////////////////////////////////////////////////////////////////////");
+        System.out.println("//////////////////////        Staff Menu        ///////////////////////");
+        System.out.println("/////////////////////////////////////////////////////////////////////////");
+
+        
+        System.out.println("Camp");
+        System.out.println("\t(1) Create/Edit/View Camp");
+        System.out.println("\t(2) Delete Camp");
+        
+        System.out.println("Suggestion");
+        System.out.println("\t(3) View Suggestion");
+        System.out.println("\t(4) Approve Suggestion");
+        
+        System.out.println("Enquiries");
+        System.out.println("\t(5) View Enquiries");
+        System.out.println("\t(6) Reply Enquiries");
+        
+        System.out.println("Other");
+        System.out.println("\t(7) Generate List");
+        System.out.println("\t(8) Generate Report");
+        System.out.println("\t(9) Change Report");
+        System.out.println("\t(10) Log Out");
+        System.out.println("/////////////////////////////////////////////////////////////////////////");
+        System.out.print("Enter your Choice: ");
 	}
 	
 	//Input Hash map of enquires to display all
