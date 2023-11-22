@@ -78,7 +78,7 @@ public class StudentController
     {
         InitEligibleCamps();
         int choice = -1;
-        Scanner input = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         boolean becameCCM = false;
 
         while(choice != 0)
@@ -86,7 +86,7 @@ public class StudentController
             view.DisplayMainMenu();
             try
             {
-                choice = input.nextInt();
+                choice = Integer.parseInt(sc.nextLine());
             }
             catch(InputMismatchException e) 
             {

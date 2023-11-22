@@ -8,10 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Map.Entry;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
-import java.time.format.DateTimeFormatter;  
-import java.time.LocalDateTime; 
 
 
 public class StaffController {
@@ -113,7 +110,6 @@ public class StaffController {
 	
 	public void Staffmenu1() {
 		
-		boolean exit =false;
 		String sel = null;
 			System.out.println("Please enter your choice: \n"
 					+ "\"view\" to view all camp\n"
@@ -143,11 +139,9 @@ public class StaffController {
 				break;
 			case "exit":
 				System.out.println("Exiting Staff camp menu 1...");
-				exit = true;
 				break;
 			default:
 				System.out.println("Please enter correct selection!");
-				exit= true;
 				break;
 			}
 
@@ -155,12 +149,12 @@ public class StaffController {
 	
 	public int getCampIDInput() {
 		int campID=-1;
-		Scanner input = new Scanner(System.in);
+		Scanner sc = new Scanner(System.in);
 				//display all camp 
 				ViewAllCamp();
 				//get input 
 				System.out.println("please select a camp： ");
-				campID= input.nextInt();
+				campID= Integer.parseInt(sc.nextLine());
 		return campID - 1;
 	}
 	
@@ -246,7 +240,7 @@ public class StaffController {
 	        System.out.println("10. Toggle Visibility");
 	        System.out.println("11. Exit");
 	        System.out.print("Enter your choice: ");
-	        int choice = scanner.nextInt();
+	        int choice = Integer.parseInt(scanner.nextLine());
 	        
 	        switch (choice) {
 	            case 1:
@@ -293,17 +287,17 @@ public class StaffController {
 	                break;
 	            case 8:
 	                System.out.print("Enter Total Slots: ");
-	                int totalSlots = scanner.nextInt();
+	                int totalSlots = Integer.parseInt(scanner.nextLine());
 	                editcamp.SetTotalSlots(totalSlots);
 	                break;
 	            case 9:
 	                System.out.print("Enter Committee Slots: ");
-	                int committeeSlots = scanner.nextInt();
+	                int committeeSlots = Integer.parseInt(scanner.nextLine());
 	                editcamp.SetCommitteeSlots(committeeSlots);
 	                break;
 	            case 10:
 	            	System.out.print("Set Visibility: true or false?");
-	                boolean newVisibility = scanner.nextBoolean();
+	                boolean newVisibility = Boolean.parseBoolean(scanner.nextLine());
 	                editcamp.SetVisibility(newVisibility);
 	                System.out.println("Visibility toggled to: " + newVisibility);
 	                break;

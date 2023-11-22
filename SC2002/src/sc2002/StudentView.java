@@ -1,7 +1,6 @@
 package sc2002;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class StudentView implements CampView
 {

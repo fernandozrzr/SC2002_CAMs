@@ -202,14 +202,14 @@ public class CCMController {
     {
         InitEligibleCamps();
         int choice = -1;
-        Scanner input = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
         while(choice != 0)
         {
             view.DisplayMainMenu();
             try
             {
-                choice = input.nextInt();
+                choice = Integer.parseInt(sc.nextLine());
             }
             catch(InputMismatchException e) 
             {
