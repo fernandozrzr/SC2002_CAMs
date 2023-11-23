@@ -12,10 +12,9 @@ public class camsApp {
 	public static User currentUser;
 	public static int domain;
 	//public static Hashtable<String, String> passwordDict = new Hashtable<>();
-
 	public static void main(String args[]) throws Exception {
-
 		Scanner sc = new Scanner(System.in);
+		
 		boolean a = true;
 		Auth.Init();
 
@@ -82,7 +81,6 @@ public class camsApp {
 						else if(currentUser instanceof Staff)
 							StaffController.GetInstance().StaffMainLoop();
 					}while(currentUser !=null);
-					
 				}
 			}
 		} while (a);

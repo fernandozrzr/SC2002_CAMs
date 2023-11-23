@@ -8,10 +8,11 @@ import java.util.Scanner;
 
 public interface CampView 
 {
+	Scanner sc = new Scanner(System.in);
     public default void DisplayAllCamps(Boolean filter){	
     	
     	Boolean success = false;
-    	
+    	Scanner sc = new Scanner(System.in);
     	
     	if (filter) {
     		System.out.println("Filter by:");
@@ -21,7 +22,7 @@ public interface CampView
     	    System.out.println("4. Location");
     	    System.out.print("Enter your choice (1-4): ");
 
-    	    Scanner sc = new Scanner(System.in);
+    	    
     	    int choice = sc.nextInt();
 
     	    ArrayList<Camp> camps = CampController.GetInstance().GetCamps();
@@ -157,12 +158,12 @@ public interface CampView
         System.out.println("Committee Member Slots Available: " + slotsLeft + "/" + camp.GetCommitteeSlots());
         System.out.println();
     }
+	
 	public static Boolean getfilter() {
 		Boolean filter = false; // Default value
-    	Boolean success = false;
     	System.out.println("Do you want to filter?");
     	System.out.println("Enter true or false:");
-    	Scanner sc = new Scanner(System.in);
+    	
     	try {
     	    String input = sc.nextLine();
     	    filter = Boolean.parseBoolean(input.toLowerCase());

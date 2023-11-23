@@ -122,7 +122,6 @@ public class StudentController
         String[] choices = {"view all", "view registered",  "view details", "register", "withdraw", "exit"};
         String choice = "";
         boolean exit = false;
-
         Scanner sc = new Scanner(System.in);
         
         while(!exit)

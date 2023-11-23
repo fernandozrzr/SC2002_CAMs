@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 
 public class StaffController {
-	
+	Scanner sc = new Scanner(System.in);
 	private CampController campManager = null;
 	private StaffView staffViewManager = null;
 	private static StaffController instance = null;
@@ -30,7 +30,7 @@ public class StaffController {
 		
 	public void StaffMainLoop() {
 			
-		Scanner sc = new Scanner(System.in);
+		
 		int choice;
 			//staff main loop 
 			do {
@@ -127,7 +127,7 @@ public class StaffController {
 	        System.out.println("\t \"edit\" to Edit Camp");
 	        System.out.println("\t \"exit\" to Exit");
 	        
-				Scanner sc= new Scanner(System.in);
+				
 				try {
 					sel = sc.nextLine();
 					sel = sel.toLowerCase();
@@ -163,12 +163,12 @@ public class StaffController {
 	
 	public int getCampIDInput() {
 		int campID=-1;
-		Scanner sc = new Scanner(System.in);
-				//display all camp 
-				staffViewManager.DisplayAllCamps(false);
-				//get input 
-				System.out.println("please select a camp： ");
-				campID= Integer.parseInt(sc.nextLine());
+
+		//display all camp 
+		staffViewManager.DisplayAllCamps(false);
+		//get input 
+		System.out.println("please select a camp： ");
+		campID= Integer.parseInt(sc.nextLine());
 		return campID - 1;
 	}
 	
@@ -176,9 +176,6 @@ public class StaffController {
 		
 		boolean Visibility= true;
 		//String visibility = null;
-		
-		Scanner sc = new Scanner(System.in);
-		
 		//input validation????
 		
 		System.out.println("Camp Name: ");
@@ -255,7 +252,6 @@ public class StaffController {
     	}
     	if(editcamp!= null) {
     	
-			Scanner scanner = new Scanner(System.in);
 			System.out.println("\nMenu:");
 	        System.out.println("1. Set Camp Name");
 	        System.out.println("2. Set Date");
@@ -269,59 +265,59 @@ public class StaffController {
 	        System.out.println("10. Toggle Visibility");
 	        System.out.println("11. Exit");
 	        System.out.print("Enter your choice: ");
-	        int choice = Integer.parseInt(scanner.nextLine());
+	        int choice = Integer.parseInt(sc.nextLine());
 	        
 	        switch (choice) {
 	            case 1:
 	                System.out.println("Enter Camp Name: ");
-	                String campName = scanner.nextLine();
+	                String campName = sc.nextLine();
 	                editcamp.SetCampName(campName);
 	                campManager.SortCampsByName(camps);
 	                campManager.ReassignCampIDs(camps);
 	                break;
 	            case 2:
 	                System.out.println("Enter Date: ");
-	                String date = scanner.nextLine();
+	                String date = sc.nextLine();
 	                editcamp.SetDate(date);
 	                break;
 	            case 3:
 	                System.out.println("Enter Register Close Date: ");
-	                String registerCloseDate = scanner.nextLine();
+	                String registerCloseDate = sc.nextLine();
 	                editcamp.SetRegisterCloseDate(registerCloseDate);
 	                break;
 	            case 4:
 	                System.out.println("Enter User Group: ");
-	                String userGroup = scanner.nextLine();
+	                String userGroup = sc.nextLine();
 	                editcamp.SetUserGrp(userGroup);
 	                break;
 	            case 5:
 	                System.out.println("Enter Location: ");
-	                String location = scanner.nextLine();
+	                String location = sc.nextLine();
 	                editcamp.SetLocation(location);
 	                break;
 	            case 6:
 	                System.out.println("Enter Description: ");
-	                String description = scanner.nextLine();
+	                String description = sc.nextLine();
 	                editcamp.SetDescription(description);
 	                break;
 	            case 7:
 	                System.out.println("Enter Staff in Charge: ");
-	                String staffInCharge = scanner.nextLine();
+	                String staffInCharge = sc.nextLine();
 	                editcamp.SetStaffInCharge(staffInCharge);
 	                break;
 	            case 8:
 	                System.out.println("Enter Total Slots: ");
-	                int totalSlots = Integer.parseInt(scanner.nextLine());
+	                int totalSlots = Integer.parseInt(sc.nextLine());
 	                editcamp.SetTotalSlots(totalSlots);
 	                break;
 	            case 9:
 	                System.out.println("Enter Committee Slots: ");
-	                int committeeSlots = Integer.parseInt(scanner.nextLine());
+	                int committeeSlots = Integer.parseInt(sc.nextLine());
 	                editcamp.SetCommitteeSlots(committeeSlots);
 	                break;
 	            case 10:
 	            	System.out.println("Set Visibility: true or false?");
-	                boolean newVisibility = Boolean.parseBoolean(scanner.nextLine());
+	                boolean newVisibility = Boolean.parseBoolean(sc.nextLine());
 	                ToggleVisibility(editcamp.GetCampID(), newVisibility);
 	                break;
 	            case 11:
