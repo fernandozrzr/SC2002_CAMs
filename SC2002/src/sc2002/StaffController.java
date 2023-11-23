@@ -177,11 +177,7 @@ public class StaffController {
 	public void CreateCampMgr() {
 		
 		boolean Visibility= true;
-<<<<<<< Updated upstream
-		//String visibility = null;
-		//input validation????
-		
-=======
+
 		Scanner sc = new Scanner(System.in);
 		SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
 		String date = null;
@@ -190,7 +186,6 @@ public class StaffController {
 		int totalSlots=-1;
 		int CommittessSlots=-1;
 
->>>>>>> Stashed changes
 		System.out.println("Camp Name: ");
 		String campName = sc.nextLine();
 		
@@ -240,11 +235,11 @@ public class StaffController {
 		String location = sc.nextLine();
 		System.out.println("Camp Description: ");
 		String description = sc.nextLine();
-<<<<<<< Updated upstream
+
 		//////////////// Camp member slots////////////////////
 		Boolean validInput = false;
 		System.out.println("No. of camp member slots: ");
-		int totalSlots = -1;
+		totalSlots = -1;
 		do {
             try {
                 totalSlots = Integer.parseInt(sc.nextLine());
@@ -258,9 +253,10 @@ public class StaffController {
             }
         } while (!validInput);
 		validInput = false;
+		
 		//////////////// CCM Slots ////////////////////
 		System.out.println("No. of camp committee member slots: (Max 10)");
-		int CommittessSlots = -1;
+		CommittessSlots = -1;
 		
 		do {
             try {
@@ -293,50 +289,7 @@ public class StaffController {
 	                sc.nextLine(); // Clear the scanner buffer
 	            }
 	        } while (!validInput);
-=======
-		
-		//slots
-		do {
-			try {
-				System.out.println("No. of camp member slots: ");
-				totalSlots = Integer.parseInt(sc.nextLine());
-				if(totalSlots<1) {
-		            System.out.println("cannot be less than 1!");
-				}
-			}catch(NumberFormatException e) {
-	            System.out.println("Invalid Input!");
-	            totalSlots=-1;
-			}
-		}while(totalSlots<1);
-		
 
-		//ccm slots
-		do {
-			try {
-				System.out.println("No. of camp committee member slots: (Max 10)");
-				CommittessSlots = Integer.parseInt(sc.nextLine());
-				if(CommittessSlots>10) {
-		            CommittessSlots=-1;
-		            System.out.println("Max 10! Sorry!");
-				}
-			}catch(NumberFormatException e) {
-	            System.out.println("Invalid Input!");
-	            CommittessSlots=-1;
-			}
-		}while(CommittessSlots<0 || CommittessSlots >10);
-		
-		/*
-		 * System.out.println("No. of camp committee member slots: (Max 10)"); int
-		 * CommittessSlots = Integer.parseInt(sc.nextLine());
-		 */
-		
-		try {
-			System.out.println("Camp Visibility: (true\\false)");
-			Visibility = Boolean.parseBoolean(sc.nextLine());
-		}catch(InputMismatchException e) {
-            System.out.println("Invalid Input!");
-		}
->>>>>>> Stashed changes
 		
 		CreateCamp(campName, date, closeDate, userGrp, location, description, camsApp.currentUser.name, totalSlots, CommittessSlots, Visibility);
 		System.out.println("camp created!");
