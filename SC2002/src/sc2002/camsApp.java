@@ -41,7 +41,7 @@ public class camsApp {
 				{
 					domain = Integer.parseInt(sc.nextLine());
 				} 
-				catch (InputMismatchException e) 
+				catch (NumberFormatException e) 
 				{
 					sc.nextLine();
 					System.out.println("Invalid input");

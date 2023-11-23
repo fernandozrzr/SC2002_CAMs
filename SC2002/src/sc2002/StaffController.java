@@ -3,8 +3,10 @@ package sc2002;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
+import java.util.Date;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Map.Entry;
@@ -40,7 +42,7 @@ public class StaffController {
 						//print the menu
 						staffViewManager.Menu();
 						choice = Integer.parseInt(sc.nextLine());
-					}catch (InputMismatchException e) {
+					}catch (NumberFormatException e) {
 						System.out.println("Invalid input");
 					}
 				}while(choice<1 || choice >11);
@@ -175,25 +177,70 @@ public class StaffController {
 	public void CreateCampMgr() {
 		
 		boolean Visibility= true;
+<<<<<<< Updated upstream
 		//String visibility = null;
 		//input validation????
 		
+=======
+		Scanner sc = new Scanner(System.in);
+		SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
+		String date = null;
+		String closeDate = null;
+		String userGrp =null;
+		int totalSlots=-1;
+		int CommittessSlots=-1;
+
+>>>>>>> Stashed changes
 		System.out.println("Camp Name: ");
 		String campName = sc.nextLine();
 		
-		//change to date datatype?
-		System.out.println("Camp Date:(dd/mm/yyyy)");
-		String date = sc.nextLine();
+		//camp date 
+		do {
+			try {
+				System.out.println("Camp Date:(dd/mm/yyyy)");
+				date = sc.nextLine();
+	            Date inputDate = sdf1.parse(date);
+			}catch (ParseException e) {
+	            System.out.println("Invalid date format. Please enter in dd/mm/yyyy format.");
+	            date=null;
+	        }catch(InputMismatchException e) {
+	            System.out.println("Invalid date format. Please enter in dd/mm/yyyy format.");
+	            date=null;
+	        }
+		}while(date==null);
 
-		System.out.println("Camp Close Date:(dd/mm/yyyy)");
-		String closeDate = sc.nextLine();
+		//camp close date
+		do {
+			try {
+				System.out.println("Camp Close Date:(dd/mm/yyyy)");
+				closeDate = sc.nextLine();
+	            Date inputDate = sdf1.parse(closeDate);
+			}catch (ParseException e) {
+	            System.out.println("Invalid date format. Please enter in dd/mm/yyyy format.");
+	            closeDate=null;
+	        }catch(InputMismatchException e) {
+	            System.out.println("Invalid date format. Please enter in dd/mm/yyyy format.");
+	            closeDate=null;
+	        }
+		}while(closeDate==null);
+
+		//userGrp
+		String[] choices= {"SCSE","ADM","NBS","SSS","EEE"};
+		do {
+			System.out.println("Camp User Group: (SCSE/ADM/NBS/SSS/EEE)");
+			userGrp = sc.nextLine();
+			userGrp = userGrp.toUpperCase();
+			if(Utility.IsValidChoice(userGrp,choices)==false) {
+	            System.out.println("Invalid Input!");
+				userGrp=null;
+			}
+		}while(userGrp==null);
 		
-		System.out.println("Camp User Group: (SCSE/ADM/NBS/SSS/EEE)");
-		String userGrp = sc.nextLine();
 		System.out.println("Camp Location: ");
 		String location = sc.nextLine();
 		System.out.println("Camp Description: ");
 		String description = sc.nextLine();
+<<<<<<< Updated upstream
 		//////////////// Camp member slots////////////////////
 		Boolean validInput = false;
 		System.out.println("No. of camp member slots: ");
@@ -246,6 +293,50 @@ public class StaffController {
 	                sc.nextLine(); // Clear the scanner buffer
 	            }
 	        } while (!validInput);
+=======
+		
+		//slots
+		do {
+			try {
+				System.out.println("No. of camp member slots: ");
+				totalSlots = Integer.parseInt(sc.nextLine());
+				if(totalSlots<1) {
+		            System.out.println("cannot be less than 1!");
+				}
+			}catch(NumberFormatException e) {
+	            System.out.println("Invalid Input!");
+	            totalSlots=-1;
+			}
+		}while(totalSlots<1);
+		
+
+		//ccm slots
+		do {
+			try {
+				System.out.println("No. of camp committee member slots: (Max 10)");
+				CommittessSlots = Integer.parseInt(sc.nextLine());
+				if(CommittessSlots>10) {
+		            CommittessSlots=-1;
+		            System.out.println("Max 10! Sorry!");
+				}
+			}catch(NumberFormatException e) {
+	            System.out.println("Invalid Input!");
+	            CommittessSlots=-1;
+			}
+		}while(CommittessSlots<0 || CommittessSlots >10);
+		
+		/*
+		 * System.out.println("No. of camp committee member slots: (Max 10)"); int
+		 * CommittessSlots = Integer.parseInt(sc.nextLine());
+		 */
+		
+		try {
+			System.out.println("Camp Visibility: (true\\false)");
+			Visibility = Boolean.parseBoolean(sc.nextLine());
+		}catch(InputMismatchException e) {
+            System.out.println("Invalid Input!");
+		}
+>>>>>>> Stashed changes
 		
 		CreateCamp(campName, date, closeDate, userGrp, location, description, camsApp.currentUser.name, totalSlots, CommittessSlots, Visibility);
 		System.out.println("camp created!");

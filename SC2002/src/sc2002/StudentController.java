@@ -497,6 +497,7 @@ public class StudentController
                     String enquiry = "";
                     try
                     {
+                    	System.out.println("Enquiries: ");
                         enquiry = sc.nextLine();
                     }
                     catch (InputMismatchException e) 
