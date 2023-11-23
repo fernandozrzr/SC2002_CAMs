@@ -197,17 +197,58 @@ public class StaffController {
 		String location = sc.nextLine();
 		System.out.println("Camp Description: ");
 		String description = sc.nextLine();
-		
+		//////////////// Camp member slots////////////////////
+		Boolean validInput = false;
 		System.out.println("No. of camp member slots: ");
-		int totalSlots = Integer.parseInt(sc.nextLine());
+		int totalSlots = -1;
+		do {
+            try {
+                totalSlots = Integer.parseInt(sc.nextLine());
+                if (totalSlots<0) {
+                    System.out.println("Please enter a non-negative number.");
+                } else {
+                    validInput = true;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid number.");
+            }
+        } while (!validInput);
+		validInput = false;
+		//////////////// CCM Slots ////////////////////
 		System.out.println("No. of camp committee member slots: (Max 10)");
-		int CommittessSlots = Integer.parseInt(sc.nextLine());
-		try {
-			System.out.println("Camp Visibility: (true\\false)");
-			Visibility = Boolean.parseBoolean(sc.nextLine());
-		}catch(InputMismatchException e) {
-			
-		}
+		int CommittessSlots = -1;
+		
+		do {
+            try {
+            	CommittessSlots = Integer.parseInt(sc.nextLine());
+                if (CommittessSlots > 10 || CommittessSlots<0) {
+                    System.out.println("Please enter a number from 0-10.");
+                } else {
+                    validInput = true;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid number.");
+            }
+        } while (!validInput);
+		//////////////// Set visibility ////////////////////
+		boolean visibility = false;
+		validInput = false;
+		 do {
+	            try {
+	                System.out.println("Camp Visibility: (true/false)");
+	                String userInput = sc.nextLine().toLowerCase(); // Convert input to lowercase for case-insensitive comparison
+
+	                if (userInput.equals("true") || userInput.equals("false")) {
+	                    visibility = Boolean.parseBoolean(userInput);
+	                    validInput = true;
+	                } else {
+	                    System.out.println("Please enter 'true' or 'false'.");
+	                }
+	            } catch (Exception e) {
+	                System.out.println("Invalid input. Please enter 'true' or 'false'.");
+	                sc.nextLine(); // Clear the scanner buffer
+	            }
+	        } while (!validInput);
 		
 		CreateCamp(campName, date, closeDate, userGrp, location, description, camsApp.currentUser.name, totalSlots, CommittessSlots, Visibility);
 		System.out.println("camp created!");

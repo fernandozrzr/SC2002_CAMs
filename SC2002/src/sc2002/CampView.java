@@ -7,7 +7,11 @@ import java.util.Date;
 import java.util.Scanner;
 
 public interface CampView 
-{
+{	
+	
+	public void DisplayMyCamps(ArrayList<Camp> camps);
+	
+	
     public default void DisplayAllCamps(Boolean filter){	
     	
     	Boolean success = false;
@@ -172,6 +176,6 @@ public interface CampView
     	}
     	return filter;
 	}
-    public void DisplayMyCamps(ArrayList<Camp> camps);
+   
    
 }
