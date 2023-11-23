@@ -104,7 +104,7 @@ public class CCMController {
 
         if (camp != null) {
             ArrayList<Student> attendees = camp.GetAttendees();
-            ArrayList<CCM> committeeMembers = camp.GetCommitteeMembers();
+            ArrayList<CCM> committeeMembers = camp.GetCommitteeList();
     
 
             StringBuilder report = new StringBuilder();
@@ -365,11 +365,15 @@ public class CCMController {
                         break;
                     }
                     
-                    if(Camp.AlreadyCommittee(eligibleCamps.get(campIndex).GetCommitteeList(),camsApp.currentUser.getName() )) {
-                    	break;
+                    if(CampController.GetInstance().AlreadyRegistered(campIndex, camsApp.currentUser.getName()))
+                    {
+                        System.out.println("You are already registered in this camp.");
+                        break;
                     }
-                    if(Camp.AlreadyRegistered(eligibleCamps.get(campIndex).GetAttendees(),camsApp.currentUser.getName() )) {
-                    	break;
+                    if(CampController.GetInstance().AlreadyCommittee(campIndex, camsApp.currentUser.getName()))
+                    {
+                        System.out.println("You are already registered in this camp.");
+                        break;
                     }
 
                     int type = -1;

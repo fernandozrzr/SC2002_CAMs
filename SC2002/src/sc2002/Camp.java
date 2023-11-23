@@ -202,11 +202,6 @@ public class Camp
         return studentRemoved;
     }
 
-    public ArrayList<CCM> GetCommitteeMembers() 
-    {
-        return committeeMembers;
-    }
-
     public boolean AddCommitteeMember(CCM ccm)//TODO CHECK IF CCM IS AREADY A CCM IN ANOTHER CAMP
     {
         if(committeeMembers.size() < committeeSlots)
@@ -323,43 +318,4 @@ public class Camp
             Auth.updateAcccounts(s);
         }
     }
-    public static Boolean AlreadyRegistered(ArrayList<Student> attendees,String userName) {
-    	
-    	boolean alreadyAttending = false;
-
-    	for (Student attendee : attendees) {
-    	    if (attendee.getName().equals(userName)) {
-    	        alreadyAttending = true;
-    	        break;
-    	    }
-    	}
-
-    	if (alreadyAttending) {
-    	    System.out.println("You are already an attendee!");
-    	    return true;
-    	} else {
-    	    return false;
-    	}
-    }
-    public static Boolean AlreadyCommittee(ArrayList<CCM> attendees,String userName) {
-    	
-    	boolean alreadyAttending = false;
-
-    	for (Student attendee : attendees) {
-    	    if (attendee.getName().equals(userName)) {
-    	        alreadyAttending = true;
-    	        break;
-    	    }
-    	}
-
-    	if (alreadyAttending) {
-    	    System.out.println("You are already a committee member!");
-    	    return true;
-    	} else {
-    	    return false;
-    	}
-    }
-
-    
-
 }

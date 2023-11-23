@@ -122,9 +122,9 @@ public class StudentView implements CampView
     	            if (filtered.get(i).IsVisible() && camsApp.currentUser.getFaculty().equals(filtered.get(i).GetUserGrp()))
     	            {
     	            	System.out.println("(" + (x + 1) + ") " + filtered.get(i).GetCampName());
-    	                int slotsLeft = filtered.get(i).GetTotalSlots() - filtered.get(i).GetAttendees().size() - filtered.get(i).GetCommitteeMembers().size();
+    	                int slotsLeft = filtered.get(i).GetTotalSlots() - filtered.get(i).GetAttendees().size() - filtered.get(i).GetCommitteeList().size();
     	                System.out.println("\tTotal Slots Available: " + slotsLeft + "/" + filtered.get(i).GetTotalSlots());
-    	                slotsLeft = filtered.get(i).GetCommitteeSlots() - filtered.get(i).GetCommitteeMembers().size();
+    	                slotsLeft = filtered.get(i).GetCommitteeSlots() - filtered.get(i).GetCommitteeList().size();
     	                System.out.println("\tCommittee Member Slots Available: " + slotsLeft + "/" + filtered.get(i).GetCommitteeSlots());
     	            	++x;
     	            }
@@ -150,7 +150,7 @@ public class StudentView implements CampView
             	System.out.println("(" + (x + 1) + ") " + allCamps.get(i).GetCampName());
                 int slotsLeft = allCamps.get(i).GetTotalSlots() - allCamps.get(i).GetAttendees().size();
                 System.out.println("\tTotal Slots Available: " + slotsLeft + "/" + allCamps.get(i).GetTotalSlots());
-                slotsLeft = allCamps.get(i).GetCommitteeSlots() - allCamps.get(i).GetCommitteeMembers().size();
+                slotsLeft = allCamps.get(i).GetCommitteeSlots() - allCamps.get(i).GetCommitteeList().size();
                 System.out.println("\tCommittee Member Slots Available: " + slotsLeft + "/" + allCamps.get(i).GetCommitteeSlots());
             	++x;
             }

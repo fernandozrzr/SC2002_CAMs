@@ -82,13 +82,13 @@ public class CCMView extends StudentView{
                 System.out.println("\t(" + (count++) + ") " + s.getName());
         }
 
-        slotsLeft = camp.GetCommitteeSlots() - camp.GetCommitteeMembers().size();
+        slotsLeft = camp.GetCommitteeSlots() - camp.GetCommitteeList().size();
         System.out.println("Committee Member Slots Available: " + slotsLeft + "/" + camp.GetCommitteeSlots());
-        if(!camp.GetCommitteeMembers().isEmpty())
+        if(!camp.GetCommitteeList().isEmpty())
         {
             System.out.println("Attendees are:");
             int count = 1;
-            for(CCM c : camp.GetCommitteeMembers())
+            for(CCM c : camp.GetCommitteeList())
                 System.out.println("\t(" + (count++) + ") " + c.getName());
         }
 

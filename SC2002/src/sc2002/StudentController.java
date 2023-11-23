@@ -234,11 +234,16 @@ public class StudentController
                         System.out.println("The registeration date has passed.");
                         break;
                     }
-                    if(Camp.AlreadyRegistered(eligibleCamps.get(campIndex).GetAttendees(),camsApp.currentUser.getName() )) {
-                    	break;
+                    
+                    if(CampController.GetInstance().AlreadyRegistered(campIndex, camsApp.currentUser.getName()))
+                    {
+                        System.out.println("You are already registered in this camp.");
+                        break;
                     }
-                    if(Camp.AlreadyCommittee(eligibleCamps.get(campIndex).GetCommitteeList(),camsApp.currentUser.getName() )) {
-                    	break;
+                    if(CampController.GetInstance().AlreadyCommittee(campIndex, camsApp.currentUser.getName()))
+                    {
+                        System.out.println("You are already registered in this camp.");
+                        break;
                     }
 
                     int type = -1;
