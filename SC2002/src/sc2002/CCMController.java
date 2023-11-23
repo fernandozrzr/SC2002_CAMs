@@ -364,6 +364,13 @@ public class CCMController {
                         System.out.println("The registeration date has passed.");
                         break;
                     }
+                    
+                    if(Camp.AlreadyCommittee(eligibleCamps.get(campIndex).GetCommitteeList(),camsApp.currentUser.getName() )) {
+                    	break;
+                    }
+                    if(Camp.AlreadyRegistered(eligibleCamps.get(campIndex).GetAttendees(),camsApp.currentUser.getName() )) {
+                    	break;
+                    }
 
                     int type = -1;
                     System.out.print("Would you like to join as an (1) Attendee or (2) Camp Committee Memmber: ");

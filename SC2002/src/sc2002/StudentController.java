@@ -61,7 +61,7 @@ public class StudentController
 
     private void InitEligibleCamps()
     {
-        eligibleCamps.clear();
+    	eligibleCamps.clear();
 
         for(Camp camp : CampController.GetInstance().GetCamps())
         {
@@ -233,6 +233,12 @@ public class StudentController
                     {
                         System.out.println("The registeration date has passed.");
                         break;
+                    }
+                    if(Camp.AlreadyRegistered(eligibleCamps.get(campIndex).GetAttendees(),camsApp.currentUser.getName() )) {
+                    	break;
+                    }
+                    if(Camp.AlreadyCommittee(eligibleCamps.get(campIndex).GetCommitteeList(),camsApp.currentUser.getName() )) {
+                    	break;
                     }
 
                     int type = -1;
