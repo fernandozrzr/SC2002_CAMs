@@ -165,7 +165,7 @@ public class StaffController {
 		int campID=-1;
 		Scanner sc = new Scanner(System.in);
 				//display all camp 
-				ViewAllCamp();
+				staffViewManager.DisplayAllCamps(false);
 				//get input 
 				System.out.println("please select a camp： ");
 				campID= Integer.parseInt(sc.nextLine());
@@ -217,7 +217,7 @@ public class StaffController {
 	// View all camps
 	public void ViewAllCamp()
     {
-		staffViewManager.DisplayAllCamps();
+		staffViewManager.DisplayAllCamps(CampView.getfilter());
     }
 	public void ViewMyCamps()
     {	

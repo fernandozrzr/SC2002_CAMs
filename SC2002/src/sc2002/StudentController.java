@@ -163,7 +163,7 @@ public class StudentController
                 case "view all":
                 {
                     
-                    view.DisplayAllCamps();
+                    view.DisplayAllCamps(CampView.getfilter());
                     break;
                 }
 
@@ -459,7 +459,7 @@ public class StudentController
                 case "submit":
                 {
                     int campIndex = -1;
-                    view.DisplayAllCamps();
+                    view.DisplayAllCamps(false);
                 	System.out.print("Enter the ID of the camp you want to enquire about: ");
 
                     try

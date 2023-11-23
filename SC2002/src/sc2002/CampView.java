@@ -8,19 +8,11 @@ import java.util.Scanner;
 
 public interface CampView 
 {
-    public default void DisplayAllCamps(){	
-    	Boolean filter = false; // Default value
-    	Boolean success = false;
-    	System.out.println("Do you want to filter?");
-    	System.out.println("Enter true or false:");
+    public default void DisplayAllCamps(Boolean filter){	
     	
-    	Scanner sc = new Scanner(System.in);
-    	try {
-    	    String input = sc.nextLine();
-    	    filter = Boolean.parseBoolean(input.toLowerCase());
-    	} catch (Exception e) {
-    	    System.out.println("Please enter a valid selection (true/false).");
-    	}
+    	Boolean success = false;
+    	
+    	
     	if (filter) {
     		System.out.println("Filter by:");
     	    System.out.println("1. Camp Name");
@@ -29,8 +21,8 @@ public interface CampView
     	    System.out.println("4. Location");
     	    System.out.print("Enter your choice (1-4): ");
 
-    	    Scanner scanner = new Scanner(System.in);
-    	    int choice = scanner.nextInt();
+    	    Scanner sc = new Scanner(System.in);
+    	    int choice = sc.nextInt();
 
     	    ArrayList<Camp> camps = CampController.GetInstance().GetCamps();
     	    ArrayList<Camp> filtered= new ArrayList<>();
@@ -39,8 +31,8 @@ public interface CampView
     	        case 1:
     	            // Filter by camp name
     	            System.out.println("Enter the filter camp name:");
-    	            scanner = new Scanner(System.in);
-    	            String filterName = scanner.nextLine().toLowerCase();
+    	            sc = new Scanner(System.in);
+    	            String filterName = sc.nextLine().toLowerCase();
 
     	            for (Camp camp : camps) {
     	                if (camp.GetCampName().toLowerCase().contains(filterName)) {
@@ -99,8 +91,7 @@ public interface CampView
     	        case 4:
     	            // Filter by location
     	            System.out.println("Enter the filter location:");
-    	            scanner = new Scanner(System.in);
-    	            String filterLocation = scanner.nextLine().toLowerCase();
+    	            String filterLocation = sc.nextLine().toLowerCase();
     	            
     	            for (Camp camp : camps) {
     	                if (camp.GetLocation().toLowerCase().equals(filterLocation)) {
@@ -166,7 +157,21 @@ public interface CampView
         System.out.println("Committee Member Slots Available: " + slotsLeft + "/" + camp.GetCommitteeSlots());
         System.out.println();
     }
-	
+	public static Boolean getfilter() {
+		Boolean filter = false; // Default value
+    	Boolean success = false;
+    	System.out.println("Do you want to filter?");
+    	System.out.println("Enter true or false:");
+    	Scanner sc = new Scanner(System.in);
+    	try {
+    	    String input = sc.nextLine();
+    	    filter = Boolean.parseBoolean(input.toLowerCase());
+    	    
+    	} catch (Exception e) {
+    	    System.out.println("Please enter a valid selection (true/false).");
+    	}
+    	return filter;
+	}
     public void DisplayMyCamps(ArrayList<Camp> camps);
    
 }
