@@ -39,8 +39,9 @@ public interface CampView
     	            String filterName = sc.nextLine().toLowerCase();
 
     	            for (Camp camp : camps) {
-    	                if (camp.GetCampName().toLowerCase().contains(filterName)) {
-    	                	filtered.add(camp);
+    	            	if(camp!=null)
+    	            		if (camp.GetCampName().toLowerCase().contains(filterName)) {
+    	            			filtered.add(camp);
     	                }
     	            }
     	            success = true;

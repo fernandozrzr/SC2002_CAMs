@@ -245,6 +245,12 @@ public class StudentController
                         System.out.println("You are already registered in this camp.");
                         break;
                     }
+                    
+                    // System.out.println("date: "+eligibleCamps.get(campIndex).GetDate());
+                    if(((Student) camsApp.currentUser).dateClash(eligibleCamps.get(campIndex).GetDate())) {
+                    	System.out.println("Date of camp clashes with one of your registered camps.");
+                    	break;
+                    }
 
                     int type = -1;
                     System.out.print("Would you like to join as an (1) Attendee or (2) Camp Committee Memmber: ");
@@ -488,7 +494,7 @@ public class StudentController
                         System.out.println("You have entered an invalid choice. \n");
                         break;
                     }
-
+                    System.out.print("Enter your enquiry: ");
                     String enquiry = "";
                     try
                     {

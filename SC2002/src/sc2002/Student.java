@@ -75,5 +75,14 @@ public class Student extends User {
 	{
 		return ccmID;
 	}
+	public Boolean dateClash(String date)
+	{	
+		for(Camp camp :registeredCamps) {
+			//System.out.println("reg date: "+camp.GetDate());
+			if(camp.GetDate()==date)
+				return true;
+		}
+		return false;
+	}
 	
 }
