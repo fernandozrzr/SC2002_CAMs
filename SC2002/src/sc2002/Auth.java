@@ -19,7 +19,7 @@ public class Auth {
 	{
 		if(studentPasswordDict.isEmpty()==true) {
 			try {
-				studentPasswordDict = getPasswordDict(1);
+				studentPasswordDict = GetPasswordDict(1);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -28,7 +28,7 @@ public class Auth {
 
 		if(staffPasswordDict.isEmpty()==true) {
 			try {
-				staffPasswordDict = getPasswordDict(2);
+				staffPasswordDict = GetPasswordDict(2);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -59,7 +59,7 @@ public class Auth {
 
 	}
 
-	public static void login( String userID, String password, int domain) {
+	public static void Login( String userID, String password, int domain) {
 		
 		//System.out.println("in Auth.login");
 
@@ -75,7 +75,7 @@ public class Auth {
 					{
 						try 
 						{
-							camsApp.currentUser = FileManager.createUserObject(userID, FileManager.getFilePath(domain),domain);
+							camsApp.currentUser = FileManager.CreateUserObject(userID, FileManager.GetFilePath(domain),domain);
 							accounts.put(userID, camsApp.currentUser);
 						} 
 						catch (FileNotFoundException e) 
@@ -118,7 +118,7 @@ public class Auth {
 					{
 						try 
 						{
-							camsApp.currentUser = FileManager.createUserObject(userID, FileManager.getFilePath(domain),domain);
+							camsApp.currentUser = FileManager.CreateUserObject(userID, FileManager.GetFilePath(domain),domain);
 							accounts.put(userID, camsApp.currentUser);
 						} 
 						catch (FileNotFoundException e) 
@@ -162,14 +162,14 @@ public class Auth {
 		
 		//display currentUser details
 		System.out.println("Change Password");
-		System.out.println("UserID: "+currentUser.getUserID());
+		System.out.println("UserID: "+currentUser.GetUserID());
 		
 		//get user new password
 		System.out.println("Enter new Password:\n");
 		String newpass =sc.nextLine();
 		
 		//check password security
-		String strength = passwordStrength(newpass);
+		String strength = PasswordStrength(newpass);
 		
 		//check the user domain 
 		String type = currentUser.getClass().toString();
@@ -179,14 +179,14 @@ public class Auth {
 		switch(type) {
 		case "Student":
 			System.out.println("Change password for Student...");
-			user = currentUser.getUserID();
+			user = currentUser.GetUserID();
 			studentPasswordDict.put(user,newpass);
 			//System.out.println(studentPasswordDict);
 			break;
 			
 		case "Staff" :
 			System.out.println("Change password for Staff...");
-			user =currentUser.getUserID();
+			user =currentUser.GetUserID();
 			staffPasswordDict.put(user, newpass);
 			//System.out.println(staffPasswordDict);
 			break;
@@ -195,11 +195,11 @@ public class Auth {
 		System.out.println("new Password strength: " + strength);
 	}
 	
-	public static Hashtable<String,String> getPasswordDict(int domain) throws Exception {
-		return FileManager.readFile(FileManager.getFilePath(domain));
+	public static Hashtable<String,String> GetPasswordDict(int domain) throws Exception {
+		return FileManager.ReadFile(FileManager.GetFilePath(domain));
 	}
 	
-	public static String passwordStrength(String newpass){
+	public static String PasswordStrength(String newpass){
 		
 		   boolean LowerChar= false;
 		   boolean UpperChar = false;
@@ -238,7 +238,7 @@ public class Auth {
 			return strength;
 	}
 
-	public static void updateAcccounts(User newUser) {
-		accounts.put(newUser.getUserID(), newUser);
+	public static void UpdateAcccounts(User newUser) {
+		accounts.put(newUser.GetUserID(), newUser);
 	}
 }

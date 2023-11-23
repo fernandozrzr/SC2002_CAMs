@@ -14,7 +14,7 @@ public class Staff extends User {
 	public ArrayList<Camp> GetMyCamps() {
 		return createdCamps;
 	}
-	public void viewCreatedCamps()
+	public void ViewCreatedCamps()
 	{
 		for (Camp camp : createdCamps) {
 			if(camp == null) continue;
@@ -26,7 +26,7 @@ public class Staff extends User {
 		createdCamps.add(campname);
 		
 	}
-	public void removeCamps(Camp campname) {
+	public void RemoveCamps(Camp campname) {
 		 	Camp campToRemove = null;
 
 		    // Search for the camp with the specified name

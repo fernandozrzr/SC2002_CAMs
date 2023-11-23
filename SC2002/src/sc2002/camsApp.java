@@ -63,7 +63,7 @@ public class camsApp {
 				String password = sc.nextLine();
 
 				//set currentUser after verification
-				Auth.login(userID, password, domain);
+				Auth.Login(userID, password, domain);
 				
 				// user not found, loop again
 				if (currentUser == null) {

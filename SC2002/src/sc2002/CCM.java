@@ -27,7 +27,7 @@ public class CCM extends Student{
         this.myPoints = myPoints;
     }
 
-    public ArrayList<Suggestions> getMySuggestions() {
+    public ArrayList<Suggestions> GetMySuggestions() {
         return mySuggestions;
     }
     public void AddMySuggestion(Suggestions suggestion) {

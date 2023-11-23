@@ -67,7 +67,7 @@ public class StudentController
         {
             if(camp == null) continue;
             
-            if(camp.IsVisible() && camp.GetUserGrp().equals(camsApp.currentUser.getFaculty()))
+            if(camp.IsVisible() && camp.GetUserGrp().equals(camsApp.currentUser.GetFaculty()))
                 eligibleCamps.add(camp);
         }
     }
@@ -235,12 +235,12 @@ public class StudentController
                         break;
                     }
                     
-                    if(CampController.GetInstance().AlreadyRegistered(campIndex, camsApp.currentUser.getName()))
+                    if(CampController.GetInstance().AlreadyRegistered(campIndex, camsApp.currentUser.GetName()))
                     {
                         System.out.println("You are already registered in this camp.");
                         break;
                     }
-                    if(CampController.GetInstance().AlreadyCommittee(campIndex, camsApp.currentUser.getName()))
+                    if(CampController.GetInstance().AlreadyCommittee(campIndex, camsApp.currentUser.GetName()))
                     {
                         System.out.println("You are already registered in this camp.");
                         break;
@@ -276,10 +276,10 @@ public class StudentController
                             	Student s = (Student)camsApp.currentUser;
                             	s.ccmID = eligibleCamps.get(campIndex).GetCampID();
                                 
-                            	CCM currentUser = new CCM(s.getName(), s.getUserID(), s.getFaculty(), s.GetMyEnquiries(), s.GetRegisteredCamps(), s.GetccmID());
+                            	CCM currentUser = new CCM(s.GetName(), s.GetUserID(), s.GetFaculty(), s.GetMyEnquiries(), s.GetRegisteredCamps(), s.GetccmID());
                             	camsApp.currentUser = currentUser;
                             	CampController.GetInstance().AddCommitteeMember(currentUser.ccmID, currentUser);
-                            	Auth.updateAcccounts(currentUser);
+                            	Auth.UpdateAcccounts(currentUser);
                                 exit = true;
                                 camsApp.domain = 0;
                                 return true;
@@ -526,9 +526,9 @@ public class StudentController
     {
         System.out.println("/////////////////////////////////////////////////////////////////////////");
         System.out.println();
-        System.out.println("Name: " + camsApp.currentUser.getName());
-        System.out.println("ID: " + camsApp.currentUser.getUserID());
-        System.out.println("Faculty: " + camsApp.currentUser.getFaculty());
+        System.out.println("Name: " + camsApp.currentUser.GetName());
+        System.out.println("ID: " + camsApp.currentUser.GetUserID());
+        System.out.println("Faculty: " + camsApp.currentUser.GetFaculty());
         System.out.println("You are not registered as a Committee Member in any camp");
         System.out.println();
     }

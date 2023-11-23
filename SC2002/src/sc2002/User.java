@@ -14,15 +14,15 @@ public class User {
 		// this.password = password;
 	}
 
-	public String getName() {
+	public String GetName() {
 		return name;
 	}
 
-	public String getUserID() {
+	public String GetUserID() {
 		return userID;
 	}
 
-	public String getFaculty() {
+	public String GetFaculty() {
 		return faculty;
 	}
 

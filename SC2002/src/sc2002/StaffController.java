@@ -38,7 +38,7 @@ public class StaffController {
 				do {			
 					try {
 						//print the menu
-						staffViewManager.menu();
+						staffViewManager.Menu();
 						choice = Integer.parseInt(sc.nextLine());
 					}catch (InputMismatchException e) {
 						System.out.println("Invalid input");
@@ -152,7 +152,7 @@ public class StaffController {
 			case "view my camp":
 				ViewMyCamps();
 			case "exit":
-				System.out.println("Exiting Staff camp menu 1...");
+				//System.out.println("Exiting Staff camp menu 1...");
 				break;
 			default:
 				System.out.println("Please enter correct selection!");
@@ -222,7 +222,7 @@ public class StaffController {
 	public void ViewMyCamps()
     {	
 		
-		String myname = camsApp.currentUser.getName();
+		String myname = camsApp.currentUser.GetName();
 		ArrayList<Camp> camps = campManager.GetCamps();
 
 		ArrayList<Camp> filteredCamps = new ArrayList<>();
@@ -276,8 +276,8 @@ public class StaffController {
 	                System.out.println("Enter Camp Name: ");
 	                String campName = scanner.nextLine();
 	                editcamp.SetCampName(campName);
-	                campManager.sortCampsByName(camps);
-	                campManager.reassignCampIDs(camps);
+	                campManager.SortCampsByName(camps);
+	                campManager.ReassignCampIDs(camps);
 	                break;
 	            case 2:
 	                System.out.println("Enter Date: ");
@@ -322,7 +322,7 @@ public class StaffController {
 	            case 10:
 	            	System.out.println("Set Visibility: true or false?");
 	                boolean newVisibility = Boolean.parseBoolean(scanner.nextLine());
-	                ToggeVisibility(editcamp.GetCampID(), newVisibility);
+	                ToggleVisibility(editcamp.GetCampID(), newVisibility);
 	                break;
 	            case 11:
 	                System.out.println("Exiting menu.");
@@ -364,7 +364,7 @@ public class StaffController {
     	}
     }
 	// Toggle camp visibility
-	public void ToggeVisibility(int campID, boolean state)
+	public void ToggleVisibility(int campID, boolean state)
     {	
 		Camp editcamp=null;
     
@@ -409,7 +409,7 @@ public class StaffController {
     		}
     	}	
     	if(campExists) {
-    		HashMap<CCM, ArrayList<Suggestions>> map = selectedCamp.getSuggestion();
+    		HashMap<CCM, ArrayList<Suggestions>> map = selectedCamp.GetSuggestion();
     		if (map.isEmpty()) {
     			System.out.println("CampID does not have any suggestions.");
     			return false;
@@ -441,13 +441,13 @@ public class StaffController {
     		}
     	}	
     	if(campExists) {
-    		HashMap<CCM, ArrayList<Suggestions>> map = selectedCamp.getSuggestion();
+    		HashMap<CCM, ArrayList<Suggestions>> map = selectedCamp.GetSuggestion();
     		for (Entry<CCM, ArrayList<Suggestions>> entry : map.entrySet()) {
     		    ArrayList<Suggestions> suggestions = entry.getValue();
     		    for (Suggestions sgst : suggestions) {
     		        if (sgst.GetID()==(SuggestionID)) {
     		            // Access the reply variable
-    		        	sgst.setStatus(status);
+    		        	sgst.SetStatus(status);
     		            // Do something with the reply variable
     		        	if(status)
     		        		System.out.println("Suggestion approved!");
@@ -475,7 +475,7 @@ public class StaffController {
     		}
     	}	
     	if(campExists) {
-    		HashMap<Student, ArrayList<Enquiries>> map = selectedCamp.getEnquiries();
+    		HashMap<Student, ArrayList<Enquiries>> map = selectedCamp.GetEnquiries();
     		if(map.isEmpty()) {
     			System.out.println("CampID does not have any enquiries.");
     			return false;
@@ -506,7 +506,7 @@ public class StaffController {
     		}
     	}	
     	if(campExists) {
-    		HashMap<Student, ArrayList<Enquiries>> map = selectedCamp.getEnquiries();
+    		HashMap<Student, ArrayList<Enquiries>> map = selectedCamp.GetEnquiries();
     		for (HashMap.Entry<Student, ArrayList<Enquiries>> entry : map.entrySet()) {
     		    ArrayList<Enquiries> enquiries = entry.getValue();
 
@@ -555,7 +555,7 @@ public class StaffController {
 		            // Iterate through participants and write to CSV
 		            for (Student student : filterlist) {
 		                String campName = selectedCamp.GetCampName();
-		                String name = student.getName();
+		                String name = student.GetName();
 		                String role = "Attendee";
 
 		                // Write data to CSV
@@ -579,7 +579,7 @@ public class StaffController {
 	            // Iterate through participants and write to CSV
 	        		for (CCM ccm : flterlist) {
 	        			String campName = selectedCamp.GetCampName();
-	        			String name = ccm.getName();
+	        			String name = ccm.GetName();
 	        			String role = "CCM";
 
 	                // Write data to CSV
@@ -634,9 +634,9 @@ public class StaffController {
 
 	            // Iterate through each CCM in the list and write to CSV
 	            for (CCM ccm : ccmList) {
-	            	String userid = ccm.getUserID();
-	            	String faculty = ccm.getFaculty();
-	                String name = ccm.getName();
+	            	String userid = ccm.GetUserID();
+	            	String faculty = ccm.GetFaculty();
+	                String name = ccm.GetName();
 	                int points = ccm.GetPoints();
 
 	                // Write data to CSV

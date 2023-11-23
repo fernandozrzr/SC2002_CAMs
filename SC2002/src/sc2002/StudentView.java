@@ -119,7 +119,7 @@ public class StudentView implements CampView
     	        {
     	            if(filtered.get(i) == null) continue;
     	            
-    	            if (filtered.get(i).IsVisible() && camsApp.currentUser.getFaculty().equals(filtered.get(i).GetUserGrp()))
+    	            if (filtered.get(i).IsVisible() && camsApp.currentUser.GetFaculty().equals(filtered.get(i).GetUserGrp()))
     	            {
     	            	System.out.println("(" + (x + 1) + ") " + filtered.get(i).GetCampName());
     	                int slotsLeft = filtered.get(i).GetTotalSlots() - filtered.get(i).GetAttendees().size() - filtered.get(i).GetCommitteeList().size();
@@ -145,7 +145,7 @@ public class StudentView implements CampView
         {
             if(allCamps.get(i) == null) continue;
             
-            if (allCamps.get(i).IsVisible() && camsApp.currentUser.getFaculty().equals(allCamps.get(i).GetUserGrp()))
+            if (allCamps.get(i).IsVisible() && camsApp.currentUser.GetFaculty().equals(allCamps.get(i).GetUserGrp()))
             {
             	System.out.println("(" + (x + 1) + ") " + allCamps.get(i).GetCampName());
                 int slotsLeft = allCamps.get(i).GetTotalSlots() - allCamps.get(i).GetAttendees().size();

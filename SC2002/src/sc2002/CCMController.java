@@ -67,7 +67,7 @@ public class CCMController {
         int count = 0;
         Enquiries e = null;
 
-        for (Map.Entry<Student, ArrayList<Enquiries>> entry : camp.getEnquiries().entrySet()) 
+        for (Map.Entry<Student, ArrayList<Enquiries>> entry : camp.GetEnquiries().entrySet()) 
         {
             ArrayList<Enquiries> studentEnquiries = entry.getValue();
             for (Enquiries enquiry : studentEnquiries) 
@@ -86,7 +86,7 @@ public class CCMController {
         if (e != null && e.GetStatus() == STATUS.OPEN) {
             e.SetReply(reply);
             e.SetStatus(STATUS.CLOSED);
-            e.SetReplyBy(replyBy.getName());
+            e.SetReplyBy(replyBy.GetName());
 
             // Increment points for the CCM
             replyBy.SetPoints(replyBy.GetPoints() + 1);
@@ -118,12 +118,12 @@ public class CCMController {
             report.append("\nParticipants List:\n");
             for (Student attendee : attendees) {
                 if (roleFilter.equals("attendee")) {
-                    report.append("Attendee: ").append(attendee.getName()).append("\n");
+                    report.append("Attendee: ").append(attendee.GetName()).append("\n");
                 }
             }
             for (CCM ccm : committeeMembers) {
                 if (roleFilter.equals("ccm")) {
-                    report.append("CCM: ").append(ccm.getName()).append("\n");
+                    report.append("CCM: ").append(ccm.GetName()).append("\n");
                 }
             }
             if (roleFilter.equals("staff")) {
@@ -191,7 +191,7 @@ public class CCMController {
         {
             if(camp == null) continue;
             
-            if(camp.IsVisible() && camp.GetUserGrp().equals(camsApp.currentUser.getFaculty()) )
+            if(camp.IsVisible() && camp.GetUserGrp().equals(camsApp.currentUser.GetFaculty()) )
                 eligibleCamps.add(camp);
         }
     }
@@ -365,12 +365,12 @@ public class CCMController {
                         break;
                     }
                     
-                    if(CampController.GetInstance().AlreadyRegistered(campIndex, camsApp.currentUser.getName()))
+                    if(CampController.GetInstance().AlreadyRegistered(campIndex, camsApp.currentUser.GetName()))
                     {
                         System.out.println("You are already registered in this camp.");
                         break;
                     }
-                    if(CampController.GetInstance().AlreadyCommittee(campIndex, camsApp.currentUser.getName()))
+                    if(CampController.GetInstance().AlreadyCommittee(campIndex, camsApp.currentUser.GetName()))
                     {
                         System.out.println("You are already registered in this camp.");
                         break;
@@ -411,7 +411,7 @@ public class CCMController {
                                 }
                             	s.ccmID = eligibleCamps.get(campIndex).GetCampID();
                                 
-                            	CCM currentUser = new CCM(s.getName(), s.getUserID(), s.getFaculty(), s.GetMyEnquiries(), s.GetRegisteredCamps(), s.GetccmID());
+                            	CCM currentUser = new CCM(s.GetName(), s.GetUserID(), s.GetFaculty(), s.GetMyEnquiries(), s.GetRegisteredCamps(), s.GetccmID());
                             	camsApp.currentUser = currentUser;
                             	CampController.GetInstance().AddCommitteeMember(currentUser.ccmID, currentUser);
                                 exit = true;
@@ -715,9 +715,9 @@ public class CCMController {
     {
         System.out.println("/////////////////////////////////////////////////////////////////////////");
         System.out.println();
-        System.out.println("Name: " + camsApp.currentUser.getName());
-        System.out.println("ID: " + camsApp.currentUser.getUserID());
-        System.out.println("Faculty: " + camsApp.currentUser.getFaculty());
+        System.out.println("Name: " + camsApp.currentUser.GetName());
+        System.out.println("ID: " + camsApp.currentUser.GetUserID());
+        System.out.println("Faculty: " + camsApp.currentUser.GetFaculty());
         System.out.println("You are a committee member of " + CampController.GetInstance().GetCamps().get(((CCM)camsApp.currentUser).ccmID).GetCampName() + " Camp");
         System.out.println();
     }
@@ -787,7 +787,7 @@ public class CCMController {
                         break;
                     }
 
-                    if(sIndex < 0 || sIndex > ((CCM)camsApp.currentUser).getMySuggestions().size())
+                    if(sIndex < 0 || sIndex > ((CCM)camsApp.currentUser).GetMySuggestions().size())
                     {
                         System.out.println("You have entered an invalid choice. \n");
                         break;
@@ -829,7 +829,7 @@ public class CCMController {
                         break;
                     }
 
-                    if(sIndex < 0 || sIndex > ((CCM)camsApp.currentUser).getMySuggestions().size())
+                    if(sIndex < 0 || sIndex > ((CCM)camsApp.currentUser).GetMySuggestions().size())
                     {
                         System.out.println("You have entered an invalid choice. \n");
                         break;

@@ -12,9 +12,9 @@ public class CCMView extends StudentView{
     public void DisplayAllSuggestions(CCM ccm){
         //implement code to print out all the suggestions the Camp Comittee Member has written has written
         System.out.println("Suggestions by Camp Committee Member " + ccm.GetPoints() + ":");
-        for (Suggestions suggestion : ccm.getMySuggestions()) {
+        for (Suggestions suggestion : ccm.GetMySuggestions()) {
             System.out.println("Suggestion: " + suggestion.GetSuggestion());
-            System.out.println("Suggested by: " + ccm.getName());
+            System.out.println("Suggested by: " + ccm.GetName());
             System.out.println("Status: " + (suggestion.IsStatus() ? "Completed" : "Pending"));
             System.out.println();
         }
@@ -23,7 +23,7 @@ public class CCMView extends StudentView{
     public void DisplayAllEnquiries(Camp camp, User user) {
         // Check if the user is a staff or CCM
         if (user instanceof Staff || user instanceof CCM) {
-            HashMap<Student, ArrayList<Enquiries>> enquiriesMap = camp.getEnquiries();
+            HashMap<Student, ArrayList<Enquiries>> enquiriesMap = camp.GetEnquiries();
             if (enquiriesMap.isEmpty()) {
                 System.out.println("No enquiries found for this camp.");
             } else {
@@ -79,7 +79,7 @@ public class CCMView extends StudentView{
             System.out.println("Attendees are:");
             int count = 1;
             for(Student s : camp.GetAttendees())
-                System.out.println("\t(" + (count++) + ") " + s.getName());
+                System.out.println("\t(" + (count++) + ") " + s.GetName());
         }
 
         slotsLeft = camp.GetCommitteeSlots() - camp.GetCommitteeList().size();
@@ -89,7 +89,7 @@ public class CCMView extends StudentView{
             System.out.println("Attendees are:");
             int count = 1;
             for(CCM c : camp.GetCommitteeList())
-                System.out.println("\t(" + (count++) + ") " + c.getName());
+                System.out.println("\t(" + (count++) + ") " + c.GetName());
         }
 
         System.out.println();

@@ -6,9 +6,9 @@ import java.util.Scanner;
 
 public class FileManager {
 	private static User currentUser;
-	private static String[] filePathList = new String[] /*{"src\\student_list.txt","src\\staff_list.txt"};*/ {"student_list.txt","staff_list.txt"};
+	private static String[] filePathList = new String[] {"SC2002_CAMs\\SC2002\\src\\student_list.txt","SC2002_CAMs\\\\SC2002\\\\src\\staff_list.txt"};//{"student_list.txt","staff_list.txt"};
 
-	public static Hashtable<String, String> readFile(String filePath) throws FileNotFoundException {
+	public static Hashtable<String, String> ReadFile(String filePath) throws FileNotFoundException {
 		Hashtable<String, String> passwordDict = new Hashtable<>();
 		
 		passwordDict.clear();
@@ -27,7 +27,7 @@ public class FileManager {
 
 	}
 
-	public static User createUserObject(String userID, String filepath, int domain) throws FileNotFoundException {
+	public static User CreateUserObject(String userID, String filepath, int domain) throws FileNotFoundException {
 		
 		//System.out.println("in fm.createUserObject");
 		Scanner input = new Scanner(new File(filepath)); // read txt file
@@ -35,18 +35,18 @@ public class FileManager {
 		while (input.hasNextLine()) {
 			String line = input.nextLine();
 			String[] element = line.split(" ");
-			String userid = element[1];
-			userid = userid.substring(0, userid.indexOf("@"));
+			String userId = element[1];
+			userId = userId.substring(0, userId.indexOf("@"));
 
-			if (userid.equals(userID)) {
+			if (userId.equals(userID)) {
 				
 				switch(domain) {
 				case 1: //student
-					currentUser = new Student(element[0], userid, element[2]);
+					currentUser = new Student(element[0], userId, element[2]);
 					//System.out.printf(("current user: %s %s %s\n"), element[0], userid, element[2]);
 					break;
 				case 2: //staff
-					currentUser = new Staff(element[0], userid, element[2]);
+					currentUser = new Staff(element[0], userId, element[2]);
 					//System.out.printf(("current user: %s %s %s\n"), element[0], userid, element[2]);
 					break;
 				}
@@ -59,7 +59,7 @@ public class FileManager {
 		return currentUser;
 	}
 	
-	public static String getFilePath(int domain) {
+	public static String GetFilePath(int domain) {
 		//System.out.println(filePathList[domain-1]);
 	return filePathList[domain-1];
 	}

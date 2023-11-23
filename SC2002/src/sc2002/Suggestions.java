@@ -30,7 +30,7 @@ public class Suggestions {
     {
         return id;
     }
-    public void setStatus(boolean status){
+    public void SetStatus(boolean status){
         this.status = status;
         return;
     }

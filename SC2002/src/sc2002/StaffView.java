@@ -19,8 +19,8 @@ public class StaffView implements  CampView{
         return instance;
 	}
 	
-	public void menu() {
-		System.out.println("\nWelcome staff "+ camsApp.currentUser.getName());
+	public void Menu() {
+		System.out.println("\nWelcome staff "+ camsApp.currentUser.GetName());
 		
 		System.out.println("/////////////////////////////////////////////////////////////////////////");
         System.out.println("//////////////////////        Staff Menu        ///////////////////////");

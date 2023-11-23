@@ -280,10 +280,10 @@ public class Camp
 
         return null;
     }
-    public HashMap<Student, ArrayList<Enquiries>> getEnquiries() {
+    public HashMap<Student, ArrayList<Enquiries>> GetEnquiries() {
         return enquiries;
     }
-    public HashMap<CCM, ArrayList<Suggestions>> getSuggestion()
+    public HashMap<CCM, ArrayList<Suggestions>> GetSuggestion()
     {
     	return suggestions;
     }
@@ -313,9 +313,9 @@ public class Camp
 
         for(CCM c : committeeMembers)
         {
-            Student s = new Student(c.getName(), c.getUserID(), c.getFaculty(), c.GetMyEnquiries(), c.GetRegisteredCamps());
+            Student s = new Student(c.GetName(), c.GetUserID(), c.GetFaculty(), c.GetMyEnquiries(), c.GetRegisteredCamps());
 
-            Auth.updateAcccounts(s);
+            Auth.UpdateAcccounts(s);
         }
     }
 }

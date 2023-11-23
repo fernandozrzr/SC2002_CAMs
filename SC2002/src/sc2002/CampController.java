@@ -67,8 +67,8 @@ public class CampController
             while (fillIndex < camps.size()) {
                 camps.set(fillIndex++, null);
             }
-            sortCampsByName(camps);
-            reassignCampIDs(camps);
+            SortCampsByName(camps);
+            ReassignCampIDs(camps);
         } else {
             throw new IndexOutOfBoundsException("Index " + campID + " is out of bounds.");
         }
@@ -89,8 +89,8 @@ public class CampController
             camps.add(camp);
         else
             camps.set(campID, camp);
-        sortCampsByName(camps);
-        reassignCampIDs(camps);
+        SortCampsByName(camps);
+        ReassignCampIDs(camps);
         return camp; //Added for for StaffController
     }
 
@@ -145,7 +145,7 @@ public class CampController
     }
 
     // Sort camp by alphabetical order
-    public void sortCampsByName(ArrayList<Camp> camps) {
+    public void SortCampsByName(ArrayList<Camp> camps) {
         Collections.sort(camps, new Comparator<Camp>() {
             @Override
             public int compare(Camp camp1, Camp camp2) {
@@ -163,7 +163,7 @@ public class CampController
         });
     }
     //Reassign CampID based on current order of array
-    public void reassignCampIDs(ArrayList<Camp> camps) {
+    public void ReassignCampIDs(ArrayList<Camp> camps) {
         int id = 0;
         for (Camp camp : camps) {
             if (camp != null) {
