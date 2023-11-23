@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class FileManager {
 	private static User currentUser;
-	private static String[] filePathList = new String[] {"src\\student_list.txt","src\\staff_list.txt"};// {"student_list.txt","staff_list.txt"};
+	private static String[] filePathList = new String[] /*{"src\\student_list.txt","src\\staff_list.txt"};*/ {"student_list.txt","staff_list.txt"};
 
 	public static Hashtable<String, String> readFile(String filePath) throws FileNotFoundException {
 		Hashtable<String, String> passwordDict = new Hashtable<>();
@@ -17,7 +17,7 @@ public class FileManager {
 		input.nextLine(); // to skip the first row ( title )
 		while (input.hasNextLine()) {
 			String line = input.nextLine();
-			String[] element = line.split("\t");
+			String[] element = line.split(" ");
 			element[1] = element[1].substring(0, element[1].indexOf("@"));
 			
 			passwordDict.put(element[1], "Password");
@@ -34,7 +34,7 @@ public class FileManager {
 		input.nextLine(); // skip first line
 		while (input.hasNextLine()) {
 			String line = input.nextLine();
-			String[] element = line.split("\t");
+			String[] element = line.split(" ");
 			String userid = element[1];
 			userid = userid.substring(0, userid.indexOf("@"));
 

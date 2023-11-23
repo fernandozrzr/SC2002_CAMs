@@ -121,11 +121,11 @@ public class StaffController {
 
 	        
 	        System.out.println("Please enter your choice: ");
-	        System.out.println("\t \\\"view\\\" to View All Camp");
-	        System.out.println("\t \\\"view my camp\\\" to View My Camp");
-	        System.out.println("\t \\\"create\\\" to Create Camp");
-	        System.out.println("\t \\\"edit\\\" to Edit Camp");
-	        System.out.println("\t \\\"exit\\\" to Exit");
+	        System.out.println("\t \"view\" to View All Camp");
+	        System.out.println("\t \"view my camp\" to View My Camp");
+	        System.out.println("\t \"create\" to Create Camp");
+	        System.out.println("\t \"edit\" to Edit Camp");
+	        System.out.println("\t \"exit\" to Exit");
 	        
 				Scanner sc= new Scanner(System.in);
 				try {
