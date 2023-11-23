@@ -122,7 +122,7 @@ public class StudentView implements CampView
     	            if (filtered.get(i).IsVisible() && camsApp.currentUser.getFaculty().equals(filtered.get(i).GetUserGrp()))
     	            {
     	            	System.out.println("(" + (x + 1) + ") " + filtered.get(i).GetCampName());
-    	                int slotsLeft = filtered.get(i).GetTotalSlots() - filtered.get(i).GetAttendees().size();
+    	                int slotsLeft = filtered.get(i).GetTotalSlots() - filtered.get(i).GetAttendees().size() - filtered.get(i).GetCommitteeMembers().size();
     	                System.out.println("\tTotal Slots Available: " + slotsLeft + "/" + filtered.get(i).GetTotalSlots());
     	                slotsLeft = filtered.get(i).GetCommitteeSlots() - filtered.get(i).GetCommitteeMembers().size();
     	                System.out.println("\tCommittee Member Slots Available: " + slotsLeft + "/" + filtered.get(i).GetCommitteeSlots());

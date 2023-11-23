@@ -171,7 +171,7 @@ public class Camp
     public boolean AddAttendee(Student student) //TODO CHECK WHETHER REGISTERATION DATE HAS PASSED
     {
         //There are slots left to join and student is not removed
-        if(attendees.size() < totalSlots && !studentRemoved.contains(student))
+        if(attendees.size() < (totalSlots - committeeMembers.size()) && !studentRemoved.contains(student))
         {
             attendees.add(student);
             System.out.println("You have successfully registered for " + campName + " as an attendee");
