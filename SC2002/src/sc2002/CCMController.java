@@ -289,7 +289,7 @@ public class CCMController {
             {
                 case "view all":
                 {
-                    view.DisplayAllCamps();
+                    view.DisplayAllCamps(CampView.getfilter());
                     break;
                 }
 
@@ -603,7 +603,7 @@ public class CCMController {
                 case "submit":
                 {
                     int campIndex = -1;
-                    view.DisplayAllCamps();
+                    view.DisplayAllCamps(false);
                 	System.out.print("Enter the ID of the camp you want to enquire about: ");
 
                     try

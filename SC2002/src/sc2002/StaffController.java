@@ -273,57 +273,56 @@ public class StaffController {
 	        
 	        switch (choice) {
 	            case 1:
-	                System.out.print("Enter Camp Name: ");
+	                System.out.println("Enter Camp Name: ");
 	                String campName = scanner.nextLine();
 	                editcamp.SetCampName(campName);
 	                campManager.sortCampsByName(camps);
 	                campManager.reassignCampIDs(camps);
 	                break;
 	            case 2:
-	                System.out.print("Enter Date: ");
+	                System.out.println("Enter Date: ");
 	                String date = scanner.nextLine();
 	                editcamp.SetDate(date);
 	                break;
 	            case 3:
-	                System.out.print("Enter Register Close Date: ");
+	                System.out.println("Enter Register Close Date: ");
 	                String registerCloseDate = scanner.nextLine();
 	                editcamp.SetRegisterCloseDate(registerCloseDate);
 	                break;
 	            case 4:
-	                System.out.print("Enter User Group: ");
+	                System.out.println("Enter User Group: ");
 	                String userGroup = scanner.nextLine();
 	                editcamp.SetUserGrp(userGroup);
 	                break;
 	            case 5:
-	                System.out.print("Enter Location: ");
+	                System.out.println("Enter Location: ");
 	                String location = scanner.nextLine();
 	                editcamp.SetLocation(location);
 	                break;
 	            case 6:
-	                System.out.print("Enter Description: ");
+	                System.out.println("Enter Description: ");
 	                String description = scanner.nextLine();
 	                editcamp.SetDescription(description);
 	                break;
 	            case 7:
-	                System.out.print("Enter Staff in Charge: ");
+	                System.out.println("Enter Staff in Charge: ");
 	                String staffInCharge = scanner.nextLine();
 	                editcamp.SetStaffInCharge(staffInCharge);
 	                break;
 	            case 8:
-	                System.out.print("Enter Total Slots: ");
+	                System.out.println("Enter Total Slots: ");
 	                int totalSlots = Integer.parseInt(scanner.nextLine());
 	                editcamp.SetTotalSlots(totalSlots);
 	                break;
 	            case 9:
-	                System.out.print("Enter Committee Slots: ");
+	                System.out.println("Enter Committee Slots: ");
 	                int committeeSlots = Integer.parseInt(scanner.nextLine());
 	                editcamp.SetCommitteeSlots(committeeSlots);
 	                break;
 	            case 10:
-	            	System.out.print("Set Visibility: true or false?");
+	            	System.out.println("Set Visibility: true or false?");
 	                boolean newVisibility = Boolean.parseBoolean(scanner.nextLine());
-	                editcamp.SetVisibility(newVisibility);
-	                System.out.println("Visibility toggled to: " + newVisibility);
+	                ToggeVisibility(editcamp.GetCampID(), newVisibility);
 	                break;
 	            case 11:
 	                System.out.println("Exiting menu.");
@@ -351,7 +350,14 @@ public class StaffController {
     		}
     	}	
     	if(campExists) {
-    		campManager.DeleteCamp(campID);
+    		if (camps.get(campID).GetAttendees().isEmpty() && camps.get(campID).GetCommitteeList().isEmpty()) {
+    			campManager.DeleteCamp(campID);
+    			System.out.println("Camp Deleted.");
+    		}
+    		else {
+    			System.out.println("Unable to delete camp as there are attendees.");
+    		}
+    		
     	}
     	else {
     		System.out.println("CampID does not exist.");
@@ -374,7 +380,14 @@ public class StaffController {
     	}	
     	if(campExists) {
 			//if camp exists, toggle
-    		editcamp.SetVisibility(state);
+    		if (camps.get(campID).GetAttendees().isEmpty() && camps.get(campID).GetCommitteeList().isEmpty()) {
+    			editcamp.SetVisibility(state);
+    			System.out.println("Camp visibility toggled.");
+    		}
+    		else {
+    			System.out.println("Unable to toggle camp visibility as there are attendees.");
+    		}
+    		
     	}
     	else {
     		System.out.println("CampID does not exist.");
