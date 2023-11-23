@@ -9,6 +9,10 @@ import java.util.Scanner;
 public interface CampView 
 {
 	Scanner sc = new Scanner(System.in);
+	
+	public void DisplayMyCamps(ArrayList<Camp> camps);
+	
+	
     public default void DisplayAllCamps(Boolean filter){	
     	
     	Boolean success = false;
@@ -173,6 +177,6 @@ public interface CampView
     	}
     	return filter;
 	}
-    public void DisplayMyCamps(ArrayList<Camp> camps);
+   
    
 }
