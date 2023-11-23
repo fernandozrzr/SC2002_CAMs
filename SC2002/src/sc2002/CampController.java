@@ -123,6 +123,27 @@ public class CampController
         e.SetReplyBy(replyBy);
         e.SetStatus(STATUS.CLOSED);
     }
+
+    public Boolean AlreadyRegistered(int campID, String name)
+    {
+        ArrayList<Student> attendees = camps.get(campID).GetAttendees();
+
+        for(Student s : attendees)
+            if(s.name.equals(name)) return true;
+
+        return false;
+    }
+
+    public Boolean AlreadyCommittee(int campID, String name)
+    {
+        ArrayList<CCM> attendees = camps.get(campID).GetCommitteeList();
+
+        for(CCM c : attendees)
+            if(c.name.equals(name)) return true;
+
+        return false;
+    }
+
     // Sort camp by alphabetical order
     public void sortCampsByName(ArrayList<Camp> camps) {
         Collections.sort(camps, new Comparator<Camp>() {

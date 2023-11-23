@@ -153,7 +153,7 @@ public interface CampView
 
         int slotsLeft = camp.GetTotalSlots() - camp.GetAttendees().size();
         System.out.println("Total Slots Available: " + slotsLeft + "/" + camp.GetTotalSlots());
-        slotsLeft = camp.GetCommitteeSlots() - camp.GetCommitteeMembers().size();
+        slotsLeft = camp.GetCommitteeSlots() - camp.GetCommitteeList().size();
         System.out.println("Committee Member Slots Available: " + slotsLeft + "/" + camp.GetCommitteeSlots());
         System.out.println();
     }
