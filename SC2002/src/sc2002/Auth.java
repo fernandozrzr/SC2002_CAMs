@@ -157,9 +157,9 @@ public class Auth {
 	
 	public static void ChangePassword(User currentUser) {
 		 
-		Scanner sc= new Scanner(System.in);
-		String user;
 		
+		String user;
+		Scanner sc= new Scanner(System.in);
 		//display currentUser details
 		System.out.println("Change Password");
 		System.out.println("UserID: "+currentUser.GetUserID());

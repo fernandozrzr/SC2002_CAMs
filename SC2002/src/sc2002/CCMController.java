@@ -14,7 +14,7 @@ public class CCMController {
     private ArrayList<CCM> ccm;
     private CCMView view = null;
     private ArrayList<Camp> eligibleCamps = null;
-
+    Scanner sc = new Scanner(System.in);
     public static CCMController GetInstance() {
         if (instance == null)
             instance = new CCMController();
@@ -202,7 +202,6 @@ public class CCMController {
     {
         InitEligibleCamps();
         int choice = -1;
-        Scanner sc = new Scanner(System.in);
 
         while(choice != 0)
         {
@@ -248,8 +247,6 @@ public class CCMController {
         String[] choices = {"view all", "view registered",  "view details", "register", "withdraw", "exit"};
         String choice = "";
         boolean exit = false;
-
-        Scanner sc = new Scanner(System.in);
         
         while(!exit)
         {
@@ -485,8 +482,6 @@ public class CCMController {
         String[] choices = {"view", "view camp enquiry", "edit",  "delete", "submit", "reply", "exit"};
         String choice = "";
         boolean exit = false;
-
-        Scanner sc = new Scanner(System.in);
         
         while(!exit)
         {
@@ -727,8 +722,6 @@ public class CCMController {
         String[] choices = {"view", "edit", "delete", "submit", "exit"};
         String choice = "";
         boolean exit = false;
-
-        Scanner sc = new Scanner(System.in);
         
         while(!exit)
         {
