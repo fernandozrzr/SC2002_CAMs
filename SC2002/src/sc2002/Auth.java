@@ -69,7 +69,7 @@ public class Auth {
 			// valid user
 			if ( studentPasswordDict.containsKey(userID)) {
 				if (studentPasswordDict.get(userID).equals(password)) {
-					System.out.println("Login succesful!");
+					System.out.println("Login successful!");
 
 					if(accounts.get(userID) == null)
 					{
@@ -112,7 +112,7 @@ public class Auth {
 			// valid user
 			if ( staffPasswordDict.containsKey(userID)) {
 				if (staffPasswordDict.get(userID).equals(password)) {
-					System.out.print("Login succesful!");
+					System.out.print("Login successful!");
 
 					if(accounts.get(userID) == null)
 					{
