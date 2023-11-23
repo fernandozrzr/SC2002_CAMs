@@ -48,12 +48,12 @@ public class Auth {
         }
 		
 		StaffController staff = new StaffController();
-		staff.CreateCamp("POCHACCO", "28/12/2025", "20/12/2025", "NBS", "NTU", "WELCOME", "Madhukumar", 8, 3, true);
-		staff.CreateCamp("CHIIKAWA", "31/12/2023", "21/12/2023", "ADM", "NS", "WELCOME", "Chattopadhyay", 6, 2, true);
-		staff.CreateCamp("HACHI", "01/01/2025", "22/12/2024", "SCSE", "ECP", "WELCOME", "Madhukumar", 10, 3, true);
-		staff.CreateCamp("KEROPPI", "31/12/2025", "18/12/2025", "EEE", "CLOUD9", "WELCOME", "Arvind", 10, 2, true);
-		staff.CreateCamp("NANA", "20/09/2023", "20/08/2023", "SCSE", "HALL 6", "WELCOME", "Alexei", 8, 3, true);
-		staff.CreateCamp("USAGYUU", "28/12/2026", "28/11/2026", "SSS", "NS", "WELCOME", "Datta", 9, 3, true);
+		staff.CreateCamp("POCHACCO", "24/12/2023", "20/11/2023", "SCSE", "NTU", "WELCOME", "Alexei", 8, 3, true);
+		staff.CreateCamp("CHIIKAWA", "12/12/2023", "1/12/2023", "SCSE", "NS", "WELCOME", "Alexei", 6, 2, true);
+		staff.CreateCamp("HACHI", "30/01/2024", "22/1/2024", "SCSE", "ECP", "WELCOME", "Alexei", 10, 3, true);
+		staff.CreateCamp("KEROPPI", "2/2/2024", "18/12/2023", "EEE", "CLOUD9", "WELCOME", "Arvind", 10, 2, true);
+		staff.CreateCamp("NANA", "2/1/2024", "20/12/2023", "SCSE", "HALL 6", "WELCOME", "Alexei", 8, 3, true);
+		staff.CreateCamp("USAGYUU", "28/12/2023", "28/11/2023", "SCSE", "NS", "WELCOME", "Alexei", 9, 3, true);
 		
 		
 
