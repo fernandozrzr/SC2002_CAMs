@@ -6,15 +6,36 @@ import java.util.Hashtable;
 import java.util.Map;
 import java.util.Scanner;
 
-
+/**
+ * Description of the class here
+ * 
+ * @author Who wrote this 
+ * @version 1.0
+ * @since 2023-11-24
+ */
 public class Auth {
-
-	// initialize the dictionary passwordDict
+	/**
+	 * Description of the line below
+	 */
 	private static Hashtable<String, String> studentPasswordDict = new Hashtable<>();
+
+	/**
+	 * Description of the line below
+	 */
 	private static Hashtable<String, String> staffPasswordDict = new Hashtable<>();
 
+	/**
+	 * Description of the line below
+	 */
 	private static HashMap<String, User> accounts = new HashMap<String, User>();
 
+	/**
+	 * Description of the method here 
+	 * 
+	 * @param paramName Description of the parameter
+	 * @param paramName Add tis line for every parameter in the function
+	 * @return U can delete this line if this function is void type
+	 */
 	public static void Init()
 	{
 		if(studentPasswordDict.isEmpty()==true) {
