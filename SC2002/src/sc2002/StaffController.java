@@ -49,7 +49,7 @@ public class StaffController {
 				
 				switch(choice) {
 				case 1: //create/edit/view all camp 
-					Staffmenu1();
+					StaffMenu1();
 					break;
 				case 2: //delete camp
 					DeleteCamp(getCampIDInput());
@@ -114,7 +114,7 @@ public class StaffController {
 		}
 	
 	
-	public void Staffmenu1() {
+	public void StaffMenu1() {
 		
 			String sel = null;
 			System.out.println("/////////////////////////////////////////////////////////////////////////");
@@ -299,7 +299,7 @@ public class StaffController {
 	// View all camps
 	public void ViewAllCamp()
     {
-		staffViewManager.DisplayAllCamps(CampView.getfilter());
+		staffViewManager.DisplayAllCamps(CampView.GetFilter());
     }
 	public void ViewMyCamps()
     {	
@@ -318,9 +318,9 @@ public class StaffController {
     }
 	
 	// Create a camp
-	public Camp CreateCamp(String campName, String date, String closedate, String userGrp, String location, String description, String staffIC, int totalSlots, int CommitteeSlots, boolean Visibility)
+	public Camp CreateCamp(String campName, String date, String closeDate, String userGrp, String location, String description, String staffIC, int totalSlots, int CommitteeSlots, boolean Visibility)
     {
-		Camp newcamp=campManager.AddCamp(campName, date, closedate, userGrp.toUpperCase(), location, description, staffIC, totalSlots, CommitteeSlots, Visibility);
+		Camp newcamp=campManager.AddCamp(campName, date, closeDate, userGrp.toUpperCase(), location, description, staffIC, totalSlots, CommitteeSlots, Visibility);
 		//returns camp to so that can be added to Staff Class
 		return newcamp;
     }

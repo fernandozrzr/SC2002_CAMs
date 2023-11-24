@@ -286,7 +286,7 @@ public class CCMController {
             {
                 case "view all":
                 {
-                    view.DisplayAllCamps(CampView.getfilter());
+                    view.DisplayAllCamps(CampView.GetFilter());
                     break;
                 }
 

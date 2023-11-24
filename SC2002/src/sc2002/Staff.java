@@ -26,12 +26,12 @@ public class Staff extends User {
 		createdCamps.add(campname);
 		
 	}
-	public void RemoveCamps(Camp campname) {
+	public void RemoveCamps(Camp campName) {
 		 	Camp campToRemove = null;
 
 		    // Search for the camp with the specified name
 		    for (Camp camp : createdCamps) {
-		        if (camp.equals(campname)) {
+		        if (camp.equals(campName)) {
 		            campToRemove = camp;
 		            break; // Stop searching once found
 		        }

@@ -164,7 +164,7 @@ public interface CampView
         System.out.println();
     }
 	
-	public static Boolean getfilter() {
+	public static Boolean GetFilter() {
 		Boolean filter = false; // Default value
     	System.out.println("Do you want to filter?");
     	System.out.println("Enter true or false:");
