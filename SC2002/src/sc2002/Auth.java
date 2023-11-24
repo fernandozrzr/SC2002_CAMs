@@ -11,7 +11,7 @@ import java.util.Scanner;
  * 
  * @author Who wrote this 
  * @version 1.0
- * @since 2023-11-24
+ * @since 24/11/2023
  */
 public class Auth {
 	/**
