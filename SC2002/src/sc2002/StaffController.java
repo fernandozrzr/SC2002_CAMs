@@ -1,6 +1,7 @@
 package sc2002;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
@@ -628,7 +629,19 @@ public class StaffController {
 	        // Get participants based on the specified participantType
 	        if (participantType.equalsIgnoreCase("Student")||participantType.equalsIgnoreCase("All")) {
 	        	ArrayList<Student> filterlist = selectedCamp.GetAttendees();
-	        	try (BufferedWriter writer = new BufferedWriter(new FileWriter(selectedCamp.GetCampName()+"_Student_List.csv"))) {
+	        	
+	        	String filename = selectedCamp.GetCampName()+"_Student_List.csv";
+	 	        File file = new File(filename);
+	 	        int index = 1;
+
+	 	        // Check if the file already exists
+	 	        while (file.exists()) {
+	 	            // If the file exists, create a new filename with an index
+	 	            filename = selectedCamp.GetCampName()+"_Student_List (" + index + ").csv";
+	 	            file = new File(filename);
+	 	            index++;
+	 	        }
+	        	try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
 		            // Write header for CSV file
 		            writer.write("CampID, CampName, ParticipantName, Role");
 		            writer.newLine();
@@ -650,9 +663,24 @@ public class StaffController {
 		            e.printStackTrace();
 		        }
 	        }  
+	        
 	        if (participantType.equalsIgnoreCase("CCM")||participantType.equalsIgnoreCase("All")) {
 	        	ArrayList<CCM> flterlist = selectedCamp.GetCommitteeList();
-	        	try (BufferedWriter writer = new BufferedWriter(new FileWriter(selectedCamp.GetCampName()+"_CCM_List.csv"))) {
+	        	
+	        	String filename = selectedCamp.GetCampName()+"_CCM_List.csv";
+	 	        File file = new File(filename);
+	 	        int index = 1;
+
+	 	        // Check if the file already exists
+	 	        while (file.exists()) {
+	 	            // If the file exists, create a new filename with an index
+	 	            filename = selectedCamp.GetCampName()+"_CCM_List (" + index + ").csv";
+	 	            file = new File(filename);
+	 	            index++;
+	 	        }
+
+	        	
+	        	try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
 	            // Write header for CSV file
 	        		writer.write("CampID, CampName, ParticipantName, Role");
 	        		writer.newLine();
@@ -708,7 +736,20 @@ public class StaffController {
 	    if (campExists) {
 	        ArrayList<CCM> ccmList = selectedCamp.GetCommitteeList();
 	        String campName = selectedCamp.GetCampName();
-	        try (BufferedWriter writer = new BufferedWriter(new FileWriter(campName+" CCM Report.csv"))) {
+	        
+	        String filename = campName + " CCM Report.csv";
+	        File file = new File(filename);
+	        int index = 1;
+
+	        // Check if the file already exists
+	        while (file.exists()) {
+	            // If the file exists, create a new filename with an index
+	            filename = campName + "_CCM Report (" + index + ").csv";
+	            file = new File(filename);
+	            index++;
+	        }
+	        
+	        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
 	            // Write header for CSV file
 	            writer.write("ID, Name, Faculty, Points");
 	            writer.newLine();
