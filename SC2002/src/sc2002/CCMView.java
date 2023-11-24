@@ -5,9 +5,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CCMView extends StudentView{
+    private static CCMView instance = null;
     public CCMView() {
         super();
     }
+
+    public static CCMView GetInstance() {
+		if(instance == null)
+            instance =  new CCMView();
+
+        return instance;
+	}
 
     public void DisplayAllSuggestions(CCM ccm){
         //implement code to print out all the suggestions the Camp Comittee Member has written has written
@@ -113,7 +121,8 @@ public class CCMView extends StudentView{
         System.out.println("\t(3) View / Edit / Delete / Submit / Reply");
         System.out.println("Suggestions");
         System.out.println("\t(4) View / Edit / Delete / Submit");
-
+        System.out.println("Other");
+        System.out.println("\t(5) Generate List");
         System.out.println("/////////////////////////////////////////////////////////////////////////");
         System.out.print("Enter your Choice: ");
     }
