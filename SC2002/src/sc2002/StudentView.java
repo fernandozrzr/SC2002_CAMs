@@ -73,7 +73,7 @@ public class StudentView implements CampView
     	            break;
 
     	        case 3:
-    	            // Filter by register close date
+    	            // Filter by register close dateF
     	        	System.out.println("Enter Date:(dd/mm/yyyy)");
     	            String closeDate = sc.nextLine();
 
@@ -164,7 +164,7 @@ public class StudentView implements CampView
     {
         if(camp.size() == 0)
         {
-            System.out.println("You are not registerd in any camps");
+            System.out.println("You are not registered in any camps");
             return;
         }
 

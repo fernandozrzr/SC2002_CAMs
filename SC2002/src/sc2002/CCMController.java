@@ -267,13 +267,13 @@ public class CCMController {
                     break;
                 case 4:
                     SuggestionMenu();
+                    break;
                 case 5:
                     System.out.println("Please enter a user group: \n"
                         + "Student\\CCM\\All");
                     String userGrp = sc.nextLine();
                     GenerateList(((CCM)camsApp.currentUser).GetccmID(),userGrp);
-                break;
-            
+                    break;
                 default:
                     break;
             }
@@ -439,7 +439,7 @@ public class CCMController {
                         case 1:
                             if(camsApp.currentUser instanceof Student) 
                             {
-                            	((Student) camsApp.currentUser).AddRegisteredCamps(eligibleCamps.get(campIndex));
+                            	((Student)camsApp.currentUser).AddRegisteredCamps(eligibleCamps.get(campIndex));
                                 CampController.GetInstance().AddAttendee(eligibleCamps.get(campIndex).GetCampID(), (Student)camsApp.currentUser);
                             }
                             else
