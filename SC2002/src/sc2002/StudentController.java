@@ -493,7 +493,7 @@ public class StudentController
                         System.out.println("You have entered an invalid choice. \n");
                         break;
                     }
-                    System.out.print("Enter your enquiry: ");
+                   
                     String enquiry = "";
                     try
                     {

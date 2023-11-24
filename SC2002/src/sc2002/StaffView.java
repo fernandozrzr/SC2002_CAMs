@@ -54,9 +54,9 @@ public class StaffView implements  CampView{
 	        Student name = entry.getKey();
 	        ArrayList<Enquiries> enquiriesList = entry.getValue();
 	        
-	        System.out.println("CCM: " + name);
+	        System.out.println("Student: " + name.GetName());
 	        for (Enquiries enq : enquiriesList) {
-	            System.out.println("EnquiryId: " + enq.GetEnquiryId()+"Enquiry: " + enq.GetEnquiry()+ "Ask By: " + enq.GetAskBy()+ "Reply: " + enq.GetReplyBy()+ "Ask By: " + enq.GetStatus()+ "Status: " + enq.GetStatus());
+	            System.out.println("\nEnquiryId: " + enq.GetEnquiryId()+" Enquiry: " + enq.GetEnquiry()+ "\nReply: " + enq.GetReply()+ ", Replied By: " + enq.GetReplyBy()+ "\nStatus: " + enq.GetStatus());
 	        }
 	    }
 	}

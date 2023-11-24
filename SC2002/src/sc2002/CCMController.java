@@ -78,7 +78,7 @@ public class CCMController {
             ArrayList<Enquiries> studentEnquiries = entry.getValue();
             for (Enquiries enquiry : studentEnquiries) 
             {
-                if(count == index++)
+                if(enquiry.GetEnquiryId() == index)
                 {
                     e = enquiry;
                     break;
@@ -711,8 +711,9 @@ public class CCMController {
                         System.out.println("Invalid Input!");
                         break;
                     }
-
-                    if(enquiryIndex < 0 || enquiryIndex > ((Student)camsApp.currentUser).GetMyEnquiries().size())
+                    CCM c = (CCM)camsApp.currentUser;
+                    
+                    if(enquiryIndex < 0 || enquiryIndex > CampController.GetInstance().GetCamps().get(c.GetccmID()).GetEnquiries().size())
                     {
                         System.out.println("You have entered an invalid choice. \n");
                         break;
@@ -733,7 +734,7 @@ public class CCMController {
 
                     if(camsApp.currentUser instanceof CCM)
                     {
-                        CCM c = (CCM)camsApp.currentUser;
+                        
                         ReplyEnquiry(c.GetccmID(), enquiryIndex, reply, c);
                         System.out.println("Enquiry Replied successfully");
                     }
