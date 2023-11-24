@@ -483,7 +483,7 @@ public class CCMController {
                 case "withdraw":
                 {
                     int campIndex = -1;
-                	System.out.print("Enter the ID of the camp to register: ");
+                	System.out.print("Enter the ID of the camp to withdraw: ");
 
                     try
                     {
