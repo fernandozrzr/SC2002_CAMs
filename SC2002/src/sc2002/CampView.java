@@ -6,13 +6,28 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
+/**
+ * View Interface which handles the interface that the user will see
+ * 
+ * @author Edward Seah
+ * @version 1.0
+ * @since 24/11/2023
+ */
 public interface CampView 
 {
-	Scanner sc = new Scanner(System.in);
-	
+	/**
+	 * Displays their own camps list (registered or created)
+	 * 
+     * @param camps List of camps to potentionally display
+	 */
 	public void DisplayMyCamps(ArrayList<Camp> camps);
 	
-	
+	/**
+	 * Displays all the camps available and visable
+	 * Default function
+	 * 
+     * @param filter Whether the user wants to filter the camps 
+	 */
     public default void DisplayAllCamps(Boolean filter){	
     	
     	Boolean success = false;
@@ -132,7 +147,13 @@ public interface CampView
     	}
     }
 
-    public default void DisplayCampDetails(int campID, Student student) 
+	/**
+	 * Displays camp details
+	 * Default function
+	 * 
+     * @param campID ID of the camp to display 
+	 */
+    public default void DisplayCampDetails(int campID) 
     {
         ArrayList<Camp> campList = CampController.GetInstance().GetCamps();
 
@@ -164,7 +185,14 @@ public interface CampView
         System.out.println();
     }
 	
-	public static Boolean GetFilter() {
+	/**
+	 * Static function which gets input from user to determine if they want to filter the camps display
+	 * 
+     * @return True if user wants to filter, False otherwise
+	 */
+	public static Boolean GetFilter() 
+	{
+		Scanner sc = new Scanner(System.in);
 		Boolean filter = false; // Default value
     	System.out.println("Do you want to filter?");
     	System.out.println("Enter true or false:");

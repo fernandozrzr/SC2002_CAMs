@@ -7,34 +7,30 @@ import java.util.Map;
 import java.util.Scanner;
 
 /**
- * Description of the class here
+ * A class to do authentication of user
  * 
- * @author Who wrote this 
+ * @author Koid Qian Yu
  * @version 1.0
- * @since 2023-11-24
+ * @since 24/11/2023
  */
 public class Auth {
 	/**
-	 * Description of the line below
+	 * A hash table to store student password
 	 */
 	private static Hashtable<String, String> studentPasswordDict = new Hashtable<>();
 
 	/**
-	 * Description of the line below
+	 * A hash table to store staff password
 	 */
 	private static Hashtable<String, String> staffPasswordDict = new Hashtable<>();
 
 	/**
-	 * Description of the line below
+	 * A hash map to store logged in user details
 	 */
 	private static HashMap<String, User> accounts = new HashMap<String, User>();
 
 	/**
-	 * Description of the method here 
-	 * 
-	 * @param paramName Description of the parameter
-	 * @param paramName Add tis line for every parameter in the function
-	 * @return U can delete this line if this function is void type
+	 * Initialize the hash table and create camps for demo purpose
 	 */
 	public static void Init()
 	{
@@ -80,6 +76,13 @@ public class Auth {
 
 	}
 
+	/**
+	 * verify log in of user
+	 * 
+	 * @param userID input UserID from user
+	 * @param password input password from user
+	 * @param domain input domain from user
+	 */
 	public static void Login( String userID, String password, int domain) {
 		
 		//System.out.println("in Auth.login");
@@ -175,7 +178,11 @@ public class Auth {
 		//System.out.println(staffPasswordDict);
 	}
 	
-	
+	/**
+	 * Change password of user
+	 * 
+	 * @param currentUser user object of current logging in user
+	 */
 	public static void ChangePassword(User currentUser) {
 		 
 		
@@ -216,11 +223,23 @@ public class Auth {
 		System.out.println("new Password strength: " + strength);
 	}
 	
+	/**
+	 * get the respective hash table that store user's password based on domain 
+	 * 
+	 * @param domain input domain from user to decide return hash table 
+	 * @return Hash table of respective domain
+	 */
 	public static Hashtable<String,String> GetPasswordDict(int domain) throws Exception {
 		return FileManager.ReadFile(FileManager.GetFilePath(domain));
 	}
-	
-	public static String PasswordStrength(String newpass){
+
+	/**
+	 * check user password strength
+	 * 
+	 * @param newPass string that need to be check 
+	 * @return "weak" ,"medium", "strong" based on user input password
+	 */
+	public static String PasswordStrength(String newPass){
 		
 		   boolean LowerChar= false;
 		   boolean UpperChar = false;
@@ -230,9 +249,9 @@ public class Auth {
 		   
 		   String special_chars = "!(){}[]:;<>?,@#$%^&*+=_-~`|./'";
 		   String strength;
-		   char[] ch= newpass.toCharArray();
+		   char[] ch= newPass.toCharArray();
 		   
-		   for(int i=0; i<newpass.length(); i++){
+		   for(int i=0; i<newPass.length(); i++){
 			   if(Character.isLowerCase(ch[i])){
 			       LowerChar = true;
 			   }
@@ -246,7 +265,7 @@ public class Auth {
 			       SpecialChar = true;
 			   }
 			}
-			if (newpass.length() >= 6){
+			if (newPass.length() >= 6){
 			   MinLength = true;
 			}
 			if(MinLength && Digit && UpperChar && SpecialChar && LowerChar){
@@ -259,6 +278,11 @@ public class Auth {
 			return strength;
 	}
 
+	/**
+	 * update account hash map to store new user
+	 * 
+	 * @param newUser new user object to be added in the hash map account
+	 */
 	public static void UpdateAcccounts(User newUser) {
 		accounts.put(newUser.GetUserID(), newUser);
 	}

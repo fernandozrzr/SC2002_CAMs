@@ -54,7 +54,7 @@ public class CCMView extends StudentView{
     }
 
     @Override
-    public void DisplayCampDetails(int campID, Student student) 
+    public void DisplayCampDetails(int campID) 
     {
         ArrayList<Camp> campList = CampController.GetInstance().GetCamps();
 

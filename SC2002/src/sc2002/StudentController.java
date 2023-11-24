@@ -200,7 +200,7 @@ public class StudentController
                         break;
                     }
 
-                    view.DisplayCampDetails(campID, (Student)camsApp.currentUser);
+                    view.DisplayCampDetails(campID);
 
                     break;
                 }

@@ -4,10 +4,29 @@ import java.io.*;
 import java.util.Hashtable;
 import java.util.Scanner;
 
+/**
+ * A class that handle file related function
+ * 
+ * @author koid qian yu
+ * @version 1.0
+ * @since 24/11/2023
+ */
 public class FileManager {
+	/**
+	 * Static object of User
+	 */
 	private static User currentUser;
+	/**
+	 * list of file path of student and staff details
+	 */
 	private static String[] filePathList = new String[] {"student_list.txt","staff_list.txt"};//{"SC2002_CAMs\\SC2002\\src\\student_list.txt","SC2002_CAMs\\\\SC2002\\\\src\\staff_list.txt"};
 
+	/**
+	 * read the txt file
+	 * 
+	 * @param filePath file that are to be read
+	 * @return a hash table of user and default password
+	 */
 	public static Hashtable<String, String> ReadFile(String filePath) throws FileNotFoundException {
 		Hashtable<String, String> passwordDict = new Hashtable<>();
 		
@@ -26,7 +45,14 @@ public class FileManager {
 		return passwordDict;
 
 	}
-
+	/**
+	 * create an User object 
+	 * 
+	 * @param userID user id of the user object to be created
+	 * @param filepath file that the user belongs to 
+	 * @param domain domain that the user belongs to
+	 * @return a Student object if the domain is student, a Staff object if the domain is staff.
+	 */
 	public static User CreateUserObject(String userID, String filepath, int domain) throws FileNotFoundException {
 		
 		//System.out.println("in fm.createUserObject");
@@ -58,7 +84,12 @@ public class FileManager {
 		}
 		return currentUser;
 	}
-	
+	/**
+	 * get the respective file path according to user domain 
+	 * 
+	 * @param domain domain of the user
+	 * @return a file path from the filePathList according to user domain.
+	 */
 	public static String GetFilePath(int domain) {
 		//System.out.println(filePathList[domain-1]);
 	return filePathList[domain-1];

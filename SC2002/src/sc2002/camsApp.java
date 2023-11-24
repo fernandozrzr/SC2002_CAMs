@@ -2,16 +2,27 @@ package sc2002;
 
 import java.util.*;
 
-/*
- *  
+/**
+ * A class that contain main 
+ * 
+ * @author koid qian yu
+ * @version 1.0
+ * @since 24/11/2023
  */
-
 public class camsApp {
 
-	//public static User[] userList;
+	/**
+	 * Static object of User
+	 */
 	public static User currentUser;
+	/**
+	 * Static integer of domain of user
+	 */
 	public static int domain;
-	//public static Hashtable<String, String> passwordDict = new Hashtable<>();
+	
+	/**
+	 * main loop of the app
+	 */
 	public static void main(String args[]) throws Exception {
 		Scanner sc = new Scanner(System.in);
 		

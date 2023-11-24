@@ -376,7 +376,7 @@ public class CCMController {
                         break;
                     }
 
-                    view.DisplayCampDetails(campID, (Student)camsApp.currentUser);
+                    view.DisplayCampDetails(campID);
 
                     break;
                 }
