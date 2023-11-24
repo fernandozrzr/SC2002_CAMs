@@ -710,7 +710,7 @@ public class StaffController {
 	        String campName = selectedCamp.GetCampName();
 	        try (BufferedWriter writer = new BufferedWriter(new FileWriter(campName+" CCM Report.csv"))) {
 	            // Write header for CSV file
-	            writer.write("Name,Points");
+	            writer.write("ID, Name, Faculty, Points");
 	            writer.newLine();
 
 	            // Iterate through each CCM in the list and write to CSV
@@ -721,7 +721,7 @@ public class StaffController {
 	                int points = ccm.GetPoints();
 
 	                // Write data to CSV
-	                writer.write(userid + name + faculty + points);
+	                writer.write(userid + "," +  name + "," + faculty + "," + points);
 	                writer.newLine();
 	            }
 

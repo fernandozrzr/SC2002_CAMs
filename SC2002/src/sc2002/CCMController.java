@@ -1,6 +1,7 @@
 // CCMController.java
 package sc2002;
 
+import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,13 +16,18 @@ public class CCMController {
     private CCMView view = null;
     private ArrayList<Camp> eligibleCamps = null;
     Scanner sc = new Scanner(System.in);
+    private CampController campManager = null;
+	private CCMView  CCMViewManager = null;
     public static CCMController GetInstance() {
         if (instance == null)
             instance = new CCMController();
         return instance;
     }
 
-    private CCMController() {
+
+    public CCMController() {
+        this.campManager = CampController.GetInstance();
+		this.CCMViewManager = CCMView.GetInstance();
         view = new CCMView();
         eligibleCamps = new ArrayList<Camp>();
         ccm = new ArrayList<CCM>();
@@ -99,46 +105,85 @@ public class CCMController {
         return ccm.GetPoints();
     }
 
-    public String GenerateList(int campID, String roleFilter) {
-        Camp camp = CampController.GetInstance().GetCamps().get(campID);
+    public void GenerateList(int CampID, String participantType) {
+	    ArrayList<Camp> camps = campManager.GetCamps(); // Assuming GetCamps() returns an ArrayList
+	    boolean error = true;
+	    boolean campExists = false;
+	    Camp selectedCamp = null;
 
-        if (camp != null) {
-            ArrayList<Student> attendees = camp.GetAttendees();
-            ArrayList<CCM> committeeMembers = camp.GetCommitteeList();
-    
+	    // Find the camp with the provided CampID
+	    for (Camp camp : camps) {
+			if(camp == null) continue;
+	        if (camp.GetCampID() == CampID) {
+	            selectedCamp = camp;
+	            campExists = true;
+	            break;
+	        }
+	    }
 
-            StringBuilder report = new StringBuilder();
-            report.append("Camp Details:\n");
-            report.append("Camp Name: ").append(camp.GetCampName()).append("\n");
-            report.append("Date: ").append(camp.GetDate()).append("\n");
-            report.append("Location: ").append(camp.GetLocation()).append("\n");
-            report.append("Staff in Charge: ").append(camp.GetStaffInCharge()).append("\n");
+	    if (campExists) {
+	        // Get participants based on the specified participantType
+	        if (participantType.equalsIgnoreCase("Student")||participantType.equalsIgnoreCase("All")) {
+	        	ArrayList<Student> filterlist = selectedCamp.GetAttendees();
+	        	try (BufferedWriter writer = new BufferedWriter(new FileWriter(selectedCamp.GetCampName()+"_Student_List.csv"))) {
+		            // Write header for CSV file
+		            writer.write("CampID, CampName, ParticipantName, Role");
+		            writer.newLine();
 
-            // Apply filters and generate participant list
-            report.append("\nParticipants List:\n");
-            for (Student attendee : attendees) {
-                if (roleFilter.equals("attendee")) {
-                    report.append("Attendee: ").append(attendee.GetName()).append("\n");
-                }
-            }
-            for (CCM ccm : committeeMembers) {
-                if (roleFilter.equals("ccm")) {
-                    report.append("CCM: ").append(ccm.GetName()).append("\n");
-                }
-            }
-            if (roleFilter.equals("staff")) {
-                report.append("Staff: ").append(camp.GetStaffInCharge()).append("\n");
-            }
+		            // Iterate through participants and write to CSV
+		            for (Student student : filterlist) {
+		                String campName = selectedCamp.GetCampName();
+		                String name = student.GetName();
+		                String role = "Attendee";
 
-            // Write the report to a txt file
-            String fileName = camp.GetCampName() + "_Participant_List.txt";
-            WriteToFile(fileName, report.toString());
+		                // Write data to CSV
+		                writer.write(CampID + "," + campName + "," + name + "," + role);
+		                writer.newLine();
+		            }
 
-            return fileName;
-        } else {
-            return "Camp not found.";
-        }
-    }
+		            System.out.println("Data exported to CSV successfully!");
+		            error =false;
+		        } catch (IOException e) {
+		            e.printStackTrace();
+		        }
+	        }  
+	        if (participantType.equalsIgnoreCase("CCM")||participantType.equalsIgnoreCase("All")) {
+	        	ArrayList<CCM> flterlist = selectedCamp.GetCommitteeList();
+	        	try (BufferedWriter writer = new BufferedWriter(new FileWriter(selectedCamp.GetCampName()+"_CCM_List.csv"))) {
+	            // Write header for CSV file
+	        		writer.write("CampID, CampName, ParticipantName, Role");
+	        		writer.newLine();
+
+	            // Iterate through participants and write to CSV
+	        		for (CCM ccm : flterlist) {
+	        			String campName = selectedCamp.GetCampName();
+	        			String name = ccm.GetName();
+	        			String role = "CCM";
+
+	                // Write data to CSV
+	        			writer.write(CampID + "," + campName + "," + name + "," + role);
+	        			writer.newLine();
+	            }
+
+	            System.out.println("Data exported to CSV successfully!");
+	            error =false;
+	        } 	catch (IOException e) {
+	            	e.printStackTrace();
+	        	}}
+	        if (error) {
+	        	System.out.println("Invalid participant type.");
+	        }
+	        
+	        return; // Stop execution if the participant type is invalid
+	        
+	        }
+	        
+	     else {
+	        System.out.println("CampID does not exist.");
+	        // Handle the situation where CampID does not exist
+	        // This could include logging an error, notifying the user, etc.
+	    }
+	}
 
     private void WriteToFile(String fileName, String content) {
         try (FileWriter writer = new FileWriter(fileName)) {
@@ -232,8 +277,11 @@ public class CCMController {
                 case 4:
                     SuggestionMenu();
                 case 5:
-                    // GenerateList(choice, null)
-                    break;
+                    System.out.println("Please enter a user group: \n"
+                        + "Student\\CCM\\All");
+                    String userGrp = sc.nextLine();
+                    GenerateList(((CCM)camsApp.currentUser).GetccmID(),userGrp);
+                break;
             
                 default:
                     break;
@@ -241,7 +289,16 @@ public class CCMController {
         }
         
     }
+    public int getCampIDInput() {
+		int campID=-1;
 
+		//display all camp 
+		CCMViewManager.DisplayAllCamps(false);
+		//get input 
+		System.out.println("please select a camp： ");
+		campID= Integer.parseInt(sc.nextLine());
+		return campID - 1;
+	}
     private void CampMenu()
     {
         String[] choices = {"view all", "view registered",  "view details", "register", "withdraw", "exit"};
