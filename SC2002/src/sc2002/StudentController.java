@@ -245,7 +245,7 @@ public class StudentController
                         break;
                     }
                     
-                    // System.out.println("date: "+eligibleCamps.get(campIndex).GetDate());
+                    //System.out.println("date:"+eligibleCamps.get(campIndex).GetDate()+"_");
                     if(((Student) camsApp.currentUser).dateClash(eligibleCamps.get(campIndex).GetDate())) {
                     	System.out.println("Date of camp clashes with one of your registered camps.");
                     	break;
