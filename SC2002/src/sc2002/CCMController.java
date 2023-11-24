@@ -185,15 +185,6 @@ public class CCMController {
 	    }
 	}
 
-    private void WriteToFile(String fileName, String content) {
-        try (FileWriter writer = new FileWriter(fileName)) {
-            writer.write(content);
-            System.out.println("Report generated successfully: " + fileName);
-        } catch (IOException e) {
-            System.out.println("Error writing to file: " + e.getMessage());
-        }
-    }
-
     // Add an enquiry
     public void AddEnquiry(int campID, String enquiry, String reply, String replyBy, Student askBy) 
     {
