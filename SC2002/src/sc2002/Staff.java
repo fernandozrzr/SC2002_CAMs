@@ -1,19 +1,38 @@
 package sc2002;
 
 import java.util.ArrayList;
-
+/**
+ * Staff Data Structure (Model)
+ * 
+ * @author Fernando Leong
+ * @version 1.0
+ * @since 25/11/2023
+ */
 public class Staff extends User {
-	
-  private ArrayList<Camp> createdCamps;
-	
+	/**
+	 * List of camps created
+	 */
+	private ArrayList<Camp> createdCamps;
+	/**
+	 * Default Constructor of Staff
+     * Initializes list of createdCamps
+	 * 
+	 */
 	public Staff(String name, String userID, String faculty) {
 		super(name, userID, faculty);
 		createdCamps = new ArrayList<>();
 	}
-	
+	/**
+	 * Gets the list of createdCamps
+	 * 
+	 * @return ArrayList of createdCamps
+	 */
 	public ArrayList<Camp> GetMyCamps() {
 		return createdCamps;
 	}
+	/**
+	 * Prints list of createdCamps
+	 */
 	public void ViewCreatedCamps()
 	{
 		for (Camp camp : createdCamps) {
@@ -21,11 +40,18 @@ public class Staff extends User {
 	       System.out.println("CampID: "+ camp.GetCampID()+" Camp Name: "+ camp.GetCampName());
 		}
 	}
-	
+	/**
+	 * Add a camp to list of createdCamps
+	 * @param campname Camp name to be added
+	 */
 	public void AddMyCamps(Camp campname) {
 		createdCamps.add(campname);
 		
 	}
+	/**
+	 * Remove a camp from list of createdCamps
+	 * @param campName Camp name to be remove
+	 */
 	public void RemoveCamps(Camp campName) {
 		 	Camp campToRemove = null;
 

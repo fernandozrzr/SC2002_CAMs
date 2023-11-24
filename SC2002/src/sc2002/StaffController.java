@@ -12,25 +12,51 @@ import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Map.Entry;
 import java.util.Scanner;
-
+/**
+ *  Controller class which controls all the logic related to Staff
+ * 
+ * @author Fernando Leong
+ * @version 1.0
+ * @since 25/11/2023
+ */
 
 public class StaffController {
+	/**
+	 * Scanner for methods below
+	 */
 	Scanner sc = new Scanner(System.in);
+	/**
+	 * CampController instance
+	 */
 	private CampController campManager = null;
+	/**
+	 * StaffView instance
+	 */
 	private StaffView staffViewManager = null;
+	/**
+	 * StaffController instance
+	 */
 	private static StaffController instance = null;
 	 
+	/**
+	 * Static instance for StaffController
+	 */
 	public static StaffController GetInstance() {
         if (instance == null)
             instance = new StaffController();
         return instance;
     }
-	
+	/**
+	 * Default constructor for StaffController
+	 * Gets instance of controllers
+	 */
 	public StaffController() {
 		this.campManager = CampController.GetInstance();
 		this.staffViewManager = StaffView.GetInstance();
     }
-		
+	/**
+	 * Staff Main Menu
+	 */
 	public void StaffMainLoop() {
 			
 		
@@ -114,7 +140,9 @@ public class StaffController {
 			
 		}
 	
-	
+	/**
+	 * Staff: Create/Edit/View Camp Menu
+	 */
 	public void StaffMenu1() {
 		
 			String sel = null;
@@ -163,7 +191,10 @@ public class StaffController {
 			}
 
 	}
-	
+	/**
+	 * Get CampID 
+	 * @return campID 
+	 */
 	public int getCampIDInput() {
 		int campID=-1;
 
@@ -174,7 +205,10 @@ public class StaffController {
 		campID= Integer.parseInt(sc.nextLine());
 		return campID - 1;
 	}
-	
+	/**
+	 * Create Camp menu
+	 *
+	 */
 	public void CreateCampMgr() {
 		
 		boolean Visibility= true;
@@ -297,11 +331,18 @@ public class StaffController {
 		//sc.nextLine();
 	}
 	
-	// View all camps
+	/**
+	 * View all camps
+	 * 
+	 */
 	public void ViewAllCamp()
     {
 		staffViewManager.DisplayAllCamps(CampView.GetFilter());
     }
+	/**
+	 * View my created camps
+	 * 
+	 */
 	public void ViewMyCamps()
     {	
 		
@@ -318,14 +359,31 @@ public class StaffController {
 		staffViewManager.DisplayMyCamps(filteredCamps);;
     }
 	
-	// Create a camp
+	/**
+	 * Create a new camp by calling campManager.AddCamp()
+	 * 
+     * @param campName Name of the camp
+     * @param date Date that the camp is held
+     * @param registerCloseDate Registration Closing Date
+     * @param userGrp Faculty of this camp
+     * @param location Where the camp is held
+     * @param desc Description of the camp 
+     * @param staffInCharge Name of staff that created the camp
+     * @param totalSlots  Number of slots available for students to join
+     * @param committeeSlots Number of committee member slots available for students to join (Max 10)
+     * @param visibility Whether the camp can be seen by students
+     * @return newCamp object created using the parameters
+	 */
 	public Camp CreateCamp(String campName, String date, String closeDate, String userGrp, String location, String description, String staffIC, int totalSlots, int CommitteeSlots, boolean Visibility)
     {
-		Camp newcamp=campManager.AddCamp(campName, date, closeDate, userGrp.toUpperCase(), location, description, staffIC, totalSlots, CommitteeSlots, Visibility);
+		Camp newCamp=campManager.AddCamp(campName, date, closeDate, userGrp.toUpperCase(), location, description, staffIC, totalSlots, CommitteeSlots, Visibility);
 		//returns camp to so that can be added to Staff Class
-		return newcamp;
+		return newCamp;
     }
-	// Edit camp based on selection
+	/**
+	 * Edit camp based on campID
+     * @param campID ID of the camp
+	 */
 	public void EditCamp(int campID)
     {	
 		Camp editcamp = null;
@@ -419,7 +477,10 @@ public class StaffController {
     	}
         
     }
-	// Delete camp
+	/**
+	 * Delete camp based on campID
+     * @param campID ID of the camp 
+	 */
 	public void DeleteCamp(int campID)
     {
 		ArrayList<Camp> camps = campManager.GetCamps();
@@ -445,7 +506,11 @@ public class StaffController {
     		System.out.println("CampID does not exist.");
     	}
     }
-	// Toggle camp visibility
+	/**
+	 * Toggle visibility based on campID
+     * @param campID ID of the camp
+     * @param state true, false
+	 */
 	public void ToggleVisibility(int campID, boolean state)
     {	
 		Camp editcamp=null;
@@ -476,8 +541,13 @@ public class StaffController {
     	}
 		
     }
-	// View all suggestions of a camp based on CampID
-	public Boolean ViewSuggestions(int CampID)
+	/**
+	 * View all suggestions of a camp based on CampID
+	 * 
+     * @param CampID ID of the camp
+     * @return true or false
+	 */
+	public boolean ViewSuggestions(int CampID)
     {	
 		ArrayList<Camp> camps = campManager.GetCamps();
     	boolean campExists= false;
@@ -508,7 +578,13 @@ public class StaffController {
     	}
 		
     }
-	// Approve suggestion based on CamppID and SuggestionID
+	/**
+	 * Approve suggestion based on CampID and SuggestionID
+	 * 
+     * @param CampID ID of the camp
+     * @param SuggestionID ID of the suggestion
+     * @param status true or false
+	 */
 	public void ApproveSuggestions(int CampID, int SuggestionID ,Boolean status)
     {
 		ArrayList<Camp> camps = campManager.GetCamps();
@@ -543,7 +619,13 @@ public class StaffController {
     		System.out.println("CampID or Suggestion does not exist.");
     	}
     }
-	// View all enquires of a camp based on CampID
+	
+	/**
+	 *  View all enquires of a camp based on CampID
+	 * 
+     * @param CampID ID of the camp
+     * @return true if enquires found. Otherwise, false
+	 */
 	public Boolean ViewEnquiries(int CampID)
     {	ArrayList<Camp> camps = campManager.GetCamps();
     	boolean campExists= false;
@@ -573,7 +655,14 @@ public class StaffController {
     	}
 		
     }
-	// Reply to enquires based on CamppID and EnquiryID
+	
+	/**
+	 *  Reply to enquires based on CamppID and EnquiryID
+	 * 
+     * @param CampID ID of the camp
+     * @param EnquiryID ID of the enquiry
+     * @param reply Reply to the enquiry
+	 */
 	public void ReplyEnquiries(int CampID, int EnquiryID ,String reply)
     {
 		ArrayList<Camp> camps = campManager.GetCamps();
@@ -608,7 +697,13 @@ public class StaffController {
     		System.out.println("CampID or Enquiry does not exist.");
     	}
     }
-	// Generate list of of participants: input participantType as -> Student or CCM or ALL
+	
+	/**
+	 * Generate csv of participants
+	 * 
+     * @param CampID ID of the camp
+     * @param participantType Student or CCM or All : To generate list of selected participants
+	 */
 	public void GenerateList(int CampID, String participantType) {
 	    ArrayList<Camp> camps = campManager.GetCamps(); // Assuming GetCamps() returns an ArrayList
 	    boolean error = true;
@@ -715,8 +810,12 @@ public class StaffController {
 	        // This could include logging an error, notifying the user, etc.
 	    }
 	}
-	// Generate Report of CCM based on camp
-	// Print CCM name and their points
+
+	/**
+	 * Generate csv report of CCM based on camp
+	 * Print CCM name and their points
+     * @param CampID ID of the camp
+	 */
 	public void GenerateReport(int CampID) {
 		ArrayList<Camp> camps = campManager.GetCamps(); // Assuming GetCamps() returns an ArrayList
 

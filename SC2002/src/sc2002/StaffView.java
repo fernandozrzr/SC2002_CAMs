@@ -4,21 +4,37 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-//import CAMS.User;
+/**
+ * StaffView which handles the interface that the Staff will see
+ * 
+ * @author Fernando Leong
+ * @version 1.0
+ * @since 25/11/2023
+ */
 
 public class StaffView implements  CampView{
-	
+	/**
+	 * StaffView instance
+	 */
 	private static StaffView instance = null;
+	/**
+	 * StaffView default constructor
+	 */
 	public StaffView() {
 		super();
 	}
+	/**
+	 * Static instance for StaffView
+	 */
 	public static StaffView GetInstance() {
 		if(instance == null)
             instance =  new StaffView();
 
         return instance;
 	}
-	
+	/**
+	 * Print Staff Main Menu
+	 */
 	public void Menu() {
 		System.out.println("\nWelcome staff "+ camsApp.currentUser.GetName());
 		
@@ -48,7 +64,10 @@ public class StaffView implements  CampView{
         System.out.print("Enter your Choice: ");
 	}
 	
-	//Input Hash map of enquires to display all
+	/**
+	 * Display HashMap of enquires
+	 * @param map enquires of students
+	 */
 	public void DisplayAllEnquiries(HashMap<Student, ArrayList<Enquiries>> map) {
 		for (Map.Entry<Student, ArrayList<Enquiries>> entry : map.entrySet()) {
 	        Student name = entry.getKey();
@@ -60,13 +79,20 @@ public class StaffView implements  CampView{
 	        }
 	    }
 	}
-	//Input staff array of camps to display all
+	/**
+	 * Display Staff created camps
+	 * @param camp list of created camps
+	 */
 	public void DisplayMyCamps(ArrayList<Camp> camp) {
 		for (Camp campname : camp) {
 			 System.out.println("CampID: "+ campname.GetCampID() + ", Camp Name: " + campname.GetCampName());
 		}
 	}
-	//Input Hash map of suggestions to display all
+	
+	/**
+	 * Display HashMap of suggestions
+	 * @param map suggestions of CCM
+	 */
 	public void DisplayAllSuggestions(HashMap<CCM, ArrayList<Suggestions>> map) {
 	    for (Map.Entry<CCM, ArrayList<Suggestions>> entry : map.entrySet()) {
 	        CCM name = entry.getKey();
