@@ -22,8 +22,8 @@ public class CCMView extends StudentView{
         System.out.println("Suggestions by Camp Committee Member " + ccm.GetPoints() + ":");
         for (Suggestions suggestion : ccm.GetMySuggestions()) {
             System.out.println("Suggestion: " + suggestion.GetSuggestion());
-            System.out.println("Suggested by: " + ccm.GetName());
-            System.out.println("Status: " + (suggestion.IsStatus() ? "Completed" : "Pending"));
+            System.out.println(" Suggested by: " + ccm.GetName());
+            System.out.println(" Status: " + (suggestion.IsStatus() ? "Completed" : "Pending"));
             System.out.println();
         }
     }

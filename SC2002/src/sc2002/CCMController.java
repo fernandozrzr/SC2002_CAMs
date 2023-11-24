@@ -267,6 +267,7 @@ public class CCMController {
                     break;
                 case 4:
                     SuggestionMenu();
+                    break;
                 case 5:
                     System.out.println("Please enter a user group: \n"
                         + "Student\\CCM\\All");
@@ -351,8 +352,8 @@ public class CCMController {
                         System.out.println("Invalid request, User is not a Student");
                         break;
                     }
-
-                    view.DisplayMyCamps(user.GetRegisteredCamps());
+                    if(!user.GetRegisteredCamps().isEmpty())
+                    	view.DisplayMyCamps(user.GetRegisteredCamps());
                     System.out.println("Registered for Camp " + 
                     CampController.GetInstance().GetCamps().get(((CCM)camsApp.currentUser).GetccmID()).GetCampName() 
                     + " as a committee member.");
