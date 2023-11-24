@@ -105,9 +105,9 @@ public class CampController
         return camps.get(campID).RemoveSuggestion(ccm, suggestion);
     }
 
-    public boolean AddEnquiry(int campID, Student student, Enquiries enqury)
+    public boolean AddEnquiry(int campID, Student student, Enquiries enquiry)
     {
-        camps.get(campID).AddEnquiry(student, enqury);
+        camps.get(campID).AddEnquiry(student, enquiry);
         return true;
     }
 
