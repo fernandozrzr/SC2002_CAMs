@@ -26,7 +26,7 @@ public class camsApp {
 	public static void main(String args[]) throws Exception {
 		Scanner sc = new Scanner(System.in);
 		
-		boolean a = true;
+		boolean continueApp = true;
 		Auth.Init();
 
 		// main loop start
@@ -63,7 +63,7 @@ public class camsApp {
 			{
 				//stop the loop
 				System.out.print("Ending program"); 
-				a=false;
+				continueApp=false;
 			}
 			else 
 			{
@@ -78,7 +78,7 @@ public class camsApp {
 				// user not found, loop again
 				if (currentUser == null) {
 					//System.out.print("User Not Found");
-					a = true;
+					continueApp = true;
 				} 
 				// user found, stop the loop
 				else 
@@ -94,7 +94,7 @@ public class camsApp {
 					}while(currentUser !=null);
 				}
 			}
-		} while (a);
+		} while (continueApp);
 
 
 		//check current user 
