@@ -39,7 +39,7 @@ public class FileManager {
 			String[] element = line.split(" ");
 			element[1] = element[1].substring(0, element[1].indexOf("@"));
 			
-			passwordDict.put(element[1], "Password");
+			passwordDict.put(element[1], "password");
 
 		}
 		return passwordDict;
