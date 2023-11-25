@@ -31,7 +31,6 @@ public class FileManager {
 		Hashtable<String, String> passwordDict = new Hashtable<>();
 		
 		passwordDict.clear();
-		//System.out.println("in fm.readFile");
 		Scanner input = new Scanner(new File(filePath)); // read txt file
 		input.nextLine(); // to skip the first row ( title )
 		while (input.hasNextLine()) {
@@ -69,15 +68,11 @@ public class FileManager {
 				switch(domain) {
 				case 1: //student
 					currentUser = new Student(element[0], userId, element[2]);
-					//System.out.printf(("current user: %s %s %s\n"), element[0], userid, element[2]);
 					break;
 				case 2: //staff
 					currentUser = new Staff(element[0], userId, element[2]);
-					//System.out.printf(("current user: %s %s %s\n"), element[0], userid, element[2]);
 					break;
 				}
-				//String name = element[0];
-				//String faculty = element[2];
 				break;
 			}
 
@@ -91,7 +86,6 @@ public class FileManager {
 	 * @return a file path from the filePathList according to user domain.
 	 */
 	public static String GetFilePath(int domain) {
-		//System.out.println(filePathList[domain-1]);
 	return filePathList[domain-1];
 	}
 

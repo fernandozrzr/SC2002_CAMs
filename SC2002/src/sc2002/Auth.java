@@ -84,13 +84,8 @@ public class Auth {
 	 * @param domain input domain from user
 	 */
 	public static void Login( String userID, String password, int domain) {
-		
-		//System.out.println("in Auth.login");
-
-		//check if respective passwordDict is load before 
 		switch(domain) {
-		case 1: //student
-			// valid user
+		case 1: 
 			if ( studentPasswordDict.containsKey(userID)) {
 				if (studentPasswordDict.get(userID).equals(password)) {
 					System.out.println("Login successful!");
@@ -104,36 +99,29 @@ public class Auth {
 						} 
 						catch (FileNotFoundException e) 
 						{
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
 					else
 						camsApp.currentUser = accounts.get(userID);
 					
-					// if user still using default password
 					if(studentPasswordDict.get(userID).equals("password")) {
 						System.out.println("\nPlease change your password!!!");
 						ChangePassword(camsApp.currentUser);
 					}				
 				}
 				
-				// user found but wrong password
 				else {
 					System.out.println("Wrong passsword!");
 				}
 			}
 			
-			// default case
 			else {
 				System.out.println("user not found!");
 			}
 			break;
 			
-		case 2://staff
-			
-			//passwordDict =  staffPasswordDict;
-			// valid user
+		case 2:
 			if ( staffPasswordDict.containsKey(userID)) {
 				if (staffPasswordDict.get(userID).equals(password)) {
 					System.out.print("Login successful!");
@@ -147,35 +135,27 @@ public class Auth {
 						} 
 						catch (FileNotFoundException e) 
 						{
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
 					else
 						camsApp.currentUser = accounts.get(userID);
 					
-					// if user still using default password
 					if(staffPasswordDict.get(userID).equals("password")) {
 						System.out.println("\nPlease change your password!!!");
 						ChangePassword(camsApp.currentUser);
 					}	
 				}
-				
-				// user found but wrong password
 				else {
 					System.out.println("Wrong passsword!");
 				}
 			}
 			
-			// default case
 			else {
 				System.out.println("user not found!");
 			}
 			break;
 		}
-		
-		//System.out.println(studentPasswordDict);
-		//System.out.println(staffPasswordDict);
 	}
 	
 	/**

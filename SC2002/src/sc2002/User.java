@@ -34,7 +34,7 @@ public class User {
 		this.name = name;
 		this.userID = userID;
 		this.faculty = faculty;
-		// this.password = password;
+		
 	}
 
 	/**
