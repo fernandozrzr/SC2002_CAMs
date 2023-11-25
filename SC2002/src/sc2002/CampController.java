@@ -171,7 +171,7 @@ public class CampController
             camps.set(campID, camp);
         SortCampsByName(camps);
         ReassignCampIDs(camps);
-        return camp; //Added for for StaffController
+        return camp;
     }
 
     /**

@@ -590,9 +590,7 @@ public class Camp
     public void DeleteCamp()
     {
         for(Student s : attendees)
-        {
             s.RemoveRegisteredCamps(this);
-        }
 
         for(CCM c : committeeMembers)
         {
