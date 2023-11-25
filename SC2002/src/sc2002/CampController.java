@@ -219,13 +219,13 @@ public class CampController
 	 * Removes enquiry submitted by student of a camp's enquiries list
 	 * 
      * @param campID ID of the camp
-     * @param ccm Student that submitted the enquiry
+     * @param student Student that submitted the enquiry
      * @param enquiry Enquiry submitted 
      * @return True if enquiry is removed, False otherwise
 	 */
-    public boolean RemoveEnquiry(int campID, Student student, Enquiries enqury)
+    public boolean RemoveEnquiry(int campID, Student student, Enquiries enquiry)
     {
-        return camps.get(campID).RemoveEnquiry(student, enqury);
+        return camps.get(campID).RemoveEnquiry(student, enquiry);
     }
 
 

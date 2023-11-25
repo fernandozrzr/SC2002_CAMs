@@ -355,7 +355,7 @@ public class Camp
     /**
 	 * Sets visibility of the camp
 	 * 
-	 * @param visiblity Visiblity of this camp
+	 * @param visibility Visiblity of this camp
 	 */
     public void SetVisibility(boolean visibility) 
     {

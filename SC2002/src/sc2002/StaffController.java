@@ -49,6 +49,8 @@ public class StaffController {
 	/**
 	 * Default constructor for StaffController
 	 * Gets instance of controllers
+	 * 
+	 * @return instance of StaffController
 	 */
 	public StaffController() {
 		this.campManager = CampController.GetInstance();
@@ -356,14 +358,14 @@ public class StaffController {
 	 * 
      * @param campName Name of the camp
      * @param date Date that the camp is held
-     * @param registerCloseDate Registration Closing Date
+     * @param closeDate Registration Closing Date
      * @param userGrp Faculty of this camp
      * @param location Where the camp is held
-     * @param desc Description of the camp 
-     * @param staffInCharge Name of staff that created the camp
+     * @param description Description of the camp 
+     * @param staffIC Name of staff that created the camp
      * @param totalSlots  Number of slots available for students to join
-     * @param committeeSlots Number of committee member slots available for students to join (Max 10)
-     * @param visibility Whether the camp can be seen by students
+     * @param CommitteeSlots Number of committee member slots available for students to join (Max 10)
+     * @param Visibility Whether the camp can be seen by students
      * @return newCamp object created using the parameters
 	 */
 	public Camp CreateCamp(String campName, String date, String closeDate, String userGrp, String location, String description, String staffIC, int totalSlots, int CommitteeSlots, boolean Visibility)

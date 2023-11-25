@@ -173,7 +173,7 @@ public class StudentView implements CampView
     /**
 	 * Displays the list of camps the student registered for.
 	 * 
-     * @param camps List of camps to display
+     * @param camp List of camps to display
 	 */
     @Override
     public void DisplayMyCamps(ArrayList<Camp> camp) 

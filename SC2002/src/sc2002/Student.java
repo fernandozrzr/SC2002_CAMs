@@ -128,7 +128,7 @@ public class Student extends User {
 	/**
      	* Finds an enquiry in the list of enquiries the student submitted
      	* 
-     	* @param index(of type int) Index of the enquiry the student wants to find
+     	* @param enquiryID index(of type int) Index of the enquiry the student wants to find
      	* @return Enquiry the student wants to find (if not found, return error message)
      	*/
 	public Enquiries FindEnquiry(int enquiryID) 
@@ -153,6 +153,7 @@ public class Student extends User {
 	/**
      	* Checks if the date of a camp the student wants to register for clashes with any registered camps
      	* 
+		* @param date date to check if there is a clash
      	* @return true if there is a date clash, false if there are no date clashes
      	*/
 	public boolean dateClash(String date)

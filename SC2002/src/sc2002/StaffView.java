@@ -25,6 +25,8 @@ public class StaffView implements  CampView{
 	}
 	/**
 	 * Static instance for StaffView
+	 * 
+	 * @return instance of Staffview
 	 */
 	public static StaffView GetInstance() {
 		if(instance == null)
