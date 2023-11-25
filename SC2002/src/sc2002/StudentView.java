@@ -5,20 +5,34 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
-
+/**
+ * StudentView which handles the interface that the Student will see
+ * 
+ * @author Kiersten Yeo
+ * @version 1.0
+ * @since 25/11/2023
+ */
 public class StudentView implements CampView
 {
+	/**
+	 * StudentView default constructor
+	 */
     public StudentView()
     {
     	super();
     }
 
     ///////////////////////////////////////////////////         Implmenting interface functions         ///////////////////////////////////////////////////
+    
+    /**
+     * Displays all camps visible to the student.
+     * 
+     * @param filter Whether the user wants to filter the camps
+     */
     @Override
     public void DisplayAllCamps(Boolean filter){	
     	
     	Boolean success = false;
-    	
     	
     	if (filter) {
     		System.out.println("Filter by:");
@@ -135,8 +149,6 @@ public class StudentView implements CampView
     	else
         
     	{
-    	
-    	
     	ArrayList<Camp> allCamps = CampController.GetInstance().GetCamps();
         
         int x = 0;
@@ -158,7 +170,11 @@ public class StudentView implements CampView
     	}
         
     }
-
+    /**
+	 * Displays the list of camps the student registered for.
+	 * 
+     * @param camps List of camps to display
+	 */
     @Override
     public void DisplayMyCamps(ArrayList<Camp> camp) 
     {
@@ -171,7 +187,11 @@ public class StudentView implements CampView
     	for (Camp campTemp : camp) 
             System.out.println("Registered for Camp " + campTemp.GetCampName() + " as an attendee.");
     }
-
+    /**
+     * Displays all enquiries submitted by a Student.
+     * 
+     * @param enquiries List of enquiries submitted by the student
+     */
     public void DisplayMyEnquiries(ArrayList<Enquiries> enquiries) 
     {
         ArrayList<Camp> campList = CampController.GetInstance().GetCamps();
