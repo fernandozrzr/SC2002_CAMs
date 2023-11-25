@@ -3,20 +3,43 @@ package sc2002;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
-
+/**
+ * Controller class which controls all the logic related to students
+ * 
+ * @author Kiersten Yeo
+ * @version 1.0
+ * @since 25/11/2023
+ */
 public class StudentController 
 {
+	/**
+	 * Static instance of StudentController
+	 */
     private static StudentController instance = null;
+    /**
+	 * Instance of StudentView
+	 */
     private StudentView view = null;
+    /**
+	 * List of camps the student is eligible for
+	 */
     private ArrayList<Camp> eligibleCamps = null;
 
+    /**
+	 * Default Constructor of StudentController
+     * Initialises list of eligible camps
+	 * 
+	 */
     private StudentController()
     {
         view = new StudentView();
         eligibleCamps = new ArrayList<Camp>();
     }
-
+    /**
+     * Gets the instance of the StudentController, creating one if it does not already exist
+     * 
+     * @return StudentController instance
+     */
     public static StudentController GetInstance()
     {
         if (instance == null)
@@ -25,15 +48,27 @@ public class StudentController
         return instance;
     }    
 
-    // Add an enquiry
+    /**
+     * Adds an enquiry to the specified camp and student.
+     * 
+     * @param campID ID of the camp
+     * @param enquiry Enquiry to be added
+     * @param reply Reply to the enquiry
+     * @param replyBy CCM or Staff who replied to the enquiry
+     * @param askBy Student to add the enquiry to
+     */
     public void AddEnquiry(int campID, String enquiry, String reply, String replyBy, Student askBy) 
     {
     	Enquiries newEnquiry = new Enquiries(campID, enquiry, reply, replyBy, askBy);
     	askBy.AddMyEnquiry(newEnquiry);
     	CampController.GetInstance().AddEnquiry(campID, askBy, newEnquiry);
     }
-    
-    // Delete an enquiry
+    /**
+     * Deletes an enquiry from the specified camp and student.
+     * 
+     * @param askBy Student to remove the enquiry from
+     * @param enquiryID ID of the enquiry to be removed
+     */
     public void DeleteEnquiry(Student askBy, int enquiryID) 
     {
     	if (askBy.FindEnquiry(enquiryID) == null)
@@ -47,7 +82,13 @@ public class StudentController
 		}
     }
     
-    // Edit an enquiry
+    /**
+     * Edits an enquiry of the specified camp and student.
+     * 
+     * @param askBy Student editing the enquiry
+     * @param enquiryID ID of the enquiry to be edited
+     * @param newEnquiry The edited enquiry to replace the old enquiry
+     */
     public void EditEnquiry(Student askBy, int enquiryID, String newEnquiry) 
     {
 		if (askBy.FindEnquiry(enquiryID) == null)
@@ -59,6 +100,10 @@ public class StudentController
 		}
     }
 
+    /**
+	 * Creates list of eligible camps for current user
+	 * 
+	 */
     private void InitEligibleCamps()
     {
     	eligibleCamps.clear();
@@ -74,6 +119,9 @@ public class StudentController
     
     
     ///////////////////////////////////////////////////         Main Loop Stuff         ///////////////////////////////////////////////////
+    /**
+     * Student main menu for handling various operations.
+     */
     public void StudentMenu()
     {
         InitEligibleCamps();
@@ -116,7 +164,9 @@ public class StudentController
         }
         
     }
-
+    /**
+     * Student camp menu for handling various operations related to camps.
+     */
     private boolean CampMenu()
     {
         String[] choices = {"view all", "view registered",  "view details", "register", "withdraw", "exit"};
@@ -348,7 +398,9 @@ public class StudentController
 
         return false;
     }
-
+    /**
+     * Student enquiries menu for handling various operations related to enquiries.
+     */
     private void EnquiriesMenu()
     {
         String[] choices = {"view", "edit",  "delete", "submit", "exit"};
@@ -527,7 +579,9 @@ public class StudentController
             }
         }
     }
-
+    /**
+     * Student profile menu for handling various operations related to the student's profile.
+     */
     private void ProfileMenu()
     {
         System.out.println("/////////////////////////////////////////////////////////////////////////");
