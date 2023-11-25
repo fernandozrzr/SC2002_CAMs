@@ -31,16 +31,6 @@ public class Staff extends User {
 		return createdCamps;
 	}
 	/**
-	 * Prints list of createdCamps
-	 */
-	public void ViewCreatedCamps()
-	{
-		for (Camp camp : createdCamps) {
-			if(camp == null) continue;
-	       System.out.println("CampID: "+ camp.GetCampID()+" Camp Name: "+ camp.GetCampName());
-		}
-	}
-	/**
 	 * Add a camp to list of createdCamps
 	 * @param campname Camp name to be added
 	 */
@@ -54,10 +44,11 @@ public class Staff extends User {
 	 */
 	public void RemoveCamps(Camp campName) {
 		 	Camp campToRemove = null;
-
+		 	String remove=campName.GetCampName();
 		    // Search for the camp with the specified name
 		    for (Camp camp : createdCamps) {
-		        if (camp.equals(campName)) {
+		    	if(camp!=null)
+		    		if (camp.GetCampName().equals(remove)) {
 		            campToRemove = camp;
 		            break; // Stop searching once found
 		        }
@@ -67,7 +58,7 @@ public class Staff extends User {
 		        createdCamps.remove(campToRemove);
 		    }
 		    else {
-		    	System.out.println("Camp not found!");
+		    	return;
 		    }
 	}
 }

@@ -324,7 +324,9 @@ public class StaffController {
 	        } while (!validInput);
 
 		
-		CreateCamp(campName, date, closeDate, userGrp, location, description, camsApp.currentUser.name, totalSlots, CommittessSlots, visibility);
+		Camp newcamp = CreateCamp(campName, date, closeDate, userGrp, location, description, camsApp.currentUser.name, totalSlots, CommittessSlots, visibility);
+		Staff staff = (Staff)camsApp.currentUser;
+		staff.AddMyCamps(newcamp);
 		System.out.println("camp created!");
 		//sc.nextLine();
 	}
@@ -344,17 +346,9 @@ public class StaffController {
 	public void ViewMyCamps()
     {	
 		
-		String myname = camsApp.currentUser.GetName();
-		ArrayList<Camp> camps = campManager.GetCamps();
-
-		ArrayList<Camp> filteredCamps = new ArrayList<>();
-
-		for (Camp camp : camps) {
-		    if (camp != null && camp.GetStaffInCharge().equals(myname)) {
-		        filteredCamps.add(camp);
-		    }
-		}
-		staffViewManager.DisplayMyCamps(filteredCamps);;
+		Staff staff = (Staff)camsApp.currentUser;
+		
+		staffViewManager.DisplayMyCamps(staff.GetMyCamps());;
     }
 	
 	/**
@@ -482,17 +476,21 @@ public class StaffController {
 	public void DeleteCamp(int campID)
     {
 		ArrayList<Camp> camps = campManager.GetCamps();
+		Camp remove = null;
     	boolean campExists= false;
     	for (Camp camp : camps) {
 			if(camp == null) continue;
     		if (camp.GetCampID() == campID) { // Assuming CampID is a field in the Camp class
     			campExists = true;
+    			remove = camp;
     			break;
     		}
     	}	
     	if(campExists) {
     		if (camps.get(campID).GetAttendees().isEmpty() && camps.get(campID).GetCommitteeList().isEmpty()) {
     			campManager.DeleteCamp(campID);
+    			Staff staff = (Staff)camsApp.currentUser;
+    			staff.RemoveCamps(remove);
     			System.out.println("Camp Deleted.");
     		}
     		else {
