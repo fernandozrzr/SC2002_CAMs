@@ -210,9 +210,7 @@ public class StaffController {
 	 *
 	 */
 	public void CreateCampMgr() {
-		
-		boolean Visibility= true;
-
+	
 		Scanner sc = new Scanner(System.in);
 		SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
 		String date = null;
@@ -326,7 +324,7 @@ public class StaffController {
 	        } while (!validInput);
 
 		
-		CreateCamp(campName, date, closeDate, userGrp, location, description, camsApp.currentUser.name, totalSlots, CommittessSlots, Visibility);
+		CreateCamp(campName, date, closeDate, userGrp, location, description, camsApp.currentUser.name, totalSlots, CommittessSlots, visibility);
 		System.out.println("camp created!");
 		//sc.nextLine();
 	}

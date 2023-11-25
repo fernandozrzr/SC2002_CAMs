@@ -112,7 +112,7 @@ public class Auth {
 						camsApp.currentUser = accounts.get(userID);
 					
 					// if user still using default password
-					if(studentPasswordDict.get(userID).equals("Password")) {
+					if(studentPasswordDict.get(userID).equals("password")) {
 						System.out.println("\nPlease change your password!!!");
 						ChangePassword(camsApp.currentUser);
 					}				
