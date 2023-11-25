@@ -25,12 +25,12 @@ public class Camp
     private String campName;
     /**
 	 * The date that the camp is taking place
-     * The format of the date is in dd/MM/yyy
+     * The format of the date is in dd/MM/yyyy
 	 */
     private String date;
     /**
 	 * The registration closing date
-     * The format of the date is in dd/MM/yyy
+     * The format of the date is in dd/MM/yyyy
 	 */
     private String registerCloseDate;
     /**
