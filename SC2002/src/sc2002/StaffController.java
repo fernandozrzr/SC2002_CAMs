@@ -505,7 +505,7 @@ public class StaffController {
 	/**
 	 * Toggle visibility based on campID
      * @param campID ID of the camp
-     * @param state true, false
+     * @param state true or false
 	 */
 	public void ToggleVisibility(int campID, boolean state)
     {	
