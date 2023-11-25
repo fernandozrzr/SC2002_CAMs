@@ -4,12 +4,26 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * View class for managing the display of information related to CCM (Campus Community Manager).
+ * Handles displaying suggestions, enquiries, camp details, and the main menu for CCM.
+ * Extends the StudentView class.
+ * 
+ * @author George Lai
+ * @version 1.0
+ * @since 25/11/2023
+ */
 public class CCMView extends StudentView{
     private static CCMView instance = null;
     public CCMView() {
         super();
     }
 
+    /**
+     * Gets an instance of the CCMView class.
+     * 
+     * @return The instance of CCMView.
+     */
     public static CCMView GetInstance() {
 		if(instance == null)
             instance =  new CCMView();
@@ -17,6 +31,11 @@ public class CCMView extends StudentView{
         return instance;
 	}
 
+    /**
+     * Displays all suggestions submitted by a CCM.
+     * 
+     * @param ccm The CCM whose suggestions are to be displayed.
+     */
     public void DisplayAllSuggestions(CCM ccm){
         //implement code to print out all the suggestions the Camp Comittee Member has written has written
         System.out.println("Suggestions by Camp Committee Member " + ccm.GetPoints() + ":");
@@ -28,6 +47,12 @@ public class CCMView extends StudentView{
         }
     }
 
+    /**
+     * Displays all enquiries related to a camp for a user.
+     * 
+     * @param camp The camp for which enquiries are to be displayed.
+     * @param user The user requesting the display.
+     */
     public void DisplayAllEnquiries(Camp camp, User user) {
         // Check if the user is a staff or CCM
         if (user instanceof Staff || user instanceof CCM) {

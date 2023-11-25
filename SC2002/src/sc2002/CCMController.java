@@ -1,4 +1,3 @@
-// CCMController.java
 package sc2002;
 
 import java.io.BufferedWriter;
@@ -9,6 +8,16 @@ import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * Controller class for managing CCM (Camp Committee Member) operations and interactions.
+ * Implements singleton pattern to ensure only one instance exists.
+ * Manages the creation, deletion, and modification of CCMs, as well as handling suggestions, enquiries, and camps.
+ * Handles communication with the CCMView and CampController.
+ * 
+ * @author George Lai
+ * @version 1.0
+ * @since 25/11/2023
+ */
 public class CCMController {
     private static CCMController instance = null;
     private int ids = 0;
@@ -17,245 +26,292 @@ public class CCMController {
     private ArrayList<Camp> eligibleCamps = null;
     Scanner sc = new Scanner(System.in);
     private CampController campManager = null;
-	private CCMView  CCMViewManager = null;
+    private CCMView CCMViewManager = null;
+
+    /**
+     * Private constructor to enforce singleton pattern.
+     */
+    private CCMController() {
+        this.campManager = CampController.GetInstance();
+        this.CCMViewManager = CCMView.GetInstance();
+        view = new CCMView();
+        eligibleCamps = new ArrayList<Camp>();
+        ccm = new ArrayList<CCM>();
+    }
+
+    /**
+     * Gets the instance of the CCMController, creating one if it doesn't exist.
+     * 
+     * @return the CCMController instance
+     */
     public static CCMController GetInstance() {
         if (instance == null)
             instance = new CCMController();
         return instance;
     }
 
-
-    public CCMController() {
-        this.campManager = CampController.GetInstance();
-		this.CCMViewManager = CCMView.GetInstance();
-        view = new CCMView();
-        eligibleCamps = new ArrayList<Camp>();
-        ccm = new ArrayList<CCM>();
-    }
-
+    /**
+     * Gets the list of CCMs.
+     * 
+     * @return the list of CCMs
+     */
     public ArrayList<CCM> GetCCM() {
         return ccm;
     }
 
+    /**
+     * Deletes a suggestion from the specified camp and CCM.
+     * 
+     * @param campID the ID of the camp
+     * @param ccm the CCM from which to delete the suggestion
+     * @param suggestionID the ID of the suggestion to delete
+     */
     public void DeleteSuggestion(int campID, CCM ccm, int suggestionID) {
-        // Delete a suggestion from the camp's suggestions list
         Suggestions s = ccm.FindSuggestion(suggestionID);
         ccm.DeleteMySuggestion(s);
         CampController.GetInstance().RemoveSuggestion(campID, ccm, s);
     }
 
+    /**
+     * Adds a suggestion to the specified camp and CCM.
+     * 
+     * @param campID the ID of the camp
+     * @param ccm the CCM to which to add the suggestion
+     * @param suggestion the suggestion to add
+     */
     public void AddSuggestion(int campID, CCM ccm, String suggestion) {
-        // Add a suggestion to the camp's suggestions list
         Suggestions _suggestion = new Suggestions(ids++, suggestion, false);
         ccm.AddMySuggestion(_suggestion);
         CampController.GetInstance().AddSuggestion(campID, ccm, _suggestion);
-        // Increment points for the CCM
-        ccm.SetPoints(ccm.GetPoints()+1);
+        ccm.SetPoints(ccm.GetPoints() + 1);
     }
 
+    /**
+     * Edits a suggestion in the specified CCM.
+     * 
+     * @param ccm the CCM in which to edit the suggestion
+     * @param suggestionID the ID of the suggestion to edit
+     * @param edited the edited suggestion
+     */
     public void EditSuggestion(CCM ccm, int suggestionID, String edited) {
-        // Edit a suggestion in the camp's suggestions list
         Suggestions s = ccm.FindSuggestion(suggestionID);
         s.SetSuggestion(edited);
     }
 
-    public void ReplyEnquiry(int campID, int index, String reply, CCM replyBy) 
-    {
-        // Add a reply to a particular enquiry, and leave the replyBy person, and increment the point of the replyBy ccm
+    /**
+     * Replies to a specific enquiry in the specified camp.
+     * 
+     * @param campID the ID of the camp
+     * @param index the index of the enquiry
+     * @param reply the reply to the enquiry
+     * @param replyBy the CCM who is replying
+     */
+    public void ReplyEnquiry(int campID, int index, String reply, CCM replyBy) {
         Camp camp = CampController.GetInstance().GetCamps().get(campID);
 
-        if(camp == null)
-        {
+        if (camp == null) {
             System.out.println("This Camp " + campID + " does not exist.");
             return;
         }
 
-        int count = 0;
         Enquiries e = null;
 
-        for (Map.Entry<Student, ArrayList<Enquiries>> entry : camp.GetEnquiries().entrySet()) 
-        {
+        for (Map.Entry<Student, ArrayList<Enquiries>> entry : camp.GetEnquiries().entrySet()) {
             ArrayList<Enquiries> studentEnquiries = entry.getValue();
-            for (Enquiries enquiry : studentEnquiries) 
-            {
-                if(enquiry.GetEnquiryId() == index)
-                {
+            for (Enquiries enquiry : studentEnquiries) {
+                if (enquiry.GetEnquiryId() == index) {
                     e = enquiry;
                     break;
                 }
             }
 
-            if(e != null)
+            if (e != null)
                 break;
         }
-        
+
         if (e != null && e.GetStatus() == STATUS.OPEN) {
             e.SetReply(reply);
             e.SetStatus(STATUS.CLOSED);
             e.SetReplyBy(replyBy.GetName());
-
-            // Increment points for the CCM
             replyBy.SetPoints(replyBy.GetPoints() + 1);
         }
-        // CampController.GetInstance().ReplyEnquiry(campID, student, enquiry, reply, replyBy);
     }
 
+    /**
+     * Gets the points of a specific CCM.
+     * 
+     * @param ccm the CCM to get points from
+     * @return the points of the CCM
+     */
     public int GetPoints(CCM ccm) {
-        // return the number of points the CampComitteeMember has
         return ccm.GetPoints();
     }
 
-    public void GenerateList(int CampID, String participantType) {
-	    ArrayList<Camp> camps = campManager.GetCamps(); // Assuming GetCamps() returns an ArrayList
-	    boolean error = true;
-	    boolean campExists = false;
-	    Camp selectedCamp = null;
+    /**
+     * Generates a participant list for a specific camp and participant type.
+     * Exports the data to a CSV file.
+     * 
+     * @param campID the ID of the camp
+     * @param participantType the type of participant (Student, CCM, All)
+     */
+    public void GenerateList(int campID, String participantType) {
+        ArrayList<Camp> camps = campManager.GetCamps();
+        boolean error = true;
+        boolean campExists = false;
+        Camp selectedCamp = null;
 
-	    // Find the camp with the provided CampID
-	    for (Camp camp : camps) {
-			if(camp == null) continue;
-	        if (camp.GetCampID() == CampID) {
-	            selectedCamp = camp;
-	            campExists = true;
-	            break;
-	        }
-	    }
+        for (Camp camp : camps) {
+            if (camp == null)
+                continue;
+            if (camp.GetCampID() == campID) {
+                selectedCamp = camp;
+                campExists = true;
+                break;
+            }
+        }
 
-	    if (campExists) {
-	        // Get participants based on the specified participantType
-	        if (participantType.equalsIgnoreCase("Student")||participantType.equalsIgnoreCase("All")) {
-	        	ArrayList<Student> filterlist = selectedCamp.GetAttendees();
-	        	try (BufferedWriter writer = new BufferedWriter(new FileWriter(selectedCamp.GetCampName()+"_Student_List.csv"))) {
-		            // Write header for CSV file
-		            writer.write("CampID, CampName, ParticipantName, Role");
-		            writer.newLine();
+        if (campExists) {
+            if (participantType.equalsIgnoreCase("Student") || participantType.equalsIgnoreCase("All")) {
+                ArrayList<Student> filterlist = selectedCamp.GetAttendees();
+                try (BufferedWriter writer = new BufferedWriter(
+                        new FileWriter(selectedCamp.GetCampName() + "_Student_List.csv"))) {
+                    writer.write("CampID, CampName, ParticipantName, Role");
+                    writer.newLine();
 
-		            // Iterate through participants and write to CSV
-		            for (Student student : filterlist) {
-		                String campName = selectedCamp.GetCampName();
-		                String name = student.GetName();
-		                String role = "Attendee";
+                    for (Student student : filterlist) {
+                        String campName = selectedCamp.GetCampName();
+                        String name = student.GetName();
+                        String role = "Attendee";
 
-		                // Write data to CSV
-		                writer.write(CampID + "," + campName + "," + name + "," + role);
-		                writer.newLine();
-		            }
+                        writer.write(campID + "," + campName + "," + name + "," + role);
+                        writer.newLine();
+                    }
 
-		            System.out.println("Data exported to CSV successfully!");
-		            error =false;
-		        } catch (IOException e) {
-		            e.printStackTrace();
-		        }
-	        }  
-	        if (participantType.equalsIgnoreCase("CCM")||participantType.equalsIgnoreCase("All")) {
-	        	ArrayList<CCM> flterlist = selectedCamp.GetCommitteeList();
-	        	try (BufferedWriter writer = new BufferedWriter(new FileWriter(selectedCamp.GetCampName()+"_CCM_List.csv"))) {
-	            // Write header for CSV file
-	        		writer.write("CampID, CampName, ParticipantName, Role");
-	        		writer.newLine();
+                    System.out.println("Data exported to CSV successfully!");
+                    error = false;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (participantType.equalsIgnoreCase("CCM") || participantType.equalsIgnoreCase("All")) {
+                ArrayList<CCM> filterlist = selectedCamp.GetCommitteeList();
+                try (BufferedWriter writer = new BufferedWriter(
+                        new FileWriter(selectedCamp.GetCampName() + "_CCM_List.csv"))) {
+                    writer.write("CampID, CampName, ParticipantName, Role");
+                    writer.newLine();
 
-	            // Iterate through participants and write to CSV
-	        		for (CCM ccm : flterlist) {
-	        			String campName = selectedCamp.GetCampName();
-	        			String name = ccm.GetName();
-	        			String role = "CCM";
+                    for (CCM ccm : filterlist) {
+                        String campName = selectedCamp.GetCampName();
+                        String name = ccm.GetName();
+                        String role = "CCM";
 
-	                // Write data to CSV
-	        			writer.write(CampID + "," + campName + "," + name + "," + role);
-	        			writer.newLine();
-	            }
+                        writer.write(campID + "," + campName + "," + name + "," + role);
+                        writer.newLine();
+                    }
 
-	            System.out.println("Data exported to CSV successfully!");
-	            error =false;
-	        } 	catch (IOException e) {
-	            	e.printStackTrace();
-	        	}}
-	        if (error) {
-	        	System.out.println("Invalid participant type.");
-	        }
-	        
-	        return; // Stop execution if the participant type is invalid
-	        
-	        }
-	        
-	     else {
-	        System.out.println("CampID does not exist.");
-	        // Handle the situation where CampID does not exist
-	        // This could include logging an error, notifying the user, etc.
-	    }
-	}
-
-    // Add an enquiry
-    public void AddEnquiry(int campID, String enquiry, String reply, String replyBy, Student askBy) 
-    {
-    	Enquiries newEnquiry = new Enquiries(campID, enquiry, reply, replyBy, askBy);
-    	askBy.AddMyEnquiry(newEnquiry);
-    	CampController.GetInstance().AddEnquiry(campID, askBy, newEnquiry);
-    }
-    
-    // Delete an enquiry
-    public void DeleteEnquiry(Student askBy, int enquiryID) 
-    {
-    	if (askBy.FindEnquiry(enquiryID) == null)
-			System.out.println("Enquiry not found.");
-		else if (askBy.FindEnquiry(enquiryID).GetStatus() == STATUS.CLOSED)
-			System.out.println("Enquiry cannot be deleted as it is already processed.");
-		else {
-			Enquiries tempEnquiry = askBy.FindEnquiry(enquiryID);
-			askBy.RemoveMyEnquiry(tempEnquiry);
-			CampController.GetInstance().RemoveEnquiry(tempEnquiry.GetCampID(), askBy, tempEnquiry);
-		}
-    }
-    
-    // Edit an enquiry
-    public void EditEnquiry(Student askBy, int enquiryID, String newEnquiry) 
-    {
-		if (askBy.FindEnquiry(enquiryID) == null)
-			System.out.println("Enquiry not found.");
-		else if (askBy.FindEnquiry(enquiryID).GetStatus() == STATUS.CLOSED)
-			System.out.println("Enquiry cannot be edited as it is already processed.");
-		else {
-			askBy.EditMyEnquiry(enquiryID, newEnquiry);
-		}
+                    System.out.println("Data exported to CSV successfully!");
+                    error = false;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (error) {
+                System.out.println("Invalid participant type.");
+            }
+            return;
+        } else {
+            System.out.println("CampID does not exist.");
+        }
     }
 
-    private void InitEligibleCamps()
-    {
+    // ... (previous code)
+
+    /**
+     * Adds an enquiry to a specific camp, given the enquiry details.
+     * 
+     * @param campID the ID of the camp
+     * @param enquiry the enquiry text
+     * @param reply the reply text
+     * @param replyBy the name of the person replying
+     * @param askBy the student asking the enquiry
+     */
+    public void AddEnquiry(int campID, String enquiry, String reply, String replyBy, Student askBy) {
+        Enquiries newEnquiry = new Enquiries(campID, enquiry, reply, replyBy, askBy);
+        askBy.AddMyEnquiry(newEnquiry);
+        CampController.GetInstance().AddEnquiry(campID, askBy, newEnquiry);
+    }
+
+    /**
+     * Deletes an enquiry for a specific student.
+     * 
+     * @param askBy the student asking the enquiry
+     * @param enquiryID the ID of the enquiry to delete
+     */
+    public void DeleteEnquiry(Student askBy, int enquiryID) {
+        if (askBy.FindEnquiry(enquiryID) == null)
+            System.out.println("Enquiry not found.");
+        else if (askBy.FindEnquiry(enquiryID).GetStatus() == STATUS.CLOSED)
+            System.out.println("Enquiry cannot be deleted as it is already processed.");
+        else {
+            Enquiries tempEnquiry = askBy.FindEnquiry(enquiryID);
+            askBy.RemoveMyEnquiry(tempEnquiry);
+            CampController.GetInstance().RemoveEnquiry(tempEnquiry.GetCampID(), askBy, tempEnquiry);
+        }
+    }
+
+    /**
+     * Edits an enquiry for a specific student.
+     * 
+     * @param askBy the student asking the enquiry
+     * @param enquiryID the ID of the enquiry to edit
+     * @param newEnquiry the edited enquiry text
+     */
+    public void EditEnquiry(Student askBy, int enquiryID, String newEnquiry) {
+        if (askBy.FindEnquiry(enquiryID) == null)
+            System.out.println("Enquiry not found.");
+        else if (askBy.FindEnquiry(enquiryID).GetStatus() == STATUS.CLOSED)
+            System.out.println("Enquiry cannot be edited as it is already processed.");
+        else {
+            askBy.EditMyEnquiry(enquiryID, newEnquiry);
+        }
+    }
+
+    /**
+     * Initializes the list of eligible camps based on the current user's faculty.
+     */
+    private void InitEligibleCamps() {
         eligibleCamps.clear();
 
-        for(Camp camp : CampController.GetInstance().GetCamps())
-        {
-            if(camp == null) continue;
-            
-            if(camp.IsVisible() && camp.GetUserGrp().equals(camsApp.currentUser.GetFaculty()) )
+        for (Camp camp : CampController.GetInstance().GetCamps()) {
+            if (camp == null)
+                continue;
+
+            if (camp.IsVisible() && camp.GetUserGrp().equals(camsApp.currentUser.GetFaculty()))
                 eligibleCamps.add(camp);
         }
     }
     
-    
     ///////////////////////////////////////////////////         Main Loop Stuff         ///////////////////////////////////////////////////
-    public void CcmMenu()
-    {
+    /**
+     * CCM main menu for handling various operations.
+     */
+    public void CcmMenu() {
         InitEligibleCamps();
         int choice = -1;
 
-        while(choice != 0)
-        {
+        while (choice != 0) {
             view.DisplayMainMenu();
-            try
-            {
+            try {
                 choice = Integer.parseInt(sc.nextLine());
-            }
-            catch(InputMismatchException e) 
-            {
+            } catch (InputMismatchException e) {
                 System.out.println("Invalid Input!");
                 break;
             }
 
             switch (choice) {
-            	case 0: 
-            		camsApp.currentUser=null;
-            		break;
+                case 0:
+                    camsApp.currentUser = null;
+                    break;
                 case 1:
                     ProfileMenu();
                     break;
@@ -269,27 +325,38 @@ public class CCMController {
                     SuggestionMenu();
                     break;
                 case 5:
-                    System.out.println("Please enter a user group: \n"
-                        + "Student\\CCM\\All");
+                    System.out.println("Please enter a user group: \n" + "Student\\CCM\\All");
                     String userGrp = sc.nextLine();
-                    GenerateList(((CCM)camsApp.currentUser).GetccmID(),userGrp);
+                    GenerateList(((CCM) camsApp.currentUser).GetccmID(), userGrp);
                     break;
                 default:
                     break;
             }
         }
-        
     }
-    public int getCampIDInput() {
-		int campID=-1;
 
-		//display all camp 
-		CCMViewManager.DisplayAllCamps(false);
-		//get input 
-		System.out.println("please select a camp： ");
-		campID= Integer.parseInt(sc.nextLine());
-		return campID - 1;
-	}
+    /**
+     * Gets the camp ID input from the CCM.
+     * Displays all camps and prompts the CCM to select a camp.
+     * 
+     * @return the selected camp ID
+     */
+    public int getCampIDInput() {
+        int campID = -1;
+
+        // Display all camps
+        CCMViewManager.DisplayAllCamps(false);
+
+        // Get input
+        System.out.println("Please select a camp: ");
+        campID = Integer.parseInt(sc.nextLine());
+
+        return campID - 1;
+    }
+
+    /**
+     * Displays the camp menu and handles various camp-related operations for the CCM.
+     */
     private void CampMenu()
     {
         String[] choices = {"view all", "view registered",  "view details", "register", "withdraw", "exit"};
@@ -525,6 +592,9 @@ public class CCMController {
         }
     }
 
+    /**
+     * Displays the enquiries menu and handles various enquiry-related operations for the CCM.
+     */
     private void EnquiriesMenu()
     {
         String[] choices = {"view", "view camp enquiry", "edit",  "delete", "submit", "reply", "exit"};
@@ -755,6 +825,9 @@ public class CCMController {
         }
     }
 
+    /**
+     * Displays the profile menu for the current user.
+     */
     private void ProfileMenu()
     {
         System.out.println("/////////////////////////////////////////////////////////////////////////");
@@ -766,6 +839,9 @@ public class CCMController {
         System.out.println();
     }
 
+    /**
+     * Displays the suggestions menu and handles various suggestion-related operations for the CCM.
+     */
     private void SuggestionMenu()
     {
         String[] choices = {"view", "edit", "delete", "submit", "exit"};
