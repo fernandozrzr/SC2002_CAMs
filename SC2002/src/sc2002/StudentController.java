@@ -15,63 +15,63 @@ public class StudentController
 	/**
 	 * Static instance of StudentController
 	 */
-    private static StudentController instance = null;
-    /**
+    	private static StudentController instance = null;
+    	/**
 	 * Instance of StudentView
 	 */
-    private StudentView view = null;
-    /**
+    	private StudentView view = null;
+    	/**
 	 * List of camps the student is eligible for
 	 */
-    private ArrayList<Camp> eligibleCamps = null;
+    	private ArrayList<Camp> eligibleCamps = null;
 
-    /**
+    	/**
 	 * Default Constructor of StudentController
-     * Initialises list of eligible camps
+     	 * Initialises list of eligible camps
 	 * 
 	 */
-    private StudentController()
-    {
-        view = new StudentView();
-        eligibleCamps = new ArrayList<Camp>();
-    }
-    /**
-     * Gets the instance of the StudentController, creating one if it does not already exist
-     * 
-     * @return StudentController instance
-     */
-    public static StudentController GetInstance()
-    {
-        if (instance == null)
-            instance = new StudentController();
+    	private StudentController()
+    	{
+        	view = new StudentView();
+        	eligibleCamps = new ArrayList<Camp>();
+    	}
+    	/**
+     	* Gets the instance of the StudentController, creating one if it does not already exist
+     	* 
+     	* @return StudentController instance
+     	*/
+    	public static StudentController GetInstance()
+    	{
+        	if (instance == null)
+            	instance = new StudentController();
 
-        return instance;
-    }    
+        	return instance;
+    	}    
 
-    /**
-     * Adds an enquiry to the specified camp and student.
-     * 
-     * @param campID ID of the camp
-     * @param enquiry Enquiry to be added
-     * @param reply Reply to the enquiry
-     * @param replyBy CCM or Staff who replied to the enquiry
-     * @param askBy Student to add the enquiry to
-     */
-    public void AddEnquiry(int campID, String enquiry, String reply, String replyBy, Student askBy) 
-    {
-    	Enquiries newEnquiry = new Enquiries(campID, enquiry, reply, replyBy, askBy);
-    	askBy.AddMyEnquiry(newEnquiry);
-    	CampController.GetInstance().AddEnquiry(campID, askBy, newEnquiry);
-    }
-    /**
-     * Deletes an enquiry from the specified camp and student.
-     * 
-     * @param askBy Student to remove the enquiry from
-     * @param enquiryID ID of the enquiry to be removed
-     */
-    public void DeleteEnquiry(Student askBy, int enquiryID) 
-    {
-    	if (askBy.FindEnquiry(enquiryID) == null)
+    	/**
+     	* Adds an enquiry to the specified camp and student.
+     	* 
+     	* @param campID ID of the camp
+     	* @param enquiry Enquiry to be added
+     	* @param reply Reply to the enquiry
+     	* @param replyBy CCM or Staff who replied to the enquiry
+     	* @param askBy Student to add the enquiry to
+     	*/
+    	public void AddEnquiry(int campID, String enquiry, String reply, String replyBy, Student askBy) 
+    	{
+    		Enquiries newEnquiry = new Enquiries(campID, enquiry, reply, replyBy, askBy);
+    		askBy.AddMyEnquiry(newEnquiry);
+    		CampController.GetInstance().AddEnquiry(campID, askBy, newEnquiry);
+    	}
+    	/**
+     	* Deletes an enquiry from the specified camp and student.
+     	* 
+     	* @param askBy Student to remove the enquiry from
+     	* @param enquiryID ID of the enquiry to be removed
+     	*/
+    	public void DeleteEnquiry(Student askBy, int enquiryID) 
+    	{
+    		if (askBy.FindEnquiry(enquiryID) == null)
 			System.out.println("Enquiry not found.");
 		else if (askBy.FindEnquiry(enquiryID).GetStatus() == STATUS.CLOSED)
 			System.out.println("Enquiry cannot be deleted as it is already processed.");
@@ -80,17 +80,17 @@ public class StudentController
 			askBy.RemoveMyEnquiry(tempEnquiry);
 			CampController.GetInstance().RemoveEnquiry(tempEnquiry.GetCampID(), askBy, tempEnquiry);
 		}
-    }
+    	}
     
-    /**
-     * Edits an enquiry of the specified camp and student.
-     * 
-     * @param askBy Student editing the enquiry
-     * @param enquiryID ID of the enquiry to be edited
-     * @param newEnquiry The edited enquiry to replace the old enquiry
-     */
-    public void EditEnquiry(Student askBy, int enquiryID, String newEnquiry) 
-    {
+    	/**
+     	* Edits an enquiry of the specified camp and student.
+     	* 
+     	* @param askBy Student editing the enquiry
+     	* @param enquiryID ID of the enquiry to be edited
+     	* @param newEnquiry The edited enquiry to replace the old enquiry
+     	*/
+    	public void EditEnquiry(Student askBy, int enquiryID, String newEnquiry) 
+    	{
 		if (askBy.FindEnquiry(enquiryID) == null)
 			System.out.println("Enquiry not found.");
 		else if (askBy.FindEnquiry(enquiryID).GetStatus() == STATUS.CLOSED)
@@ -98,24 +98,24 @@ public class StudentController
 		else {
 			askBy.EditMyEnquiry(enquiryID, newEnquiry);
 		}
-    }
+    	}
 
-    /**
+    	/**
 	 * Creates list of eligible camps for current user
 	 * 
 	 */
-    private void InitEligibleCamps()
-    {
-    	eligibleCamps.clear();
+    	private void InitEligibleCamps()
+    	{
+    		eligibleCamps.clear();
 
-        for(Camp camp : CampController.GetInstance().GetCamps())
-        {
-            if(camp == null) continue;
+        	for(Camp camp : CampController.GetInstance().GetCamps())
+        	{
+            		if(camp == null) continue;
             
-            if(camp.IsVisible() && camp.GetUserGrp().equals(camsApp.currentUser.GetFaculty()))
-                eligibleCamps.add(camp);
-        }
-    }
+            		if(camp.IsVisible() && camp.GetUserGrp().equals(camsApp.currentUser.GetFaculty()))
+                		eligibleCamps.add(camp);
+        	}
+    	}
     
     
     ///////////////////////////////////////////////////         Main Loop Stuff         ///////////////////////////////////////////////////
