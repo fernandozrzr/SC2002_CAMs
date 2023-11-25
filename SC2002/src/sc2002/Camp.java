@@ -426,8 +426,8 @@ public class Camp
     /**
 	 * Adds student to the committee member list 
 	 * 
-	 * @param ccm student(of type CCM) that wants to register as a committee memember
-	 * @return True if student have successfully registered, Falise if they failed to register
+	 * @param ccm student(of type CCM) that wants to register as a committee member
+	 * @return True if student have successfully registered, False if they failed to register
 	 */
     public boolean AddCommitteeMember(CCM ccm)
     {
