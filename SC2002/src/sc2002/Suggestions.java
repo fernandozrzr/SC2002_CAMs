@@ -6,7 +6,7 @@ package sc2002;
  * 
  * @author George Lai
  * @version 1.0
- * @since 25/11/23
+ * @since 25/11/2023
  */
 public class Suggestions {
 
